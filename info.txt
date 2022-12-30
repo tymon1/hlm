@@ -1,0 +1,3 @@
+templatka stworzona przez
+npx:
+npx create-react-app hellmutt --template redux

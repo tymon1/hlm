@@ -1,0 +1,43 @@
+.row {
+  display: flex;
+	height: 100%;
+}
+
+.ramps {
+  background-color: yellow;
+	flex: 1;
+}
+
+.store {
+  background-color: grey;
+	display: flex;
+	flex: 2;
+	flex-wrap: wrap;
+}
+
+.rampsArea {
+	display: flex;
+	flex:1;
+}
+
+.fieldsArea {
+	flex:2;
+}
+
+.fieldsRow {
+	/* transform: skew(-55deg, 19deg); */
+	display: flex;
+	flex-wrap: wrap;
+	flex: 2 1;
+	margin-top: 40px;
+	background: brown;
+}
+
+.await {
+	margin: 20px;
+	background: grey;
+	width: 100px;
+	height: 90px;
+	border-radius: 170px;
+}
+

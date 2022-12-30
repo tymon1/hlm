@@ -1,0 +1,9 @@
+.field {
+	display: flex;
+	margin: 20px;
+	background: #555;
+	width: 160px;
+	height: 90px;
+	border: 3px dashed white;
+}
+
