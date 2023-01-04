@@ -1,0 +1,38 @@
+.ramps {
+	display:block;
+	border-top: 1px solid #666;
+	height: 100px;
+	position:relative;
+}
+
+.ramps:last-child {
+	border-bottom: 1px solid #666;
+}
+
+.rampsExternal {
+  background-color: yellow;
+	/* height: 100%; */
+	flex: 1 1;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+}
+
+
+.truck {
+	transition: all 5.5s ease-in-out;
+	display:block;
+	width:200px;
+	height:80px;
+	background: black;
+	position: absolute;
+	top: 10px;
+	left: -200px;
+	margin:0;
+	color: #fff;
+}
+
+/* could delete it */
+.approaching { margin-left: 390px !important; }
+.leaving { margin-left: 0px !important; }
+

@@ -2,7 +2,7 @@ import styles from './Field.module.css';
 import { Pellet } from './Pellet';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { movePellet } from './fieldSlice';
+import { movePellet } from './FieldSlice';
 
 
 

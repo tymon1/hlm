@@ -8,6 +8,13 @@ export const fieldsSlice = createSlice({
   name: 'fields',
 
   initialState: {
+
+		ramps: [
+			{ no: 0, blocked: false, pellets: [], truck: { id: 3, type: 'm', cover: true, pellets: [{id:'p14', c:'gray'}, {id:'p15', c:'red'}] } },
+			{ no: 1, blocked: false, pellets: [], truck: {} },
+			{ no: 2, blocked: false, pellets: [], truck: {} },
+		],
+
 		fields: [
 			{ no: 0, pellets: [{id:'p1', c:'red'}, {id:'p2', c:'orange'}, {id:'p7', c:'white'}, {id:'p6', c:'purple'}, {id:'p3', c:'brown'}] },
 			{ no: 1, pellets: [] },
@@ -32,8 +39,9 @@ export const fieldsSlice = createSlice({
 			state.fields[toInd].pellets.push( state.fields[fromInd].pellets.splice(remIndex, 1)[0] )
     },
 
-    dump: (state) => {
-			console.log( JSON.stringify(state) )
+    sdump: (state) => {
+			console.log( JSON.stringify(state.fields) )
+			//console.log(state)
 		},
 
     increment: (state) => {
@@ -51,5 +59,5 @@ export const fieldsSlice = createSlice({
 
 export const selectCount = (state) => state.counter
 
-export const { movePellet, increment, dump } = fieldsSlice.actions;
+export const { movePellet, increment, sdump } = fieldsSlice.actions;
 export default fieldsSlice.reducer;
