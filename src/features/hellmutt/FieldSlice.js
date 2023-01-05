@@ -5,12 +5,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const fieldsSlice = createSlice({
 
-  name: 'fields',
+  name: 'store',
 
   initialState: {
 
+		// naming convention
+		// pellets: unique id: p+{unique number}
 		ramps: [
-			{ no: 0, blocked: false, pellets: [], truck: { id: 3, type: 'm', cover: true, pellets: [{id:'p14', c:'gray'}, {id:'p15', c:'red'}] } },
+			{ no: 0, blocked: true, pellets: [], truck: { id: 3, type: 'm', cover: true, pellets: [{id:'p14', c:'gray'}, {id:'p15', c:'red'}] } },
 			{ no: 1, blocked: false, pellets: [], truck: {} },
 			{ no: 2, blocked: false, pellets: [], truck: {} },
 		],
@@ -57,7 +59,7 @@ export const fieldsSlice = createSlice({
 });
 
 
-export const selectCount = (state) => state.counter
+//export const selectCount = (state) => state.counter
 
 export const { movePellet, increment, sdump } = fieldsSlice.actions;
 export default fieldsSlice.reducer;

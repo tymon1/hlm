@@ -1,0 +1,22 @@
+/* 
+#storeCover { 
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.4);
+	display: flex;
+	z-index: 10001;
+	position: absolute;
+}
+*/
+
+.tType_s { background:red; }
+.tType_m { background:green; }
+.tType_xl { background:blue; }
+
+.tType_xl, .tType_m, .tType_s {
+	margin: 5px 10px;
+	display: table;
+	height: 20px;
+	padding: 2px 10px;
+}
+

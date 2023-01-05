@@ -10,6 +10,7 @@ export function Pellet({ pellet }) {
 				 id = { pellet.id } style={{ background: pellet.c }}
 
 				 onDragStart = { e => {
+					 console.log("drag of elem:",e.target.id)
 					 e.dataTransfer.setData("text/plain", e.target.id)
 				 }}
 				 >

@@ -1,0 +1,12 @@
+.ramps {
+	display:block;
+	border-top: 1px solid #2b2b2b;
+	height: 100px;
+	position:relative;
+}
+
+.ramps:last-child {
+	border-bottom: 1px solid #2b2b2b;
+}
+
+/* .blockade { background: rgba(0,0,0,0.3); } */

@@ -4,11 +4,19 @@ import { createSlice } from '@reduxjs/toolkit';
 export const queueSlice = createSlice({
   name: 'queue',
 
+	// naming convention for trucks: 
+	// unique id: {unique number}
   initialState: {
 		trucks: [
-			{ id: 0, type: 's', cover: true, pellets: [{id:'p13', c:'red'}] },
-			{ id: 1, type: 'm', cover: true, pellets: [{id:'p11', c:'pink'}, {id:'p12', c:'blue'}] },
-			{ id: 2, type: 'xl', cover: true, pellets: [{id:'p9', c:'pink'}, {id:'p10', c:'green'}] },
+
+			{ id: 0, type: 's', cover: true, 
+				pellets: [{id:'p13', c:'red'}] },
+
+			{ id: 1, type: 'm', cover: true, 
+				pellets: [{id:'p11', c:'pink'}, {id:'p12', c:'blue'}] },
+
+			{ id: 2, type: 'xl', cover: true, 
+				pellets: [{id:'p9', c:'pink'}, {id:'p10', c:'green'}] },
 		]
 	},
 
@@ -18,7 +26,7 @@ export const queueSlice = createSlice({
 		},
 
     remove: (state, truck) => {
-			let ind = Number( truck.id )
+			//let ind = Number( truck.id )
 			let remIndex = state.queue.findIndex( inx => inx.id === truck.id )
 			state.queue.splice(remIndex, 1)
 		}

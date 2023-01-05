@@ -11,7 +11,7 @@ export function Field({ field }) {
 	const dispatch = useDispatch()
 	const fieldId = field.no
 
-
+// will be useless
 	useEffect(() => {
 		let fieldElem = document.getElementById("field-" + fieldId)
 		fieldElem.addEventListener("dragover", dragEnter);
@@ -22,8 +22,12 @@ export function Field({ field }) {
 		}
 	})
 
-	let dragEnter = e => { e.preventDefault() }
+// will be useless
+	let dragEnter = e => { 
+		e.preventDefault() 
+	}
 
+// will be useless
 	let dropped = e => {
 		e.preventDefault()
 		let pelId = e.dataTransfer.getData("text/plain")

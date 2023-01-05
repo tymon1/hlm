@@ -4,6 +4,8 @@
 }
 
 .store {
+	position: relative;
+	z-index: 9001;
   background-color: grey;
 	display: flex;
 	flex: 2;
