@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import LogApp from './LogApp';
-import { store } from './app/store';
+import Hellmutt from './Hellmutt';
+import { hlm } from './app/app';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <LogApp />
+    <Provider store={ hlm }>
+      <Hellmutt />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
