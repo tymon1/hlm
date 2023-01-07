@@ -1,0 +1,10 @@
+.cover {
+	/* transition: all 3s ease-in-out; */
+	height: 100%;
+	width: 100%;
+	background: orange;
+	opacity: 0;
+	display: flex;
+	z-index: 10001;
+	position: absolute;
+}

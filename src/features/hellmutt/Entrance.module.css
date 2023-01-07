@@ -3,6 +3,7 @@
 	border-top: 1px solid #2b2b2b;
 	height: 100px;
 	position:relative;
+	background: darkred;
 }
 
 .ramps:last-child {

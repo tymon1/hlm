@@ -5,36 +5,41 @@ export const queueSlice = createSlice({
   name: 'queue',
 
 	// naming convention for trucks: 
-	// unique id: {unique number}
+	// unique id: {unique number >0}
   initialState: {
 		trucks: [
 
-			{ id: 0, type: 's', cover: true, 
+			{ id: 1, type: 's', cover: true, 
 				pellets: [{id:'p13', c:'red'}] },
 
-			{ id: 1, type: 'm', cover: true, 
+			{ id: 2, type: 'm', cover: true, 
 				pellets: [{id:'p11', c:'pink'}, {id:'p12', c:'blue'}] },
 
-			{ id: 2, type: 'xl', cover: true, 
+			{ id: 3, type: 'xl', cover: true, 
 				pellets: [{id:'p9', c:'pink'}, {id:'p10', c:'green'}] },
 		]
 	},
 
   reducers: {
-    add: (state, truck) => {
-			state.queue.push( truck )
+    add: (state, payload) => {
+			state.trucks.push( payload.payload )
 		},
 
-    remove: (state, truck) => {
-			//let ind = Number( truck.id )
-			let remIndex = state.queue.findIndex( inx => inx.id === truck.id )
-			state.queue.splice(remIndex, 1)
-		}
+    remove: (state, payload) => {
+			let id = Number( payload.payload.id )
+			let remIndex = state.trucks.findIndex( inx => inx.id === id )
+			state.trucks.splice(remIndex, 1)
+		},
+
+    sdump: (state) => {
+			console.log("queue", JSON.stringify(state.trucks, null, 2) )
+		},
+
 	}
 })
 
 
 export const selectCount = (state) => state.trucks
 
-export const { add, remove } = queueSlice.actions;
+export const { add, remove, sdump } = queueSlice.actions;
 export default queueSlice.reducer;

@@ -1,26 +1,22 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './Hellmutt.module.css';
 import { Field } from './Field';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
 import { RampsQueue } from './Queue';
+import { Admin } from './Admin';
 
-import { sdump } from './FieldSlice';
 
 
 export function Hellmutt() {
 
 	const fields = useSelector(state => state.store.fields)
 	const ramps_internal = useSelector(state => state.store.ramps)
-	const dispatch = useDispatch()
-
-	let dump = () => {
-		dispatch( sdump() )
-	}
 
   return (
     <div>
+		  <Admin />
 			<RampsQueue />
 
       <div className={styles.row}>

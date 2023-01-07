@@ -1,12 +1,14 @@
 import s from './TruckPreview.module.css';
+import { useDispatch } from 'react-redux';
+import { drag, pick, source } from './DropSlice';
 
-import { useSelector } from 'react-redux';
 
 
 // preview of tiny truck
 export function TruckPreview({ truck }) {
 
-	const ramps = useSelector(state => state.store.ramps)
+	//const ramps = useSelector(state => state.store.ramps)
+	const dispatch = useDispatch()
 
 	let resp = () => { 
 		switch(truck.type) {
@@ -19,63 +21,25 @@ export function TruckPreview({ truck }) {
 			default:
 			  return false
 	}}
-/*
-	let setStoreCover = () => { 
-		 let cover = document.createElement("div")	
-		 cover.id = "storeCover"
-		 document.getElementById("store").appendChild(cover)
-	}
 
-	// DIRTY SOLUTION
-	let setRampsCover = () => { 
-		ramps.map( ramp => {
-			if (ramp.blocked) {
-				let rampId = "extRamp-"+ramp.no
-				let cover = document.createElement("div")	
-				cover.id = "extCover-"+ramp.no
-				//cover.draggable = false
-				//cover.aria-disabled=true
-				document.getElementById(rampId).appendChild(cover)
-				
-				cover.addEventListener("drop", e => { e.preventDefault() } )
-				cover.addEventListener("dragover", () => {return false} )
-			}
-			return true
-		})
-	}
 
-	let remStCover = () => { 
-		 let cover = document.getElementById("storeCover")
-		 cover.parentElement.removeChild(cover)
-	}
-
-	let remRampsCover = () => { 
-		ramps.map( ramp => {
-			if (ramp.blocked) {
-				let coverId = "extCover-"+ramp.no
-				let cover = document.getElementById(coverId)
-				cover.parentElement.removeChild(cover)
-			}
-		})
-	}
-*/
 	return (
 			<div className={ resp() } 
 					 id={"queueTruck-" + truck.id} 
 					 draggable={ true }
 
 					 onDragStart = { e => {
-						 e.dataTransfer.setData("text/plain", e.target.id)
-						 console.log("drag start of elem:", e.target.id)
-						 // setStoreCover()
-						 // setRampsCover()
+						 dispatch( drag( true ) )
+						 dispatch( pick( truck ) )
+						 dispatch( source( {
+							 name: e.target.id.split("-")[0],
+							 index: e.target.id.split("-")[1]
+						 } ) )
 					 }}
 
-					 onDragEnd = { e => {
-						 // remStCover()
-						 // remRampsCover()
+					 onDragEnd = { () => {
+						 dispatch( drag( false ) )
 					 }}
-
 					 > 
 
 				{ truck.type } 
