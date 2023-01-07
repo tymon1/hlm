@@ -1,31 +1,37 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from './Hellmutt.module.css';
-import { Field } from './Field';
+import s from './Store.module.css';
+import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
 import { RampsQueue } from './Queue';
 import { Admin } from './Admin';
 
+//import { useEffect } from 'react';
 
 
-export function Hellmutt() {
+export function Store() {
 
-	const fields = useSelector(state => state.store.fields)
+
+	const zones = useSelector(state => state.store.zones)
 	const ramps_internal = useSelector(state => state.store.ramps)
+
+	//useEffect(() => {
+		//console.log("ramps_internal",ramps_internal)
+	//})
 
   return (
     <div>
 		  <Admin />
 			<RampsQueue />
 
-      <div className={styles.row}>
+      <div className={s.row}>
 
 				<RampsExternal/>
 
-				<div id="store" className={styles.store}>
+				<div id="store" className={s.store}>
 
-					<div className={styles.rampsArea}>
+					<div className={s.rampsArea}>
 						{ 
 							ramps_internal.map( (ramp,index) => { 
 								return ( <Ramp key={ index } ramp={ ramp } /> ) 
@@ -33,11 +39,12 @@ export function Hellmutt() {
 						}
 					</div>
 
-					<div className={styles.fieldsArea}>
-						<div className={styles.fieldsRow}>
+					<div className={s.zonesArea}>
+						<div className={s.zonesRow}>
 							{ 
-								fields.map( (field,index) => { 
-									return ( <Field key={ index } field={ field } /> ) 
+								zones.map( (zone,index) => { 
+									return ( 
+											<Zone key={ index } zone={ zone } /> ) 
 								})
 							}
 						</div>

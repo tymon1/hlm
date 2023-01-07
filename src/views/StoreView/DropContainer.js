@@ -1,9 +1,13 @@
 import s from './DropContainer.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { remove, add  } from './FieldSlice';
-import { remove as remFromQueue } from './QueueSlice';
-import { drag } from './DropSlice';
+import { 
+	remove, 
+	add,
+	removeTruck } from '../../slice/StoreSlice';
+
+//import { remove as remFromQueue } from './QueueSlice';
+import { drag } from '../../slice/AppSlice';
 
 
 
@@ -31,7 +35,7 @@ export function DropContainer({ elementId }) {
 
 		// ugly shit here
 		if (user.source.name === "queueTruck") {
-				dispatch( remFromQueue({ id: user.source.index }) )
+				dispatch( removeTruck({ id: user.source.index }) )
 		} 
 		else {
 				dispatch( remove({ name: user.source.name, 

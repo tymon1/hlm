@@ -2,18 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 
-export const dropSlice = createSlice({
+export const appSlice = createSlice({
 
-  name: 'user',
+  name: 'app',
 
   initialState: {
-		pelletId: 20,
-		truckId: 20,
+		counter: { palletId: 20, truckId: 20 }, 
 		drag: false,
-		// obj
-		picked: {},
 		// { name, index }
-		source: {}
+		source: {},
+		picked: {},
 	},
 
   reducers: {
@@ -30,22 +28,22 @@ export const dropSlice = createSlice({
 		},
 
     incrementTruckId: state => {
-			state.truckId++ 
+			state.counter.truckId++ 
 		},
 
     incrementPelletId: state => {
-			state.pelletId++
+			state.counter.pelletId++
 		},
 
-    sdump: (state) => {
-			console.log("user", JSON.stringify(state) )
+    dump: (state) => {
+			console.log("APP", JSON.stringify(state, null, 2) )
 		},
 	}
 })
 
 
-export const { sdump, drag, pick, source,
-							 incrementTruckId, incrementPelletId } = dropSlice.actions;
+export const { dump, drag, pick, source,
+							 incrementTruckId, incrementPelletId } = appSlice.actions;
 
-export default dropSlice.reducer;
+export default appSlice.reducer;
 

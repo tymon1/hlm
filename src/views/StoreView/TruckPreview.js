@@ -1,6 +1,6 @@
 import s from './TruckPreview.module.css';
 import { useDispatch } from 'react-redux';
-import { drag, pick, source } from './DropSlice';
+import { drag, pick, source } from '../../slice/AppSlice';
 
 
 

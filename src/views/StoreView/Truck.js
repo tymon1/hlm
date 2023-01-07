@@ -1,6 +1,6 @@
 import s from './Truck.module.css';
 import { useEffect } from 'react';
-import { Pellet } from './Pellet';
+import { Pallet } from './Pallet';
 
 
 
@@ -26,7 +26,6 @@ export function Truck({ truck }) {
 	}
 
 	let offRamp = () => {
-		let rampsWid = document.getElementById("ramps").offsetWidth
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.remove(styles.approaching)
 		truckEl.style.marginLeft = "0px"
@@ -37,8 +36,8 @@ export function Truck({ truck }) {
 		<div id={"truck-" + truck.id } 
 				 className={ s.truck }>
 			{
-				truck.pellets.map( (pellet,index) => {
-					return ( <Pellet key={ index } pellet={ pellet }/> )
+				truck.pallets.map( (pallet,index) => {
+					return ( <Pallet key={ index } pallet={ pallet }/> )
 			  } )
 			}
 		</div>

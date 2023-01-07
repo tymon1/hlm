@@ -21,18 +21,18 @@
 }
 
 
-.fieldsArea {
+.zonesArea {
 	flex:2;
 }
 
-.fieldsRow {
-	/* transform: skew(-55deg, 19deg); */
+.zonesRow {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 2 1;
 	background: brown;
 }
 
+/*
 .buttons {
 	margin: 20px;
 	padding: 5px 20px;
@@ -48,5 +48,4 @@
 }
 
 .buttons:hover { background:#ddd; }
-
-
+*/

@@ -1,23 +1,23 @@
-import styles from './Pellet.module.css';
+import s from './Pallet.module.css';
 import { useDispatch } from 'react-redux';
-import { drag, pick, source } from './DropSlice';
+import { drag, pick, source } from '../../slice/AppSlice';
 
 
 
-export function Pellet({ pellet }) {
+export function Pallet({ pallet }) {
 
 	const dispatch = useDispatch()
 
 	return (
-		<div draggable={ true } className={ styles.pellet }
-				 id = { pellet.id } style={{ background: pellet.c }}
+		<div draggable={ true } className={ s.pallet }
+				 id = { pallet.id } style={{ background: pallet.c }}
 
 				 onDragStart = { () => {
-					 let palElem = document.getElementById( pellet.id )
+					 let palElem = document.getElementById( pallet.id )
 					 palElem.style.zIndex="10002"
 
 					 dispatch( drag( true ) )
-					 dispatch( pick( pellet ) )
+					 dispatch( pick( pallet ) )
 					 dispatch( source( {
 						 name: palElem.parentElement.id.split("-")[0],
 						 index: palElem.parentElement.id.split("-")[1]
@@ -25,7 +25,7 @@ export function Pellet({ pellet }) {
 				 }}
 
 				 onDrop = { () => {
-					 document.getElementById(pellet.id).style.zIndex="9001"
+					 document.getElementById(pallet.id).style.zIndex="9001"
 				 }}
 				 >
 
