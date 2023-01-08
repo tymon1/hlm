@@ -93,7 +93,9 @@ export const storeSlice = createSlice({
     unparkTruck: (state, payload) => {
 			let index = payload.payload.id
 			let rReady = state.ramps.findIndex( ramp => ramp.truck.id === Number(index) )
-			state.ramps[rReady].truck = {}
+			if (rReady >= 0) {
+				state.ramps[rReady].truck = {}
+			}
 		},
 
 		// useless ?
@@ -150,7 +152,7 @@ export const storeSlice = createSlice({
 																									ramp.truck.pallets.length === 0 && 
 																									ramp.pallets.length === 0 )
 			if (rReady >= 0) {
-				//console.log("rampReady",rReady)
+				console.log("rampReady",rReady)
 			  state.ramps[rReady].truck.ready = true
 			}
 		},
