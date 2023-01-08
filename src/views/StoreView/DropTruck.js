@@ -2,14 +2,14 @@ import s from './css/Drop.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-	checkTrucks,
-	addPal,
-	removePal, } from '../../slice/StoreSlice';
+	parkTruck,
+	remQueueTruck } from '../../slice/StoreSlice';
 import { drag } from '../../slice/AppSlice';
 
 
-
-export function DropContainer({ elementId }) {
+// this slot is only visible when user 
+// is dragging truck from queue
+export function DropTruck({ elementId }) {
 
 	const dispatch = useDispatch()
 	const app = useSelector(state => state.app)
@@ -28,21 +28,12 @@ export function DropContainer({ elementId }) {
 
 	let dropped = e => {
 		e.preventDefault()
-		let toName = document.getElementById( e.target.id ).parentElement.id.split("-")[0]
 		let toIndex = document.getElementById( e.target.id ).parentElement.id.split("-")[1]
 
-		dispatch( removePal({ name: app.source.name, 
-													index: app.source.index, 
-													id: app.picked.id }) )
-
-		dispatch( addPal({ name: toName,
-											 index: toIndex,
-											 pallet: app.picked }) )
-
+		dispatch( remQueueTruck({ id: app.source.index }) )
+		dispatch( parkTruck({ index: toIndex,
+													truck: app.picked }) )
 		dispatch( drag( false ) )
-
-		dispatch( checkTrucks() )
-
 	}
 
 	return (

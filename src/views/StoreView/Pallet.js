@@ -1,4 +1,4 @@
-import s from './Pallet.module.css';
+import s from './css/Pallet.module.css';
 import { useDispatch } from 'react-redux';
 import { drag, pick, source } from '../../slice/AppSlice';
 
@@ -24,9 +24,12 @@ export function Pallet({ pallet }) {
 					 } ) )
 				 }}
 
-				 onDrop = { () => {
+				 onDragEnd = { () => {
 					 document.getElementById(pallet.id).style.zIndex="9001"
+					 dispatch( drag( false ) )
 				 }}
+
+				 //onDrop = { console.log("check empties") }
 				 >
 
 		</div>

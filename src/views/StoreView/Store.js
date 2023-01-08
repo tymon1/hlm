@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import s from './Store.module.css';
+import s from './css/Store.module.css';
 import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';

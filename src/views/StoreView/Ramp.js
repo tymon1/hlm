@@ -1,4 +1,4 @@
-import s from './Ramp.module.css';
+import s from './css/Ramp.module.css';
 import { useSelector } from 'react-redux';
 import { DropContainer } from './DropContainer';
 import { Pallet } from './Pallet';
@@ -13,7 +13,8 @@ export function Ramp({ ramp }) {
 
 	return (
 		<div id = { elementId } className={ s.ramp }>
-			{ dragging && (source !== "queueTruck") ? <DropContainer elementId = { elementId } /> : '' }
+			{ dragging && (source !== "queueTruck") ? 
+				<DropContainer elementId = { elementId } /> : '' }
 			{
 				ramp.pallets.map( (pallet,index) => {
 					return ( <Pallet key={ index } pallet={ pallet }/> )

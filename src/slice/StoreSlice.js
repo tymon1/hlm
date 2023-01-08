@@ -12,16 +12,18 @@ export const storeSlice = createSlice({
 		// trucks with load waiting in line for unload
 		queue: [
 
-			{ id: 1, type: 's', cover: true, 
+			{ id: 1, type: 's', cover: true, ready: false,
 				pallets: [{id:'p13', c:'red'}] },
 
-			{ id: 2, type: 'm', cover: true, 
+			{ id: 2, type: 'm', cover: true, ready: false, 
 				pallets: [{id:'p11', c:'pink'}, {id:'p12', c:'blue'}] },
 
-			{ id: 3, type: 'xl', cover: true, 
+			{ id: 3, type: 'xl', cover: true, ready: false, 
 				pallets: [{id:'p9', c:'pink'}, {id:'p10', c:'green'}] }
 		],
 
+		docks: [
+		],
 
 		// ramps either as store zones and place for trucks
 		ramps: [
@@ -73,24 +75,62 @@ export const storeSlice = createSlice({
   // REDUCERS 
   reducers: {
 
-    addTruck: (state, payload) => {
+    addQueueTruck: (state, payload) => {
 			state.queue.push( payload.payload )
 		},
 
-    removeTruck: (state, payload) => {
+    remQueueTruck: (state, payload) => {
 			let id = Number( payload.payload.id )
 			let remIndex = state.queue.findIndex( inx => inx.id === id )
 			state.queue.splice(remIndex, 1)
 		},
 
-		remove: (state, payload) => {
+    parkTruck: (state, payload) => {
+			const o = payload.payload
+			state.ramps[o.index].truck = o.truck
+		},
+
+    unparkTruck: (state, payload) => {
+			let index = payload.payload.id
+			let rReady = state.ramps.findIndex( ramp => ramp.truck.id === Number(index) )
+			state.ramps[rReady].truck = {}
+		},
+
+		// useless ?
+    addPalToTruck: (state, payload) => {
+			//state.queue.push( payload.payload )
+		},
+
+		// useless ?
+    remPalFrTruck: (state, payload) => {
+			//state.queue.push( payload.payload )
+		},
+
+		addPal: (state, payload) => {
 			let name = payload.payload.name
 			let index = payload.payload.index
-			let id = payload.payload.id
+			// payload iz pallet or truck
+			let object = payload.payload.pallet
 
-			if (name === "field") {
-				let rmIndex = state.fields[index].pallets.findIndex( inx => inx.id === id )
-				state.fields[index].pallets.splice(rmIndex, 1)
+			if (name === "zone") {
+				state.zones[index].pallets.push( object ) 
+			}
+			if (name === "ramp") {
+				state.ramps[index].pallets.push( object ) 
+			}
+			if (name === "truck") {
+				state.ramps[index].truck.pallets.push( object ) 
+			}
+		},
+
+		removePal: (state, payload) => {
+			const name = payload.payload.name
+			const index = payload.payload.index
+			const id = payload.payload.id
+
+			if (name === "zone") {
+				let rmIndex = state.zones[index].pallets.findIndex( inx => inx.id === id )
+				state.zones[index].pallets.splice(rmIndex, 1)
 			}
 
 			if (name === "ramp") {
@@ -99,34 +139,19 @@ export const storeSlice = createSlice({
 			}
 
 			if (name === "truck") {
-				// index is useless here
-				// console.log("indeks rampy",index, "szukam id",id,"w",JSON.stringify(state.ramps[index].truck.pallets ) )
-
-				let truIndex = 0
-				let rmIndex = state.ramps[truIndex].truck.pallets.findIndex( inx => inx.id === id )
-				state.ramps[truIndex].truck.pallets.splice(rmIndex, 1)
+				let rampIndex = state.ramps.findIndex( ramp => ramp.truck.id === Number(index) )
+				let rmIndex = state.ramps[rampIndex].truck.pallets.findIndex( inx => inx.id === id )
+				state.ramps[rampIndex].truck.pallets.splice(rmIndex, 1)
 			}
 		},
-							 
-		add: (state, payload) => {
-			let name = payload.payload.name
-			let index = payload.payload.index
-			// payload iz pellet or truck
-			let object = payload.payload.pellet
 
-			if (name === "field") {
-				state.fields[index].pallets.push( object ) 
-			}
-			if (name === "ramp") {
-				state.ramps[index].pallets.push( object ) 
-			}
-			if (name === "truck") {
-				state.ramps[index].truck.pallets.push( object ) 
-			}
-			if (name === "extRamp") {
-				state.ramps[index].truck = object 
-			  // todo
-				//console.log( JSON.stringify(state) )
+		checkTrucks: (state) => {
+			let rReady = state.ramps.findIndex( ramp => ramp.truck.id && 
+																									ramp.truck.pallets.length === 0 && 
+																									ramp.pallets.length === 0 )
+			if (rReady >= 0) {
+				//console.log("rampReady",rReady)
+			  state.ramps[rReady].truck.ready = true
 			}
 		},
 
@@ -142,5 +167,8 @@ export const storeSlice = createSlice({
 
 //export const selectCount = (state) => state.counter
 
-export const { addTruck, removeTruck, add, remove, dump } = storeSlice.actions;
+export const { addQueueTruck, remQueueTruck, addPalToTruck, remPalFrTruck, 
+							 parkTruck, unparkTruck, checkTrucks,
+							 addPal, removePal, dump } = storeSlice.actions;
+
 export default storeSlice.reducer;

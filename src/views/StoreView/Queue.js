@@ -1,4 +1,4 @@
-import s from './Queue.module.css';
+import s from './css/Queue.module.css';
 import { useSelector } from 'react-redux';
 
 import { TruckPreview } from './TruckPreview';

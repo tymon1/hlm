@@ -7,9 +7,8 @@ export const appSlice = createSlice({
   name: 'app',
 
   initialState: {
-		counter: { palletId: 20, truckId: 20 }, 
+		counter: { palletId: 50, truckId: 50 }, 
 		drag: false,
-		// { name, index }
 		source: {},
 		picked: {},
 	},

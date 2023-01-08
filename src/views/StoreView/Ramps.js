@@ -1,6 +1,6 @@
-import styles from './Ramps.module.css';
+import styles from './css/Ramps.module.css';
 import { useSelector } from 'react-redux';
-import { Entrance } from './Entrance';
+import { Dock } from './Dock';
 
 
 
@@ -14,7 +14,7 @@ export function RampsExternal() {
 				{ 
 					ramps.map( (ramp,index) => { 
 						return ( 
-							<Entrance ramp={ ramp } key={ index }/>
+							<Dock ramp={ ramp } key={ index }/>
 						) 
 					})
 				}

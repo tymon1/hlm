@@ -1,16 +1,16 @@
-import s from './Entrance.module.css';
+import s from './css/Dock.module.css';
 import { useSelector } from 'react-redux';
 import { Truck } from './Truck';
-import { DropContainer } from './DropContainer';
+import { DropTruck } from './DropTruck';
 
 
 
 // external drive-in ramp
-export function Entrance({ ramp }) {
+export function Dock({ ramp }) {
 
 	const dragging = useSelector(state => state.app.drag)
 	const source = useSelector(state => state.app.source.name)
-	const elementId = "extRamp-" + ramp.no
+	const elementId = "dock-" + ramp.no
 
 	
 	return (
@@ -18,7 +18,7 @@ export function Entrance({ ramp }) {
 					 className={ s.ramps }>
 				{ 
 					dragging && !ramp.truck.id && (source === "queueTruck") ? 
-						<DropContainer elementId ={ elementId } /> : '' 
+						<DropTruck elementId ={ elementId } /> : '' 
 				}
 				{ ramp.truck.id ? <Truck truck={ ramp.truck }/> : ''	}
 

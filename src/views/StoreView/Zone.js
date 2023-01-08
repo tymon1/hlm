@@ -1,4 +1,4 @@
-import s from './Zone.module.css';
+import s from './css/Zone.module.css';
 import { useSelector } from 'react-redux';
 import { Pallet } from './Pallet';
 import { DropContainer } from './DropContainer';
@@ -8,13 +8,13 @@ import { DropContainer } from './DropContainer';
 export function Zone({ zone }) {
 
 	const dragging = useSelector(state => state.app.drag )
-	const source = useSelector(state => state.app.source.name )
+	const src = useSelector(state => state.app.source.name )
 	const elementId = "zone-" + zone.no
 
 	return (
 			<div className={ s.zone } id={ elementId } >
 			{ 
-				dragging && (source !== "queueTruck") ? 
+				dragging && (src !== "queueTruck") && (src !== "truck") ? 
 					<DropContainer elementId = { elementId } /> : '' 
 			}
 			{

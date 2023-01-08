@@ -1,4 +1,4 @@
-import s from './TruckPreview.module.css';
+import s from './css/TruckPreview.module.css';
 import { useDispatch } from 'react-redux';
 import { drag, pick, source } from '../../slice/AppSlice';
 
@@ -7,7 +7,6 @@ import { drag, pick, source } from '../../slice/AppSlice';
 // preview of tiny truck
 export function TruckPreview({ truck }) {
 
-	//const ramps = useSelector(state => state.store.ramps)
 	const dispatch = useDispatch()
 
 	let resp = () => { 
@@ -37,9 +36,7 @@ export function TruckPreview({ truck }) {
 						 } ) )
 					 }}
 
-					 onDragEnd = { () => {
-						 dispatch( drag( false ) )
-					 }}
+					 onDragEnd = { () => { dispatch( drag( false ) ) }}
 					 > 
 
 				{ truck.type } 

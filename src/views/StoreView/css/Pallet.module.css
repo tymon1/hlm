@@ -9,6 +9,7 @@
 	padding: 2px;
 	display: block;
 	user-select: none;
+	border-bottom: 6px dotted brown;
 }
 
 .white { background: white; }

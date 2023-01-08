@@ -1,15 +1,22 @@
-import s from './Truck.module.css';
+import s from './css/Truck.module.css';
 import { useEffect } from 'react';
 import { Pallet } from './Pallet';
 
+import { useDispatch } from 'react-redux';
+import { unparkTruck } from '../../slice/StoreSlice';
 
 
 // XL TRUCK seen on the ramp
 export function Truck({ truck }) {
 
 	const id = truck.id
+	const dispatch = useDispatch()
 
 	useEffect(() => {
+		if (truck.ready === true) {
+			setTimeout( () => { dispatch( unparkTruck({id: truck.id}) ) }, 1500 )
+			return offRamp() 
+		}
 		toRamp()
 		// when resolution change ..
 		window.addEventListener("resize", toRamp);
@@ -18,14 +25,14 @@ export function Truck({ truck }) {
 		}
 	})
 
-	let toRamp = () => {
+	const toRamp = () => {
 		let rampsWid = document.getElementById("ramps").offsetWidth
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.add(styles.approaching)
 		truckEl.style.marginLeft = rampsWid + "px"
 	}
 
-	let offRamp = () => {
+	const offRamp = () => {
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.remove(styles.approaching)
 		truckEl.style.marginLeft = "0px"
