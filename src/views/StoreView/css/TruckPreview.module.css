@@ -3,9 +3,19 @@
 .tType_xl { background:blue; }
 
 .tType_xl, .tType_m, .tType_s {
-	margin: 10px;
+  font-size: 1.5em;
+	/* margin: 10px 0px 10px 10px; */
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 80px;
+	opacity: 0;
+
 	display: table;
 	height: 20px;
 	padding: 2px 10px;
+
+	transition: margin-left 0.5s ease-in-out, opacity 0.4s ease-in-out;
+
 }
 

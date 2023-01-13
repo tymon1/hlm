@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+//
+import { genTruck } from '../app/helpers.js';
 
 
 
@@ -9,17 +11,19 @@ export const storeSlice = createSlice({
 
   initialState: {
 
+		counter: { palletId: 50, truckId: 50 }, 
+
 		// trucks with load waiting in line for unload
 		queue: [
 
-			{ id: 1, type: 's', cover: true, ready: false,
+			{ id: 1, type: 's', cover: true, empty: false,
 				pallets: [{id:'p13', c:'red'}] },
 
-			{ id: 2, type: 'm', cover: true, ready: false, 
-				pallets: [{id:'p11', c:'pink'}, {id:'p12', c:'blue'}] },
+			{ id: 2, type: 'm', cover: true, empty: false, 
+				pallets: [{id:'p11', c:'deepPink'}, {id:'p12', c:'blue'}] },
 
-			{ id: 3, type: 'xl', cover: true, ready: false, 
-				pallets: [{id:'p9', c:'pink'}, {id:'p10', c:'green'}] }
+			{ id: 3, type: 'xl', cover: true, empty: false, 
+				pallets: [{id:'p9', c:'deepPink'}, {id:'p10', c:'green'}] }
 		],
 
 		docks: [
@@ -41,29 +45,10 @@ export const storeSlice = createSlice({
 
 		// store zones with pallets
 		zones: [
-
-			{ no: 0, 
-				pallets: [
-					{id:'p1', c:'red'}, 
-					{id:'p2', c:'orange'}, 
-					{id:'p7', c:'white'}, 
-					{id:'p6', c:'purple'}, 
-				] 
-			},
-
+			{ no: 0, pallets: [] },
 			{ no: 1, pallets: [] },
-
-			{ no: 2, 
-				pallets: [
-					{id:'p4', c:'black'}, 
-					{id:'p5', c:'green'}
-				] 
-			},
-
-			{ no: 3, 
-				pallets: [ {id:'p8', c:'blue'} ] 
-			},
-
+			{ no: 2, pallets: [] },
+			{ no: 3, pallets: [] },
 			{ no: 4, pallets: [] },
 			{ no: 5, pallets: [] },
 			{ no: 6, pallets: [] },
@@ -75,8 +60,16 @@ export const storeSlice = createSlice({
   // REDUCERS 
   reducers: {
 
-    addQueueTruck: (state, payload) => {
-			state.queue.push( payload.payload )
+    addQueueTruck: (state, type) => {
+			let tid = state.counter.truckId 
+			let pid = state.counter.palletId 
+			state.queue.push( genTruck(tid, pid, type.payload) )
+			let len = state.queue.length -1
+			let currId = state.counter.palletId 
+			let palLen = state.queue[len].pallets.length 
+			state.counter.palletId = currId + palLen
+			state.counter.truckId++ 
+			//console.log("truck",state.queue[len].id ,"pellets",JSON.stringify(state.queue[len].pallets) )
 		},
 
     remQueueTruck: (state, payload) => {
@@ -96,6 +89,11 @@ export const storeSlice = createSlice({
 			if (rReady >= 0) {
 				state.ramps[rReady].truck = {}
 			}
+		},
+
+    incAmountPalletId: (state, payload) => {
+			let cId = state.counter.palletId
+			state.counter.palletId = cId + Number( payload.payload.amount )
 		},
 
 		// useless ?
@@ -152,8 +150,8 @@ export const storeSlice = createSlice({
 																									ramp.truck.pallets.length === 0 && 
 																									ramp.pallets.length === 0 )
 			if (rReady >= 0) {
-				console.log("rampReady",rReady)
-			  state.ramps[rReady].truck.ready = true
+				console.log("ramp ready",rReady)
+			  state.ramps[rReady].truck.empty = true
 			}
 		},
 

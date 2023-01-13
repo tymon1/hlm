@@ -1,6 +1,7 @@
 .zone {
 	position: relative;
 	display: flex;
+	flex-wrap:wrap;
 	margin: 20px;
 	background: #555;
 	width: 160px;

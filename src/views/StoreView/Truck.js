@@ -6,14 +6,15 @@ import { useDispatch } from 'react-redux';
 import { unparkTruck } from '../../slice/StoreSlice';
 
 
-// XL TRUCK seen on the ramp
+
+// TRUCK seen on the ramp
 export function Truck({ truck }) {
 
 	const id = truck.id
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		if (truck.ready === true) {
+		if (truck.empty === true) {
 			setTimeout( () => { dispatch( unparkTruck({id: truck.id}) ) }, 1500 )
 			return offRamp() 
 		}
@@ -29,13 +30,15 @@ export function Truck({ truck }) {
 		let rampsWid = document.getElementById("ramps").offsetWidth
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.add(styles.approaching)
-		truckEl.style.marginLeft = rampsWid + "px"
+		truckEl.style.marginLeft = rampsWid-cssCabin + "px"
 	}
+
+	const cssCabin = 50
 
 	const offRamp = () => {
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.remove(styles.approaching)
-		truckEl.style.marginLeft = "0px"
+		truckEl.style.marginLeft = "-" + cssCabin + "px"
 	}
 
 

@@ -4,17 +4,17 @@
 	height: 20px;
 	border: 2px white;
 	margin: 3px;
-	background: #555;
 	font-size: 13px;
 	padding: 2px;
 	display: block;
 	user-select: none;
-	border-bottom: 6px dotted brown;
+	border-bottom: 5px dashed brown;
+	cursor:pointer;
 }
 
-.white { background: white; }
-.black { background: black; }
-.brown { background: brown }
-.orange { background: orange }
-.red { background: red }
+/* .white { background: white; } */
+/* .black { background: black; } */
+/* .brown { background: brown } */
+/* .orange { background: orange } */
+/* .red { background: red } */
 

@@ -4,7 +4,7 @@ import s from './css/Store.module.css';
 import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
-import { RampsQueue } from './Queue';
+import { TopBar } from './TopBar';
 import { Admin } from './Admin';
 
 //import { useEffect } from 'react';
@@ -12,18 +12,13 @@ import { Admin } from './Admin';
 
 export function Store() {
 
-
 	const zones = useSelector(state => state.store.zones)
 	const ramps_internal = useSelector(state => state.store.ramps)
-
-	//useEffect(() => {
-		//console.log("ramps_internal",ramps_internal)
-	//})
 
   return (
     <div>
 		  <Admin />
-			<RampsQueue />
+			<TopBar />
 
       <div className={s.row}>
 

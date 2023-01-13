@@ -1,5 +1,6 @@
 import s from './css/TruckPreview.module.css';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
 
 
@@ -8,6 +9,14 @@ import { drag, pick, source } from '../../slice/AppSlice';
 export function TruckPreview({ truck }) {
 
 	const dispatch = useDispatch()
+
+	useEffect(() => { approachQueue() })
+
+	let approachQueue = () => {
+		let truckEl = document.getElementById("queueTruck-"+truck.id)
+		truckEl.style.marginLeft = 10 + "px"
+		truckEl.style.opacity = 1
+	}
 
 	let resp = () => { 
 		switch(truck.type) {
