@@ -9,18 +9,31 @@ export const appSlice = createSlice({
 
   initialState: {
 		timer: 0,
-		wave_times: [],
 		level_times: [],
-		levels: [ {waves:1, truckMax:3}, 
-						  {waves:2, truckMax:3},
-						  {waves:2, truckMax:4} ],
+
+		level: { current: 2,
+						 wave: 0,
+						 run: false },
+
+		levels: [ { waves:1, truckMax:1 }, 
+						  { waves:2, truckMax:1 },
+						  { waves:2, truckMax:2 } ],
 
 		drag: false,
 		source: {},
 		picked: {},
 	},
 
+
   reducers: {
+
+    runLevel: (state, payload) => {
+			state.level.run = payload.payload
+		},
+
+    increaseWave: state => {
+			state.level.wave++
+		},
 
     updateTimer: state => {
 			state.timer += 1
@@ -56,7 +69,7 @@ export const appSlice = createSlice({
 })
 
 
-export const { dump, drag, pick, source, updateTimer, resetTimer,
+export const { runLevel, increaseWave, dump, drag, pick, source, updateTimer, resetTimer,
 							  } = appSlice.actions;
 
 export default appSlice.reducer;

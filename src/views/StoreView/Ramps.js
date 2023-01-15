@@ -6,15 +6,15 @@ import { Dock } from './Dock';
 
 export function RampsExternal() {
 
-	const ramps = useSelector(state => state.store.ramps)
+	const docks = useSelector(state => state.store.docks)
 
   return (
 
-			<div id="ramps" className={ styles.rampsExternal }>
+			<div id="docks" className={ styles.rampsExternal }>
 				{ 
-					ramps.map( (ramp,index) => { 
+					docks.map( (dock,index) => { 
 						return ( 
-							<Dock ramp={ ramp } key={ index }/>
+							<Dock dock={ dock } key={ index }/>
 						) 
 					})
 				}

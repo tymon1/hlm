@@ -27,7 +27,7 @@ export function Truck({ truck }) {
 	})
 
 	const toRamp = () => {
-		let rampsWid = document.getElementById("ramps").offsetWidth
+		let rampsWid = document.getElementById("docks").offsetWidth
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.add(styles.approaching)
 		truckEl.style.marginLeft = rampsWid-cssCabin + "px"

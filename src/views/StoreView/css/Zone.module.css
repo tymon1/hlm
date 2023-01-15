@@ -1,11 +1,12 @@
 .zone {
 	position: relative;
 	display: flex;
-	flex-wrap:wrap;
-	margin: 20px;
+	flex-wrap: wrap;
+	align-content:flex-start;
+	margin: 20px 0px 0px 20px;
 	background: #555;
-	width: 160px;
-	height: 90px;
+	width: 150px;
+	height: 110px;
 	border: 3px dashed #ddd;
 }
 

@@ -11,37 +11,25 @@ export const storeSlice = createSlice({
 
   initialState: {
 
-		counter: { palletId: 50, truckId: 50 }, 
+		counter: { palletId: 1, truckId: 1 }, 
 
 		// trucks with load waiting in line for unload
-		queue: [
-
-			{ id: 1, type: 's', cover: true, empty: false,
-				pallets: [{id:'p13', c:'red'}] },
-
-			{ id: 2, type: 'm', cover: true, empty: false, 
-				pallets: [{id:'p11', c:'deepPink'}, {id:'p12', c:'blue'}] },
-
-			{ id: 3, type: 'xl', cover: true, empty: false, 
-				pallets: [{id:'p9', c:'deepPink'}, {id:'p10', c:'green'}] }
-		],
+		queue: [],
 
 		docks: [
+			{ no: 0, truck: {} },
+			{ no: 1, truck: {} },
+			{ no: 2, truck: {} }
 		],
 
-		// ramps either as store zones and place for trucks
 		ramps: [
-
 			{ no: 0, pallets: [], 
 				truck: {} },
-
 			{ no: 1, pallets: [], 
 				truck: {} },
-
 			{ no: 2, pallets: [], 
 				truck: {} },
 		],
-
 
 		// store zones with pallets
 		zones: [
@@ -80,14 +68,14 @@ export const storeSlice = createSlice({
 
     parkTruck: (state, payload) => {
 			const o = payload.payload
-			state.ramps[o.index].truck = o.truck
+			state.docks[o.index].truck = o.truck
 		},
 
     unparkTruck: (state, payload) => {
 			let index = payload.payload.id
-			let rReady = state.ramps.findIndex( ramp => ramp.truck.id === Number(index) )
+			let rReady = state.docks.findIndex( d => d.truck.id === Number(index) )
 			if (rReady >= 0) {
-				state.ramps[rReady].truck = {}
+				state.docks[rReady].truck = {}
 			}
 		},
 
@@ -139,19 +127,17 @@ export const storeSlice = createSlice({
 			}
 
 			if (name === "truck") {
-				let rampIndex = state.ramps.findIndex( ramp => ramp.truck.id === Number(index) )
-				let rmIndex = state.ramps[rampIndex].truck.pallets.findIndex( inx => inx.id === id )
-				state.ramps[rampIndex].truck.pallets.splice(rmIndex, 1)
+				let dockIndex = state.docks.findIndex( d => d.truck.id === Number(index) )
+				let rmIndex = state.docks[dockIndex].truck.pallets.findIndex( inx => inx.id === id )
+				state.docks[dockIndex].truck.pallets.splice(rmIndex, 1)
 			}
 		},
 
 		checkTrucks: (state) => {
-			let rReady = state.ramps.findIndex( ramp => ramp.truck.id && 
-																									ramp.truck.pallets.length === 0 && 
-																									ramp.pallets.length === 0 )
-			if (rReady >= 0) {
-				console.log("ramp ready",rReady)
-			  state.ramps[rReady].truck.empty = true
+			let dReady = state.docks.findIndex( dock => dock.truck.id && 
+																									dock.truck.pallets.length === 0 )
+			if (dReady >= 0 && state.ramps[dReady].pallets.length === 0 ) {
+			  state.docks[dReady].truck.empty = true
 			}
 		},
 

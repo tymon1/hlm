@@ -1,11 +1,11 @@
 import s from './css/Admin.module.css';
 import { useDispatch } from 'react-redux';
 
-import { 
+import { runLevel,
          updateTimer } from '../../slice/AppSlice';
 import { 
 	dump as state_dump, 
-	addQueueTruck as addTruckToQueue } from '../../slice/StoreSlice';
+	addQueueTruck } from '../../slice/StoreSlice';
 
 import { dump as app_dump } from '../../slice/AppSlice';
 import { useEffect } from 'react';
@@ -20,36 +20,40 @@ export function Admin({ ramp }) {
 
 	const dispatch = useDispatch()
 
+
 	let dump = () => { dispatch( state_dump() ) }
 	let dump_app = () => { dispatch( app_dump() ) }
 
 	let addTruck = () => {
-		dispatch( addTruckToQueue( drawTruckType() ) )
+		dispatch( addQueueTruck( drawTruckType() ) )
 	}
 
-	// let updTimer = () => {
-		// dispatch( updateTimer() )
-	// }
 
 	useEffect(() => {
+		console.log("Admin mount fired")
 		//const loopVar = setInterval( updTimer ,1000 )
 	}, [])
 
 	let stopTimer = () => {
-		// clearInterval( loopVar )
+		// clearInterval( fullTimer )
 	}
 
-	let startTimer = () => {
-		dispatch( updateTimer() )
+	let startLevel = () => {
+		dispatch( runLevel(true) )
 	}
+
+	let stopLevel = () => {
+		dispatch( runLevel(false) )
+	}
+
 
   return (
 			<div className={s.admin}>
 				<div className={s.btn} onClick={ dump }>Dump Store</div>
 				<div className={s.btn} onClick={ dump_app }>Dump App</div>
 				<div className={s.btn} onClick={ addTruck }>Add truck</div>
-				<div className={s.btn} onClick={ startTimer }>Update Timer</div>
-				<div className={s.btn} onClick={ stopTimer }>Test</div>
+				<div className={s.btnS} onClick={ startLevel }>Start Level</div>
+				<div className={s.btnS} onClick={ stopLevel }>Stop Level</div>
 			</div>
 	)
 }

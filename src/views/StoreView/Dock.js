@@ -5,22 +5,21 @@ import { DropTruck } from './DropTruck';
 
 
 
-// external drive-in ramp
-export function Dock({ ramp }) {
+export function Dock({ dock }) {
 
 	const dragging = useSelector(state => state.app.drag)
 	const source = useSelector(state => state.app.source.name)
-	const elementId = "dock-" + ramp.no
+	const elementId = "dock-" + dock.no
 
 	
 	return (
 			<div id={ elementId } 
 					 className={ s.ramps }>
 				{ 
-					dragging && !ramp.truck.id && (source === "queueTruck") ? 
+					dragging && !dock.truck.id && (source === "queueTruck") ? 
 						<DropTruck elementId ={ elementId } /> : '' 
 				}
-				{ ramp.truck.id ? <Truck truck={ ramp.truck }/> : ''	}
+				{ dock.truck.id ? <Truck truck={ dock.truck }/> : ''	}
 
 			</div>
 	)

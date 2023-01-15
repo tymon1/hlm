@@ -15,10 +15,8 @@ export function TopBar() {
 
 				<Timer />
 
-				{ queue.length > 0 ?
+				<RampsQueue />
 
-					<RampsQueue /> : ''
-				}
 			</div>
 	)
 
