@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { 
 	checkTrucks,
 	addPal,
-	removePal, } from '../../slice/StoreSlice';
+	remPal, } from '../../slice/StoreSlice';
 import { drag } from '../../slice/AppSlice';
 
 
@@ -31,9 +31,9 @@ export function DropContainer({ elementId }) {
 		let toName = document.getElementById( e.target.id ).parentElement.id.split("-")[0]
 		let toIndex = document.getElementById( e.target.id ).parentElement.id.split("-")[1]
 
-		dispatch( removePal({ name: app.source.name, 
-													index: app.source.index, 
-													id: app.picked.id }) )
+		dispatch( remPal({ name: app.source.name, 
+											 index: app.source.index, 
+											 id: app.picked.id }) )
 
 		dispatch( addPal({ name: toName,
 											 index: toIndex,

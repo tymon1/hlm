@@ -15,14 +15,14 @@ const truck_types = ['s','m','xl']
 // pellets colors / colors of available zones
 //
 
-const pallets_types = ['blue',
-											 'sandyBrown',
-											 'green',
-											 'purple',
-											 'white',
-											 'deepPink',
-											 'royalBlue',
-											 'red']
+const pallets_colors = ['blue',
+											  'sandyBrown',
+											  'green',
+											  'purple',
+											  'white',
+											  'deepPink',
+											  'royalBlue',
+											  'red']
 
 
 
@@ -76,8 +76,8 @@ let randMax = max => {
 
 
 let drawPalletType = () => {
-	const random = Math.floor(Math.random() * pallets_types.length)
-	return pallets_types[random]
+	const random = Math.floor(Math.random() * pallets_colors.length)
+	return pallets_colors[random]
 }
 
 

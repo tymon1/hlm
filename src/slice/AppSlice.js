@@ -35,6 +35,7 @@ export const appSlice = createSlice({
 			state.level.wave++
 		},
 
+		// dump
     updateTimer: state => {
 			state.timer += 1
 		},

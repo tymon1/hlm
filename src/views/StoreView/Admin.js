@@ -1,8 +1,7 @@
 import s from './css/Admin.module.css';
 import { useDispatch } from 'react-redux';
 
-import { runLevel,
-         updateTimer } from '../../slice/AppSlice';
+import { runLevel } from '../../slice/AppSlice';
 import { 
 	dump as state_dump, 
 	addQueueTruck } from '../../slice/StoreSlice';
@@ -34,9 +33,9 @@ export function Admin({ ramp }) {
 		//const loopVar = setInterval( updTimer ,1000 )
 	}, [])
 
-	let stopTimer = () => {
+	// let stopTimer = () => {
 		// clearInterval( fullTimer )
-	}
+	// }
 
 	let startLevel = () => {
 		dispatch( runLevel(true) )
