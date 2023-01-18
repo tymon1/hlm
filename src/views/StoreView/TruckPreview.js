@@ -10,7 +10,9 @@ export function TruckPreview({ truck }) {
 
 	const dispatch = useDispatch()
 
-	useEffect(() => { approachQueue() })
+	useEffect(() => { 
+		setTimeout( () => { (approachQueue()) }, 1000 )
+	})
 
 	let approachQueue = () => {
 		let truckEl = document.getElementById("queueTruck-"+truck.id)

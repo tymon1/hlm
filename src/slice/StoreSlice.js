@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { appSlice } from './appSlice.js';
 
 import { genTruck } from '../app/helpers.js';
 
@@ -54,7 +53,6 @@ export const storeSlice = createSlice({
 			let palLen = state.queue[len].pallets.length 
 			state.counter.palletId = currId + palLen
 			state.counter.truckId++ 
-			//console.log("truck",state.queue[len].id ,"pellets",JSON.stringify(state.queue[len].pallets) )
 		},
 
     remQueueTruck: (state, payload) => {

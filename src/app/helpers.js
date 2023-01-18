@@ -99,3 +99,22 @@ let drawPallets = (idf_, len_) => {
 
 	return retArr
 }
+
+
+//////////////////////////////
+//
+//   par.d - docks
+//   par.r - ramps
+//
+export const unloadingDone = par => {
+
+	for ( let j= 0; j< par.d.length; j++ ) {
+
+		if (par.d[j].truck.empty === false || 
+				par.r[j].pallets.length > 0) { 
+
+			return false 
+		}
+	}
+	return true
+}

@@ -39,7 +39,7 @@ export function Store() {
 							{ 
 								zones.map( (zone,index) => { 
 									return ( 
-											<Zone key={ index } zone={ zone } /> ) 
+										<Zone key={ index } zone={ zone } /> ) 
 								})
 							}
 						</div>
