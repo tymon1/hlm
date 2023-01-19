@@ -21,6 +21,7 @@ export function TruckPreview({ truck }) {
 	}
 
 	let resp = () => { 
+
 		switch(truck.type) {
 			case 's':
 				return s.tType_s

@@ -27,7 +27,7 @@ describe('store reducer', () => {
 
   it('should handle adding a truck', () => {
     const actual = storeReducer(initialState, addQueueTruck({ id:4, type:'xl', cover:true, empty:false, pallets:[{id:4, c:"blue"},{id:5, c:"green"}], }));
-    expect(actual.value).toEqual({
+    expect(actual.queue[0]).toEqual({
 			id:4,
 			type:'xl',
 			cover:true,

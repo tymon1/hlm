@@ -1,13 +1,18 @@
 import { addPalToZone, addPalToRamp, addPalToTruck,
 				 remPalFrZone, remPalFrRamp, remPalFrTruck,
 				 addQueueTruck, 
+				 setTruckCounter, setPalletsCounter,
 				 truckOnDockEmpty, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, runLevel } from '../slice/AppSlice';
 
-import { drawTruckType, unloadingDone } from '../app/helpers.js';
+import { genTruck, unloadingDone } from '../app/helpers.js';
 
 
+
+// let elab = obj => {
+// 	console.log("elab (storeware)",JSON.stringify( obj, null, 2 ))
+// }
 
 
 export const storeWare = (state) => (next) => (action) => {
@@ -59,13 +64,27 @@ export const storeWare = (state) => (next) => (action) => {
 			break
 
 
+		case 'store/addQueueTruck':
+			state.dispatch( setTruckCounter() )
+			break
+
+
 		// start Level
 		case 'app/runLevel':
 			if ( action.payload === true ) {
 				// adding a group of trucks
+				//
 				for ( let i= 1; i<= levels[curr_level].truckMax; i++ ) {
 					setTimeout( () => { 
-						state.dispatch( addQueueTruck( drawTruckType() ) )
+						// get current truck and pallets counters
+						let currTruckId = state.getState().store.counter.truckId
+						let currPalId = state.getState().store.counter.palletId
+						// generate random truck
+						let truck = genTruck( currTruckId, currPalId )
+						state.dispatch( addQueueTruck({ truck: truck }) )
+						// alter current truck and pallet counter
+						let newId = currPalId + truck.pallets.length
+						state.dispatch( setPalletsCounter({ newId: newId }) )
 					}, i*500 )
 				}
 			}

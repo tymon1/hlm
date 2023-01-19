@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { genTruck } from '../app/helpers.js';
 
 
 
@@ -44,15 +43,16 @@ export const storeSlice = createSlice({
   // REDUCERS 
   reducers: {
 
-    addQueueTruck: (state, type) => {
-			let tid = state.counter.truckId 
-			let pid = state.counter.palletId 
-			state.queue.push( genTruck(tid, pid, type.payload) )
-			let len = state.queue.length -1
-			let currId = state.counter.palletId 
-			let palLen = state.queue[len].pallets.length 
-			state.counter.palletId = currId + palLen
+    addQueueTruck: (state, payload) => {
+			state.queue.push( payload.payload.truck )
+		},
+
+		setTruckCounter: state => {
 			state.counter.truckId++ 
+		},
+
+		setPalletsCounter: (state, payload) => {
+			state.counter.palletId = payload.payload.newId
 		},
 
     remQueueTruck: (state, payload) => {
@@ -138,6 +138,7 @@ export const storeSlice = createSlice({
 export const { addQueueTruck, remQueueTruck, 
 							 parkTruck, unparkTruck, checkTrucks,
 							 truckOnDockEmpty,
+							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,
 							 remPal, remPalFrZone, remPalFrRamp, remPalFrTruck,
 							 dump } = storeSlice.actions;

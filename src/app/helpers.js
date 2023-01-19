@@ -30,10 +30,10 @@ const pallets_colors = ['blue',
 // 
 //  tid - truck id
 //  pid - pallette start number id
-//  type - type of truck
 //
-export const genTruck = (tid, pid, type) => {
+export const genTruck = (tid, pid) => {
 
+	let type = drawTruckType()
 	let max
 	switch (type) {
 		case 's':
