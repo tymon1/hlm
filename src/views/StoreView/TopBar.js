@@ -1,7 +1,7 @@
 import s from './css/TopBar.module.css';
 
-import { Timer } from './Timer';
 import { RampsQueue } from './Queue';
+import { MsgBoard } from './MsgBoard';
 
 
 
@@ -10,8 +10,7 @@ export function TopBar() {
 	return (
 			<div className={s.topbar}>
 
-				<Timer />
-
+				<MsgBoard />
 				<RampsQueue />
 
 			</div>

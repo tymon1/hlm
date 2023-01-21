@@ -26,6 +26,7 @@ export const storeSlice = createSlice({
 			{ no: 2, pallets: [] }
 		],
 
+		mess: false,
 		// store zones with pallets
 		zones: [
 			{ no: 0, pallets: [] },
@@ -120,7 +121,12 @@ export const storeSlice = createSlice({
 		},
 
 //////////////////////////////////
-    dump: (state) => {
+
+    setMess: (state, payload) => {
+			state.mess = payload.payload
+		},
+
+    dump: state => {
 			console.log("ALL", JSON.stringify(state, null, 2) )
 		},
 
@@ -136,7 +142,7 @@ export const storeSlice = createSlice({
 //export const selectCount = (state) => state.counter
 
 export const { addQueueTruck, remQueueTruck, 
-							 parkTruck, unparkTruck, checkTrucks,
+							 parkTruck, unparkTruck, checkTrucks, setMess,
 							 truckOnDockEmpty,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,

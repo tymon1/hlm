@@ -3,9 +3,14 @@ import { useDispatch } from 'react-redux';
 
 import { 
 	dump as state_dump, 
+	setMess,
 	} from '../../slice/StoreSlice';
 
-import { dump as app_dump, runLevel } from '../../slice/AppSlice';
+import { hideMsg } from '../../slice/AppSlice';
+
+import { dump as app_dump, 
+				 showMsg as shMsg,
+	       runLevel } from '../../slice/AppSlice';
 // import { useEffect } from 'react';
 
 
@@ -25,12 +30,20 @@ export function Admin({ ramp }) {
 		//const loopVar = setInterval( updTimer ,1000 )
 	// }, [])
 
-	// let stopTimer = () => {
-		// clearInterval( fullTimer )
-	// }
+	let showMsg = () => {
+		dispatch( shMsg({ text: "Nadjeżdża nowa fala kurierów" }) )
+	}
+
+	let hide = () => {
+		dispatch( hideMsg() )
+	}
 
 	let startLevel = () => {
 		dispatch( runLevel(true) )
+	}
+
+	let stCheck = () => {
+		dispatch( setMess() )
 	}
 
   return (
@@ -38,6 +51,9 @@ export function Admin({ ramp }) {
 				<div className={s.btn} onClick={ dump }>Dump Store</div>
 				<div className={s.btn} onClick={ dump_app }>Dump App</div>
 				<div className={s.btnS} onClick={ startLevel }>Start Level</div>
+				<div className={s.btnS} onClick={ showMsg }>Show msg</div>
+				<div className={s.btnS} onClick={ hide }>Hide msg</div>
+				<div className={s.btnG} onClick={ stCheck }>Check Store</div>
 			</div>
 	)
 }

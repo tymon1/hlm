@@ -5,6 +5,7 @@ import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
+import { ResultsBar } from './ResultsBar';
 import { Admin } from './Admin';
 
 //import { useEffect } from 'react';
@@ -14,10 +15,12 @@ export function Store() {
 
 	const zones = useSelector(state => state.store.zones)
 	const ramps_internal = useSelector(state => state.store.ramps)
+	const lock = useSelector(state => state.app.msg.visible)
 
   return (
     <div>
 		  <Admin />
+			<ResultsBar />
 			<TopBar />
 
       <div className={s.row}>
@@ -25,6 +28,8 @@ export function Store() {
 				<RampsExternal/>
 
 				<div id="store" className={s.store}>
+					
+					{ lock ? <div className={s.block}></div> : '' }
 
 					<div className={s.rampsArea}>
 						{ 

@@ -1,9 +1,11 @@
 .ramp {
 	position:relative;
 	display: flex;
-	margin: 20px;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	margin: 18px 20px 18px 0;
 	background: #555;
 	width: 160px;
-	height: 55px;
-	border: 3px dashed #ddd;
+	height: 67px;
+	/* border: 3px dashed #ddd; */
 }

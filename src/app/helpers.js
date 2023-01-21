@@ -55,6 +55,7 @@ export const genTruck = (tid, pid) => {
 					 cover: true, 
 					 empty: false, 
 					 pallets: drawPallets( pid, randMax(max) )
+					 // pallets: drawPallets( pid, randMax(1) )
 				 } 
 }
 
@@ -118,3 +119,26 @@ export const unloadingDone = par => {
 	}
 	return true
 }
+
+
+//////////////////////////////
+//
+//  zones - all store zones
+//  
+export const storeMess = zones => {
+
+	let retVal = []
+	zones.forEach( zone => {
+		// if field contains more than 2 pallets
+		if (zone.pallets.length > 1) {
+			for ( let i= 1; i< zone.pallets.length; i++ ) {
+				// compare each one with first element
+				if (zone.pallets[0].c !== zone.pallets[i].c) {
+					retVal.push(false)
+				}
+			}
+		}
+	})
+	return retVal.includes(false)
+}
+

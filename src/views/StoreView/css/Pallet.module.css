@@ -1,4 +1,5 @@
 .pallet {
+	filter: brightness(0.8) saturate(0.8);
 	color: white !important;
 	width: 20px;
 	height: 20px;
@@ -10,5 +11,10 @@
 	user-select: none;
 	border-bottom: 5px dashed brown;
 	cursor:pointer;
+}
+
+.pallet:hover {
+	filter: brightness(1.6) saturate(1.6);
+	/* filter: brightness(1.7); */
 }
 

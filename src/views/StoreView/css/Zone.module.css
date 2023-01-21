@@ -4,9 +4,9 @@
 	flex-wrap: wrap;
 	align-content:flex-start;
 	margin: 20px 0px 0px 20px;
-	background: #555;
+	background: grey;
 	width: 150px;
 	height: 110px;
-	border: 3px dashed #ddd;
+	/* border: 3px dashed #ddd; */
 }
 

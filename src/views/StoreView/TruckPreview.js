@@ -11,7 +11,7 @@ export function TruckPreview({ truck }) {
 	const dispatch = useDispatch()
 
 	useEffect(() => { 
-		setTimeout( () => { (approachQueue()) }, 1000 )
+		setTimeout( () => { (approachQueue()) }, 500 )
 	})
 
 	let approachQueue = () => {

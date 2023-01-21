@@ -5,6 +5,7 @@
 
 .tType_xl, .tType_m, .tType_s {
   font-size: 1.5em;
+	filter: brightness(0.9) saturate(0.9);
 	/* margin: 10px 0px 10px 10px; */
 	margin-top: 10px;
 	margin-right: 0px;
@@ -16,5 +17,10 @@
 	padding: 2px 10px;
 	transition: margin-left 1s ease-in-out, opacity 0.6s ease-in-out;
 
+}
+
+.tType_xl:hover, .tType_m:hover, .tType_s:hover {
+	filter: brightness(1.4) saturate(1.4);
+	cursor: pointer;
 }
 
