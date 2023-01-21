@@ -15,9 +15,11 @@ export function TruckPreview({ truck }) {
 	})
 
 	let approachQueue = () => {
-		let truckEl = document.getElementById("queueTruck-"+truck.id)
-		truckEl.style.marginLeft = 10 + "px"
-		truckEl.style.opacity = 1
+		let truckEl = document.querySelector("#queueTruck-"+truck.id)
+			if (truckEl !== null) {
+				truckEl.style.marginLeft = 10 + "px"
+				truckEl.style.opacity = 1
+			}
 	}
 
 	let resp = () => { 
@@ -51,7 +53,7 @@ export function TruckPreview({ truck }) {
 					 onDragEnd = { () => { dispatch( drag( false ) ) }}
 					 > 
 
-				{ truck.type } 
+				&#9951; { truck.type } 
 
 			</div> 
 	)

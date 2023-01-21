@@ -35,6 +35,7 @@ export const genTruck = (tid, pid) => {
 
 	let type = drawTruckType()
 	let max
+	// 3 5 8
 	switch (type) {
 		case 's':
 			max = 3
@@ -142,3 +143,17 @@ export const storeMess = zones => {
 	return retVal.includes(false)
 }
 
+
+
+//////////////////////////////
+//
+//  simple sum fn
+//  times - [] waves times
+//  
+export const totalTime = times => {
+	let sum = 0
+	times.forEach( time => {
+		sum += time
+	})
+	return sum
+}

@@ -26,7 +26,13 @@ export const storeSlice = createSlice({
 			{ no: 2, pallets: [] }
 		],
 
+		// mess means that palletts are mixed
+		// within zones
 		mess: false,
+		// sorting means that player wish to
+		// finish level
+		sorting: false,
+
 		// store zones with pallets
 		zones: [
 			{ no: 0, pallets: [] },
@@ -50,6 +56,12 @@ export const storeSlice = createSlice({
 
 		setTruckCounter: state => {
 			state.counter.truckId++ 
+		},
+
+		resetZones: state => {
+			state.zones.forEach( zone => {
+				zone.pallets = []
+			})
 		},
 
 		setPalletsCounter: (state, payload) => {
@@ -126,6 +138,10 @@ export const storeSlice = createSlice({
 			state.mess = payload.payload
 		},
 
+    setSorting: (state, payload) => {
+			state.sorting = payload.payload
+		},
+
     dump: state => {
 			console.log("ALL", JSON.stringify(state, null, 2) )
 		},
@@ -144,6 +160,8 @@ export const storeSlice = createSlice({
 export const { addQueueTruck, remQueueTruck, 
 							 parkTruck, unparkTruck, checkTrucks, setMess,
 							 truckOnDockEmpty,
+							 setSorting,
+							 resetZones,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,
 							 remPal, remPalFrZone, remPalFrRamp, remPalFrTruck,

@@ -9,19 +9,26 @@ export const appSlice = createSlice({
 
   initialState: {
 
-		msg: { text: "", visible: false },
+		msg: { text: "Rozpocznij grę", visible: true },
 
 		stamp: 0,
 		timer: 0,
 		level_times: [],
 
-		level: { current: 2,
+		level: { preparing: false,
+						 current: 0,
 						 wave: 0,
 						 run: false },
 
 		levels: [ { waves:1, truckMax:1 }, 
 						  { waves:2, truckMax:2 },
-						  { waves:2, truckMax:2 } ],
+						  { waves:1, truckMax:3 },
+						  { waves:3, truckMax:2 },
+						  { waves:3, truckMax:3 },
+						  { waves:2, truckMax:4 },
+						  { waves:3, truckMax:4 },
+						  { waves:3, truckMax:5 },
+						  { waves:4, truckMax:2 } ],
 
 		drag: false,
 		source: {},
@@ -39,6 +46,14 @@ export const appSlice = createSlice({
 			state.level.run = payload.payload
 		},
 
+		preparingLevel: (state, payload) => {
+			state.level.preparing = payload.payload
+		},
+
+		increaseLevel: state => {
+			state.level.current++
+		},
+
     hideMsg: state => {
 			state.msg.visible = false
 		},
@@ -50,6 +65,23 @@ export const appSlice = createSlice({
 
     increaseWave: state => {
 			state.level.wave++
+		},
+
+    resetWave: state => {
+			state.level.wave = 0
+		},
+
+    resetTimeResults: state => {
+			state.level_times = [] 
+		},
+
+		popTimeSum: state => {
+			let sum = 0
+			state.level_times.forEach( time => {
+				sum += time
+			})
+			let eqSum = " ="+sum
+			state.level_times.push(eqSum)
 		},
 
     setTimer: (state, payload) => {
@@ -81,11 +113,6 @@ export const appSlice = createSlice({
 			console.log("===================")
 			console.log("APP", JSON.stringify(state, null, 2) )
 			console.log("===================")
-			// console.log("msg", JSON.stringify(state.msg, null, 2) )
-			// console.log("stamp", JSON.stringify(state.stamp, null, 2) )
-			// console.log("timer", JSON.stringify(state.timer, null, 2) )
-			// console.log("level", JSON.stringify(state.level, null, 2) )
-			// console.log("level_times", JSON.stringify(state.level_times) )
 		},
 	},
 
@@ -98,11 +125,14 @@ export const appSlice = createSlice({
 })
 
 
-export const { runLevel, increaseWave, 
+export const { runLevel, increaseWave, resetWave,
 							 dump, drag, pick, source, 
 							 setStamp, setTimer, resetTimer,
-							 saveTimer,
+							 saveTimer, resetTimeResults,
+							 increaseLevel,
+							 preparingLevel,
 							 showMsg, hideMsg,
+							 popTimeSum,
 						 } = appSlice.actions;
 
 export default appSlice.reducer;

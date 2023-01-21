@@ -17,7 +17,14 @@ export function MsgBoard() {
 	const visible = useSelector(state => state.app.msg.visible)
 	const dispatch = useDispatch()
 
-	useEffect(() => { approachBoard() })
+	useEffect(() => { 
+		approachBoard() 
+		// blinkBtn()
+		// setTimeout( () => { blinkBtn() }, 3000)
+		// setTimeout( () => { blinkBtn() }, 6000)
+		// const blink = setInterval( () => { blinkBtn() }, 1700 )
+    // return () => { clearInterval(blink) }
+	})
 
 	let approachBoard = () => {
 		if (visible) {
@@ -31,13 +38,21 @@ export function MsgBoard() {
 		dispatch( hideMsg(true) )
 	}
 
+	// let blinkBtn = () => {
+	// 	let el = document.getElementById("fwBtn")
+	// 	el.style.background = "white"
+	// 	setTimeout( () => {
+	// 		el.style.background = "green"
+	// 	}, 100)
+	// }
+
   return (
 		<div>
 			{ visible ? 
 				<div id="msg" className={s.msg}> 
 					<span>{ msg }</span>
-					<span onClick={ runLvl }
-								className={s.msgBtn}>Ok. </span>
+					<span id="fwBtn" onClick={ runLvl }
+								className={ s.msgBtn }>ok &#8811;</span>
 				</div> 
 				: "" 
 			}

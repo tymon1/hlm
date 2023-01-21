@@ -2,21 +2,27 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 remPalFrZone, remPalFrRamp, remPalFrTruck,
 				 addQueueTruck, 
 				 setMess, 
+				 resetZones, 
+				 setSorting, 
 				 setTruckCounter, setPalletsCounter,
 				 truckOnDockEmpty, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
 	       increaseWave,
+	       resetWave,
+	       resetTimeResults,
+	       increaseLevel,
+	       preparingLevel,
+	       popTimeSum,
 				 showMsg,
 	       runLevel } from '../slice/AppSlice';
 
-import { genTruck, unloadingDone, storeMess } from '../app/helpers.js';
+import { genTruck, 
+				 unloadingDone, 
+				 totalTime, 
+				 storeMess } from '../app/helpers.js';
 
 
-
-// let elab = obj => {
-// 	console.log("elab (storeware)",JSON.stringify( obj, null, 2 ))
-// }
 
 
 export const storeWare = (state) => (next) => (action) => {
@@ -29,7 +35,6 @@ export const storeWare = (state) => (next) => (action) => {
 	
 
 	switch (action.type) {
-
 
 		// addPal helper
 		//
@@ -86,53 +91,51 @@ export const storeWare = (state) => (next) => (action) => {
 					//
 					let mStatus = storeMess( state.getState().store.zones )
 					state.dispatch( setMess( mStatus ) )
+					let sorting = state.getState().store.sorting
 
-					if (mStatus) { state.dispatch( 
-							showMsg({ text: "Żeby ukończyć poziom, posortuj palety" }) )
+					if (mStatus) { 
+
+						if (!sorting) {
+							state.dispatch( showMsg({ text: "Żeby ukończyć poziom, posortuj palety" }) )
+							state.dispatch( setSorting(true) )
+						}
 
 					} else {
-						let gratz = "Gratulacje, ukończyłeś " + level.current + " poziom"
+
+						let gratz = "Gratulacje, ukończyłeś poziom " + 
+												 level.current + ", z  czasem rozładunku " +
+												 totalTime( state.getState().app.level_times ) + " s."
+
 						state.dispatch( showMsg({ text: gratz }) )
-						console.log("podbijanie levelu ??") 
+						state.dispatch( popTimeSum() )
+						state.dispatch( preparingLevel(true) )
 					}
-					//
-					//todo msg
-					//     <
-					//   {
-					//  {
-					//   {
-					//todo inc level ??
 				}
 			}
 			break
 
-		case 'app/increaseWave':
-			// new wave spawns new wave of couriers
-			//setTimeout( ()=>{state.dispatch( runLevel(true) )}, 2000 )
-			break
-
 
 		case 'app/hideMsg':
+			if ( state.getState().app.level.preparing === true ) {
+				console.log("podbijanie levelu.. ") 
+				state.dispatch( preparingLevel(false) )
+				state.dispatch( setSorting(false) )
+				state.dispatch( resetWave() )
+				state.dispatch( resetZones() )
+				state.dispatch( resetTimeResults() )
+				// todo zrobic ogranicznik leveli
+				state.dispatch( increaseLevel() )
+			}
 			if ( action.payload === true) {
 				if ( level.wave === level_times.length -1 ) { }
 				else {
 					state.dispatch( runLevel(true) )
 				}
 			}
-			// it could be hub for firing actions
-			// if payload === true
-			// pause game
-			// if false , run game
-			//
 			break
 
-
-		case 'store/setMess':
-			break
 
 		case 'store/addQueueTruck':
-			// alter current truck id counter
-			//
 			state.dispatch( setTruckCounter() )
 			break
 
@@ -179,7 +182,6 @@ export const storeWare = (state) => (next) => (action) => {
 			let trMax = state.getState().app.levels[level.current].truckMax
 			if ( (queue.length + 1) === trMax) {
 				state.dispatch( setStamp( Date.now() ) ) 
-				// console.log("start Timer")
 			}
 			break
 
