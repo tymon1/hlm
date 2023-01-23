@@ -9,22 +9,28 @@ import {
 
 
 
-
 export function MsgBoard() {
 
-	// const dispatch = useDispatch()
 	const msg = useSelector(state => state.app.msg.text)
 	const visible = useSelector(state => state.app.msg.visible)
 	const dispatch = useDispatch()
 
 	useEffect(() => { 
-		approachBoard() 
+
+		setTimeout( () => { 
+			let melem = document.querySelector("#msg")
+			if (melem !== null) {
+				melem.style.marginLeft = 10 + "px"
+			}
+			approachBoard() 
+		}, 100 )
+
 		// blinkBtn()
-		// setTimeout( () => { blinkBtn() }, 3000)
-		// setTimeout( () => { blinkBtn() }, 6000)
+		// setTimeout( () => { blinkBtn() }, 4000)
 		// const blink = setInterval( () => { blinkBtn() }, 1700 )
-    // return () => { clearInterval(blink) }
+    // return () => { departBoard() }
 	})
+
 
 	let approachBoard = () => {
 		if (visible) {
@@ -34,7 +40,7 @@ export function MsgBoard() {
 		}
 	}
 
-	let runLvl = () => {
+	let mvForward = () => {
 		dispatch( hideMsg(true) )
 	}
 
@@ -50,9 +56,9 @@ export function MsgBoard() {
 		<div>
 			{ visible ? 
 				<div id="msg" className={s.msg}> 
-					<span>{ msg }</span>
-					<span id="fwBtn" onClick={ runLvl }
-								className={ s.msgBtn }>ok &#8811;</span>
+					<div>{ msg }</div>
+					<div id="fwBtn" onClick={ mvForward }
+								className={ s.msgBtn }>kontynuuj &#8811;</div>
 				</div> 
 				: "" 
 			}

@@ -2,9 +2,22 @@
 	display: flex;
 	background: #979797;
 	height: 55px;
-	border-bottom: 4px dotted grey;
+	/* border-bottom: 4px dotted grey; */
 }
 
+.empty {
+	background: gray;
+  font-size: 1.5em;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	display: table;
+	height: 32px;
+	width: 45px;
+	padding: 2px 10px;
+	transition: margin-left 1s ease-in-out, opacity 0.5s ease-in-out;
+}
 
 .res {
 	background: aliceblue;
@@ -20,8 +33,9 @@
 }
 
 .calendar {
-	font-size: 1.2em;
-	margin: 13px;
-	background: darkred;
+	font-size: 1.5em;
+	margin: 10px;
+	padding: 2px 10px;
+	background: grey;
 	color: #fff;
 }

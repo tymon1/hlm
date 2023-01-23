@@ -27,9 +27,16 @@ export function Timer() {
 		}
 	}
 
+	let resp = res => { 
+		if (time === 0) { res = s.timerZero }
+		else { res = s.timer }
+		return res
+	}
+
+
 	return (
 			<div className={s.timerOuter}>
-				<span id="timer" className={s.timer}> 
+				<span id="timer" className={ resp() }> 
 					{ time }
 				</span>
 			</div>

@@ -1,6 +1,6 @@
-.tType_s { background:red; }
-.tType_m { background:green; }
-.tType_xl { background:blue; }
+.tType_s { background:#444;width:25px }
+.tType_m { background:#333; width:50px }
+.tType_xl { background:#222; width:85px }
 
 
 .tType_xl, .tType_m, .tType_s {

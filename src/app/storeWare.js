@@ -20,6 +20,7 @@ import { saveTimer, setStamp,
 import { genTruck, 
 				 unloadingDone, 
 				 totalTime, 
+				 makeMinutes, 
 				 storeMess } from '../app/helpers.js';
 
 
@@ -103,8 +104,8 @@ export const storeWare = (state) => (next) => (action) => {
 					} else {
 
 						let gratz = "Gratulacje, ukończyłeś poziom " + 
-												 level.current + ", z  czasem rozładunku " +
-												 totalTime( state.getState().app.level_times ) + " s."
+												 level.current + ", w  czasie " +
+												 makeMinutes( Number(totalTime( state.getState().app.level_times )) ) + "s."
 
 						state.dispatch( showMsg({ text: gratz }) )
 						state.dispatch( popTimeSum() )
@@ -180,6 +181,8 @@ export const storeWare = (state) => (next) => (action) => {
 		case 'store/parkTruck':
 			let queue = state.getState().store.queue
 			let trMax = state.getState().app.levels[level.current].truckMax
+			// 
+			// dont start to add trucks to docks unless they all arrive & show :(
 			if ( (queue.length + 1) === trMax) {
 				state.dispatch( setStamp( Date.now() ) ) 
 			}

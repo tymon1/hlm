@@ -1,6 +1,6 @@
 .ramps {
 	display:block;
-	border-top: 4px dotted #ddd;
+	/* border-top: 4px dotted #ddd; */
 	height: 100px;
 	position:relative;
 	background: #a27c7c;

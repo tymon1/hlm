@@ -53,7 +53,7 @@ export function TruckPreview({ truck }) {
 					 onDragEnd = { () => { dispatch( drag( false ) ) }}
 					 > 
 
-				&#9951; { truck.type } 
+				&#9951; 
 
 			</div> 
 	)

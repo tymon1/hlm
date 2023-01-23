@@ -1,4 +1,4 @@
-.truck {
+.truck_m, .truck_s, .truck_xl {
 	transition: all 1.5s ease-in-out;
 
 	display:flex;
@@ -8,21 +8,32 @@
 	justify-content: space-evenly;
 	align-content:flex-start;
 
-	width:200px;
-	height:80px;
 	background: black;
 	position: absolute;
-	top: 10px;
-	left: -200px;
+	top: 0px;
 	margin:0;
 	color: #fff;
-
-	padding-left: 50px;
+	padding-left: 70px;
 	padding-bottom: 15px;
+
+	height:85px;
 }
 
+.truck_s {
+	background: #444;
+	width:130px;
+	left: -130px;
+}
 
-/* could delete it */
-/* .approaching { margin-left: 390px !important; } */
-/* .leaving { margin-left: 0px !important; } */
+.truck_m {
+	width:200px;
+	left: -200px;
+	background: #333;
+}
+
+.truck_xl {
+	width:270px;
+	left: -270px;
+	background: #222;
+}
 

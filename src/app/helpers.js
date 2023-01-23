@@ -157,3 +157,18 @@ export const totalTime = times => {
 	})
 	return sum
 }
+
+
+//////////////////////////////
+//
+//  secs to min:sec
+//
+export const makeMinutes = secs => {
+	let m=0
+	while (secs - 60 >= 0) { 
+		secs -= 60
+		m++ 
+	}
+	if (m > 0) { return m + "m " + secs } 
+	else { return secs }
+}

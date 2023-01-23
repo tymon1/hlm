@@ -7,11 +7,13 @@ import { unparkTruck } from '../../slice/StoreSlice';
 
 
 
+
 // TRUCK seen on the ramp
 export function Truck({ truck }) {
 
 	const id = truck.id
 	const dispatch = useDispatch()
+
 
 	useEffect(() => {
 		if (truck.empty === true) {
@@ -33,7 +35,8 @@ export function Truck({ truck }) {
 		truckEl.style.marginLeft = rampsWid-cssCabin + "px"
 	}
 
-	const cssCabin = 50
+
+	const cssCabin = 70
 
 	const offRamp = () => {
 		let truckEl = document.getElementById("truck-"+id)
@@ -42,9 +45,22 @@ export function Truck({ truck }) {
 	}
 
 
+	let resp = () => { 
+		switch(truck.type) {
+			case 's':
+				return s.truck_s
+			case 'm':
+				return s.truck_m
+			case 'xl':
+				return s.truck_xl
+			default:
+			  return false
+	}}
+
+
 	return (
 		<div id={"truck-" + truck.id } 
-				 className={ s.truck }>
+				 className={ resp() }>
 			{
 				truck.pallets.map( (pallet,index) => {
 					return ( <Pallet key={ index } pallet={ pallet }/> )
