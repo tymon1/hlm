@@ -8,6 +8,9 @@
 .empty {
 	background: gray;
   font-size: 1.5em;
+	color: #777;
+	font-weight: bold;
+	text-align: center;
 	margin-top: 10px;
 	margin-right: 0px;
 	margin-bottom: 10px;

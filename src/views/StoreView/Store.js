@@ -5,6 +5,7 @@ import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
+import { Timer } from './Timer';
 import { ResultsBar } from './ResultsBar';
 import { Admin } from './Admin';
 
@@ -17,9 +18,10 @@ export function Store() {
 	const ramps_internal = useSelector(state => state.store.ramps)
 	const lock = useSelector(state => state.app.msg.visible)
 
+	// <Admin />
+
   return (
     <div>
-		  <Admin />
 			<ResultsBar />
 			<TopBar />
 
@@ -53,6 +55,9 @@ export function Store() {
 				</div>
 
       </div>
+
+			<Timer />
+
     </div>
   );
 }

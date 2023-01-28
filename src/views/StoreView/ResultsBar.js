@@ -1,6 +1,5 @@
 import s from './css/ResultsBar.module.css';
 import { useSelector } from 'react-redux';
-import { Timer } from './Timer';
 
 
 
@@ -29,7 +28,7 @@ export function ResultsBar() {
 		for (let i=0; i<wavesLeft; ++i) {
 			if (i === levels[level.current].waves) {
 			} else {
-				voids.push(<span key={i} className={s.empty}></span>)
+				voids.push(<span key={i} className={s.empty}>{(level.wave + i) +1}</span>)
 			}
 		}
 	}
@@ -38,8 +37,6 @@ export function ResultsBar() {
 		<div className={s.resbar}>
 			
 			<div className={s.calendar}>Poz: { level.current }</div>
-
-			<Timer />
 			{
 				results.map( (sec, index) => {
 					return <span key={index} className={s.res}>{sec} s.</span>

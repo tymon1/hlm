@@ -60,10 +60,11 @@ export const storeWare = (state) => (next) => (action) => {
 		case 'store/checkTrucks':
 			for ( let i= 0; i< docks.length; i++ ) {
 				if ( docks[i].truck.id && 
+						 docks[i].truck.empty === false &&
 						 docks[i].truck.pallets.length === 0 && 
 						 ramps[i].pallets.length === 0 ) {
 
-					state.dispatch( truckOnDockEmpty({index: i}) )
+					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
 				}
 			}
 			// check if docks & ramps are empty 

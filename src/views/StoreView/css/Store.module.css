@@ -13,7 +13,7 @@
 }
 
 .rampsArea {
-	border-left: 3px dashed orange;
+	border-left: 8px dashed orange;
 	height: 100%;
 	display: flex;
 	flex:1;
@@ -27,7 +27,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex: 2 1;
-	background: #713535;
+	background: #846464;
 	padding-bottom: 20px;
 }
 

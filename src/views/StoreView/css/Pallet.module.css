@@ -2,14 +2,13 @@
 	filter: brightness(0.8) saturate(0.8);
 	color: white !important;
 	width: 20px;
-	height: 20px;
-	border: 2px white;
-	margin: 3px;
+	height: 25px;
 	font-size: 13px;
 	padding: 2px;
 	display: block;
 	user-select: none;
-	border-bottom: 5px dashed brown;
+	border-bottom: 11px solid #888;
+	border-left: 5px dashed brown;
 	cursor:pointer;
 }
 

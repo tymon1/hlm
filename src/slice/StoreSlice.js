@@ -107,6 +107,7 @@ export const storeSlice = createSlice({
 			let l= payload.payload
 			state.ramps[l.index].truck.pallets.push( l.pallet ) 
 		},
+
 //////////////////////////////////
 		remPal: (state, payload) => {},
 
@@ -125,6 +126,7 @@ export const storeSlice = createSlice({
 			let rm= state.docks[dockIndex].truck.pallets.findIndex( inx => inx.id === payload.payload.id )
 			state.docks[dockIndex].truck.pallets.splice(rm, 1)
 		},
+		
 //////////////////////////////////
 		checkTrucks: (state) => {},
 
@@ -133,7 +135,6 @@ export const storeSlice = createSlice({
 		},
 
 //////////////////////////////////
-
     setMess: (state, payload) => {
 			state.mess = payload.payload
 		},

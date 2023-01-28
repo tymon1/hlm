@@ -8,13 +8,14 @@
 }
 
 .timer { background: red; }
+
 .timerZero { 
 	display: none;
 	background: grey; }
 
-
 .timerOuter {
+	text-align: center;
 	position: relative;
-	width: 95px;
-	margin: 10px 0;
+	width: 100%;
+	background: #979797;
 }

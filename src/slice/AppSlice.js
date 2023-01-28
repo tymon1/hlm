@@ -28,7 +28,11 @@ export const appSlice = createSlice({
 						  { waves:2, truckMax:4 },
 						  { waves:3, truckMax:4 },
 						  { waves:3, truckMax:5 },
-						  { waves:4, truckMax:2 } ],
+						  { waves:3, truckMax:5 },
+						  { waves:4, truckMax:4 },
+						  { waves:4, truckMax:5 },
+						  { waves:4, truckMax:6 },
+						  { waves:5, truckMax:3 } ],
 
 		drag: false,
 		source: {},

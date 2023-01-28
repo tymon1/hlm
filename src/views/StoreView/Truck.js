@@ -15,28 +15,37 @@ export function Truck({ truck }) {
 	const dispatch = useDispatch()
 
 
+	// covering up 
+	useEffect(() => {
+		if (truck.empty === true) { 
+			onCover() 
+		}
+	})
+
+
+	// moving to / from ramp
 	useEffect(() => {
 		if (truck.empty === true) {
 			setTimeout( () => { dispatch( unparkTruck({id: truck.id}) ) }, 1500 )
-			return offRamp() 
+			return offRamp()
 		}
 		toRamp()
 		// when resolution change ..
+		//
 		window.addEventListener("resize", toRamp);
 		return () => {
 			window.removeEventListener("resize", toRamp);
 		}
 	})
 
+	const cssCabin = 70
+
 	const toRamp = () => {
 		let rampsWid = document.getElementById("docks").offsetWidth
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.add(styles.approaching)
-		truckEl.style.marginLeft = rampsWid-cssCabin + "px"
+		truckEl.style.marginLeft = rampsWid -cssCabin + "px"
 	}
-
-
-	const cssCabin = 70
 
 	const offRamp = () => {
 		let truckEl = document.getElementById("truck-"+id)
@@ -44,6 +53,15 @@ export function Truck({ truck }) {
 		truckEl.style.marginLeft = "-" + cssCabin + "px"
 	}
 
+	const offCover = () => {
+		let coverEl = document.getElementById("tcover-"+id)
+		coverEl.style.visibility = "hidden"
+	}
+
+	const onCover = () => { 
+		let coverEl = document.getElementById("tcover-"+id)
+		coverEl.style.visibility = "visible"
+	}
 
 	let resp = () => { 
 		switch(truck.type) {
@@ -57,10 +75,26 @@ export function Truck({ truck }) {
 			  return false
 	}}
 
+	let resp_cover = () => { 
+		switch(truck.type) {
+			case 's':
+				return s.tcover_s
+			case 'm':
+				return s.tcover_m
+			case 'xl':
+				return s.tcover_xl
+			default:
+			  return false
+	}}
+
 
 	return (
 		<div id={"truck-" + truck.id } 
 				 className={ resp() }>
+
+			<div id={"tcover-" + truck.id } 
+			     className={ resp_cover() }
+					 onClick={ () => { offCover() } }> </div>
 			{
 				truck.pallets.map( (pallet,index) => {
 					return ( <Pallet key={ index } pallet={ pallet }/> )
