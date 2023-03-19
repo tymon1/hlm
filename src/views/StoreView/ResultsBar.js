@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 export function ResultsBar() {
 
-	const results = useSelector(state => state.app.level_times)
+	const results = useSelector(state => state.app.wave_times)
 	const level = useSelector(state => state.app.level)
 	const levels = useSelector(state => state.app.levels)
 	const prep = useSelector(state => state.app.level.preparing)

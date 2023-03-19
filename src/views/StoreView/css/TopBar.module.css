@@ -2,4 +2,6 @@
 	display: flex;
 	background: #979797;
 	height: 65px;
+	position:absolute;
+	top:0;
 }

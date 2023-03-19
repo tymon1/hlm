@@ -1,7 +1,8 @@
 import { reverse_l,
          reverse_s,
          reverse_xxl,
-         ping,
+         wave,
+				 complete,
          newQ,
          rush_largo,
          rush_xxl,
@@ -64,14 +65,19 @@ export const zundWare = (state) => (next) => (action) => {
 
 
 		case 'app/showMsg':
-			ping.play()
-			// switch (action.payload.truck.type) {
-			// 	case 'xl':
-			// 		reverse_l.play()
-			// 		break
-			// 	default:
-			// 		reverse_l.play()
-			// }
+			let level = state.getState().app.level
+			let levels = state.getState().app.levels
+			let mess = state.getState().store.mess
+			let sorting = state.getState().store.sorting
+
+			if  ( level.wave === levels[ level.current ].waves -1 &&
+					  mess === false && 
+						sorting === false) {
+				complete.play()
+			}
+			else {
+				wave.play()
+			}
 			break
 
 

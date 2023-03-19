@@ -18,15 +18,31 @@ export function DropTruck({ elementId }) {
 		let fieldElem = document.getElementById(elementId)
 		fieldElem.addEventListener("dragover", dragEnter);
 		fieldElem.addEventListener("drop", dropped);
+		fieldElem.addEventListener("pointerover", dragEnter, false);
+		fieldElem.addEventListener("pointerup", touchDrop, false);
 		return () => {
 			fieldElem.removeEventListener("dragover", dragEnter);
 			fieldElem.removeEventListener("drop", dropped);
+			fieldElem.removeEventListener("pointerover", dragEnter, false);
+			fieldElem.removeEventListener("pointerup", dropped, false);
 		}
 	})
 
-	let dragEnter = e => { e.preventDefault() }
+	let dragEnter = e => { 
+		console.log("touchover.. ?")
+		// e.stopPropagation()
+		// e.dataTransfer.dropEffect = 'move'
+		// e.dataTransfer.setData('text/plain', 'hello');
+		// e.dataTransfer.dropEffect = 'copy'
+		e.preventDefault() 
+	}
+
+	let touchDrop = e => {
+		console.log("touchdrop.. ?")
+	}
 
 	let dropped = e => {
+		e.stopPropagation()
 		e.preventDefault()
 		let toIndex = document.getElementById( e.target.id ).parentElement.id.split("-")[1]
 

@@ -1,4 +1,5 @@
-import { Howl, Howler } from 'howler';
+// import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
 
 // Howler.volume(0.8);
 // Howler.autoUnlock(true);
@@ -43,8 +44,13 @@ export const rush_largo = new Howl({
 	volume: 0.9,
 })
 
-export const ping = new Howl({
+export const wave = new Howl({
 	src: ['s/notify_hammond.mp3'],
+	volume: 0.2,
+})
+
+export const complete = new Howl({
+	src: ['s/notify_hammond_2.mp3'],
 	volume: 0.2,
 })
 

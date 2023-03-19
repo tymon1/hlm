@@ -28,7 +28,7 @@ import { genTruck,
 
 export const storeWare = (state) => (next) => (action) => {
 
-	let level_times = state.getState().app.level_times
+	let wave_times = state.getState().app.wave_times
 	let level = state.getState().app.level
 	let levels = state.getState().app.levels
 	let docks = state.getState().store.docks
@@ -74,7 +74,7 @@ export const storeWare = (state) => (next) => (action) => {
 					 state.getState().store.queue.length === 0 ) {
 
 				//console.log("wave done !")
-				state.dispatch(runLevel(false))
+				state.dispatch( runLevel(false) )
 
 				let level = state.getState().app.level
 				let levels = state.getState().app.levels
@@ -98,15 +98,15 @@ export const storeWare = (state) => (next) => (action) => {
 					if (mStatus) { 
 
 						if (!sorting) {
-							state.dispatch( showMsg({ text: "Żeby ukończyć poziom, posortuj palety" }) )
 							state.dispatch( setSorting(true) )
+							state.dispatch( showMsg({ text: "Żeby ukończyć poziom, posortuj palety" }) )
 						}
 
 					} else {
 
 						let gratz = "Gratulacje, ukończyłeś poziom " + 
 												 level.current + ", w  czasie " +
-												 makeMinutes( Number(totalTime( state.getState().app.level_times )) ) + "s."
+												 makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
 
 						state.dispatch( showMsg({ text: gratz }) )
 						state.dispatch( popTimeSum() )
@@ -129,7 +129,7 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( increaseLevel() )
 			}
 			if ( action.payload === true) {
-				if ( level.wave === level_times.length -1 ) { }
+				if ( level.wave === wave_times.length -1 ) { }
 				else {
 					state.dispatch( runLevel(true) )
 				}
@@ -170,7 +170,7 @@ export const storeWare = (state) => (next) => (action) => {
 			if ( action.payload === false ) {
 				// jesli byla to ostatnia fala to nie rob saveTimer 
 				//
-				if ( level.wave === level_times.length -1 ) {
+				if ( level.wave === wave_times.length -1 ) {
 					// console.log("to była ostatnia fala, przestawiasz palety")
 				}
 				else { state.dispatch( saveTimer() ) }

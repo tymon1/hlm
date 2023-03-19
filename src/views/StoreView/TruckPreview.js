@@ -10,20 +10,15 @@ export function TruckPreview({ truck }) {
 
 	const dispatch = useDispatch()
 
-	useEffect(() => { 
-		setTimeout( () => { (approachQueue()) }, 500 )
-	})
+	useEffect(() => { approachQueue() })
 
 	let approachQueue = () => {
-		let truckEl = document.querySelector("#queueTruck-"+truck.id)
-			if (truckEl !== null) {
-				truckEl.style.marginLeft = 10 + "px"
-				truckEl.style.opacity = 1
-			}
+		let truckEl = document.getElementById("queueTruck-"+truck.id)
+		truckEl.style.marginLeft = 10 + "px"
+		truckEl.style.opacity = 1
 	}
 
 	let resp = () => { 
-
 		switch(truck.type) {
 			case 's':
 				return s.tType_s
@@ -53,7 +48,7 @@ export function TruckPreview({ truck }) {
 					 onDragEnd = { () => { dispatch( drag( false ) ) }}
 					 > 
 
-				&#9951; 
+				{ truck.type } 
 
 			</div> 
 	)

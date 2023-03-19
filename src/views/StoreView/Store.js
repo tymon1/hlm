@@ -7,7 +7,10 @@ import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
 import { Timer } from './Timer';
 import { ResultsBar } from './ResultsBar';
-import { Admin } from './Admin';
+// import { Admin } from './Admin';
+import { makeMinutes, 
+				 totalTime, 
+				 } from '../../app/helpers.js';
 
 //import { useEffect } from 'react';
 
@@ -17,6 +20,7 @@ export function Store() {
 	const zones = useSelector(state => state.store.zones)
 	const ramps_internal = useSelector(state => state.store.ramps)
 	const lock = useSelector(state => state.app.msg.visible)
+	const level_times = useSelector(state => state.app.level_times)
 
 	// <Admin />
 
@@ -57,6 +61,17 @@ export function Store() {
       </div>
 
 			<Timer />
+
+			<div className={ s.levelTimes }>
+			  {
+					level_times.map( t => { 
+						return ( 
+								<span className={ s.levelTime }>{t}</span>
+						)
+					} )
+				}	
+			</div>
+			<span className={ s.levelTime }> total: { makeMinutes( Number(totalTime( level_times )) ) }</span>
 
     </div>
   );

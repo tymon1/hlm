@@ -23,6 +23,7 @@ export function Timer() {
 		// jest stamp i level zatrzymany ?
 		// to resetuj tajmer
 		if ( stamp !== 0 && !run ) {
+			// do zmiany ten mechanizm !!!
 			dispatch( resetTimer() )
 		}
 	}

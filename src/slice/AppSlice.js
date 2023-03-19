@@ -14,6 +14,7 @@ export const appSlice = createSlice({
 		stamp: 0,
 		timer: 0,
 		level_times: [],
+		wave_times: [],
 
 		level: { preparing: false,
 						 current: 0,
@@ -43,7 +44,7 @@ export const appSlice = createSlice({
   reducers: {
 
     saveTimer: state => {
-			state.level_times.push( state.timer )
+			state.wave_times.push( state.timer )
 		},
 
     runLevel: (state, payload) => {
@@ -76,16 +77,17 @@ export const appSlice = createSlice({
 		},
 
     resetTimeResults: state => {
-			state.level_times = [] 
+			state.wave_times = [] 
 		},
 
 		popTimeSum: state => {
 			let sum = 0
-			state.level_times.forEach( time => {
+			state.wave_times.forEach( time => {
 				sum += time
 			})
 			let eqSum = " ="+sum
-			state.level_times.push(eqSum)
+			state.wave_times.push(eqSum)
+			state.level_times.push(sum)
 		},
 
     setTimer: (state, payload) => {
