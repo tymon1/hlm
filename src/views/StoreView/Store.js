@@ -64,9 +64,9 @@ export function Store() {
 
 			<div className={ s.levelTimes }>
 			  {
-					level_times.map( t => { 
+					level_times.map( (t,index) => { 
 						return ( 
-								<span className={ s.levelTime }>{t}</span>
+								<span key={ index } className={ s.levelTime }>{t}</span>
 						)
 					} )
 				}	

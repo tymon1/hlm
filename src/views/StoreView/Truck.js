@@ -65,6 +65,8 @@ export function Truck({ truck }) {
 
 	let resp = () => { 
 		switch(truck.type) {
+			case 'bonus':
+				return s.truck_s
 			case 's':
 				return s.truck_s
 			case 'm':
@@ -77,6 +79,8 @@ export function Truck({ truck }) {
 
 	let resp_cover = () => { 
 		switch(truck.type) {
+			case 'bonus':
+				return s.tcover_bonus
 			case 's':
 				return s.tcover_s
 			case 'm':

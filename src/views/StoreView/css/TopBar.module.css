@@ -1,7 +1,6 @@
 .topbar {
 	display: flex;
 	background: #979797;
-	height: 65px;
-	position:absolute;
+	height: 55px;
 	top:0;
 }

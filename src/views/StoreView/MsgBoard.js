@@ -20,7 +20,9 @@ export function MsgBoard() {
 		setTimeout( () => { 
 			let melem = document.querySelector("#msg")
 			if (melem !== null) {
-				melem.style.marginLeft = 10 + "px"
+				// melem.style.marginLeft = 10 + "px"
+				melem.style.opacity = 1
+
 			}
 			approachBoard() 
 		}, 100 )
@@ -35,7 +37,7 @@ export function MsgBoard() {
 	let approachBoard = () => {
 		if (visible) {
 			let mEl = document.getElementById("msg")
-			mEl.style.marginLeft = 10 + "px"
+			mEl.style.marginLeft = 0 + "px"
 			mEl.style.opacity = 1
 		}
 	}
@@ -55,10 +57,10 @@ export function MsgBoard() {
   return (
 		<div>
 			{ visible ? 
-				<div id="msg" className={s.msg}> 
-					<div>{ msg }</div>
+				<div id="msg" className={ s.msg }> 
+					<div className={ s.msgContent }>{ msg }</div>
 					<div id="fwBtn" onClick={ mvForward }
-								className={ s.msgBtn }>kontynuuj &#8811;</div>
+								className={ s.msgBtn }>kontynuacja</div>
 				</div> 
 				: "" 
 			}

@@ -84,7 +84,7 @@ export const storeWare = (state) => (next) => (action) => {
 					if  ( level.run === false ) {
 					// show msg
 					//
-						state.dispatch( showMsg({ text: "Nadciąga kolejna fala kurierów" }) )
+						state.dispatch( showMsg({ text: "Nadciąga następna ekipa kurierów" }) )
 						state.dispatch( increaseWave() )
 					}
 				}
@@ -119,14 +119,14 @@ export const storeWare = (state) => (next) => (action) => {
 
 		case 'app/hideMsg':
 			if ( state.getState().app.level.preparing === true ) {
-				console.log("podbijanie levelu.. ") 
+				// console.log("podbijanie levelu.. ") 
 				state.dispatch( preparingLevel(false) )
 				state.dispatch( setSorting(false) )
-				state.dispatch( resetWave() )
 				state.dispatch( resetZones() )
-				state.dispatch( resetTimeResults() )
+				state.dispatch( resetWave() )
 				// todo zrobic ogranicznik leveli
 				state.dispatch( increaseLevel() )
+				state.dispatch( resetTimeResults() )
 			}
 			if ( action.payload === true) {
 				if ( level.wave === wave_times.length -1 ) { }
@@ -148,7 +148,8 @@ export const storeWare = (state) => (next) => (action) => {
 			if ( action.payload === true ) {
 				// 
 				// adding a group of trucks
-				//
+				
+				// level trucks
 				for ( let i= 1; i<= levels[level.current].truckMax; i++ ) {
 					setTimeout( () => { 
 						// get current truck and pallets counters
@@ -165,7 +166,21 @@ export const storeWare = (state) => (next) => (action) => {
 						state.dispatch( setPalletsCounter({ newId: newId }) )
 					}, i*500 )
 				}
+
+				// bonus client truck
+				if (true) {
+					let cTruckId = state.getState().store.counter.truckId
+					let bonus_truck = {
+						id: cTruckId, 
+						type: 'bonus',
+						cover: true, 
+						empty: false, 
+						pallets: []
+					}
+					state.dispatch( addQueueTruck({ truck: bonus_truck }) )
+				}
 			}
+
 			// stop level
 			if ( action.payload === false ) {
 				// jesli byla to ostatnia fala to nie rob saveTimer 

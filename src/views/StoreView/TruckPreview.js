@@ -1,6 +1,6 @@
 import s from './css/TruckPreview.module.css';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
 
 
@@ -9,17 +9,19 @@ import { drag, pick, source } from '../../slice/AppSlice';
 export function TruckPreview({ truck }) {
 
 	const dispatch = useDispatch()
+	const myRef = useRef(null);
 
-	useEffect(() => { approachQueue() })
+	useEffect(() => { setTimeout( ()=>{ approachQueue()}, 500)  })
 
 	let approachQueue = () => {
-		let truckEl = document.getElementById("queueTruck-"+truck.id)
-		truckEl.style.marginLeft = 10 + "px"
-		truckEl.style.opacity = 1
+		myRef.current.style.marginLeft = 10 + "px"
+		myRef.current.style.opacity = 1
 	}
 
 	let resp = () => { 
 		switch(truck.type) {
+			case 'bonus':
+				return s.tType_bonus
 			case 's':
 				return s.tType_s
 			case 'm':
@@ -34,6 +36,7 @@ export function TruckPreview({ truck }) {
 	return (
 			<div className={ resp() } 
 					 id={"queueTruck-" + truck.id} 
+					 ref={ myRef }
 					 draggable={ true }
 
 					 onDragStart = { e => {

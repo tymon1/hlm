@@ -2,7 +2,8 @@
 	display: flex;
 	background: #979797;
 	height: 55px;
-	/* border-bottom: 4px dotted grey; */
+	float: right;
+	margin-right:10px;
 }
 
 .empty {

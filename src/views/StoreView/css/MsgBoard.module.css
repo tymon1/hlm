@@ -1,26 +1,36 @@
 .msg {
-	position: absolute;
-	color: #2a2a2a;
+	position: fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	background: rgba(0,0,0, 0.6);
+	z-index:10004;
 	font-size: 1.6em;
-	background: aliceblue;
 	display: flex;
-	flex-direction: row;
-	padding: 2px 0 2px 12px;
-	margin-top: 7px;
+	flex-direction: column;
+	padding: 10%;
 	opacity: 0;
-	margin-left: 130px;
+	/* margin-left: 130px; */
 	transition: margin-left 1s ease-in-out, opacity 0.6s ease-in-out;
+}
+
+.msgContent {
+	color: #ccc;
+	font-size:1.3em;
+	margin-bottom:1.3em;
+	text-align:center;
 }
 
 .msgBtn {
 	filter: brightness(1) saturate(1);
 	color: #fff;
 	cursor: pointer;
-	margin: -2px 0 -2px 10px;
 	display: table;
 	height: 40px;
-	padding: 2px 12px 0;
+	padding: 10px 12px;
 	background: green;
+	text-align:center;
 }
 
 .msgBtn:hover {

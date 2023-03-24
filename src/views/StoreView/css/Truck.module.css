@@ -39,10 +39,15 @@
 	background-image: url(i/truck_xl.png);
 }
 
-.tcover_s, .tcover_m, .tcover_xl {
+.tcover_s, .tcover_m, .tcover_xl, .tcover_bonus {
 	position:absolute;
-	z-index:100002;
+	z-index:10002;
 	height:83px;
+}
+
+.tcover_bonus {
+	width: 150px;
+	background: #533939;
 }
 
 .tcover_s {

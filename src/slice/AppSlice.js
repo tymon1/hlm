@@ -16,10 +16,14 @@ export const appSlice = createSlice({
 		level_times: [],
 		wave_times: [],
 
+		drag: false,
+		source: {},
+		picked: {},
+
 		level: { preparing: false,
+						 run: false,
 						 current: 0,
-						 wave: 0,
-						 run: false },
+						 wave: 0 },
 
 		levels: [ { waves:1, truckMax:1 }, 
 						  { waves:2, truckMax:2 },
@@ -35,9 +39,6 @@ export const appSlice = createSlice({
 						  { waves:4, truckMax:6 },
 						  { waves:5, truckMax:3 } ],
 
-		drag: false,
-		source: {},
-		picked: {},
 	},
 
 
