@@ -6,16 +6,45 @@ import { drag, pick, source } from '../../slice/AppSlice';
 
 
 // preview of tiny truck
-export function TruckPreview({ truck }) {
+export function TruckPreview( props ) {
 
 	const dispatch = useDispatch()
 	const myRef = useRef(null);
+	const truck = props.truck
+	const countInt = useRef()
 
-	useEffect(() => { setTimeout( ()=>{ approachQueue()}, 500)  })
+	useEffect( () => { 
+
+		setTimeout( ()=>{ approachQueue() }, 500)  
+
+		if (truck.type === 'bonus') { 
+			return () => {
+				let timr = 3
+				
+				countInt.current = setInterval( () => { 
+					if (timr >= 0 ) {
+						if (myRef.current !== null) { myRef.current.innerHTML = timr-- }
+					}
+					else { 
+						props.remTruck( truck.id ) 
+						clearFn() 
+					}
+				}, 1000)
+			}
+		}
+	}, [])
+
 
 	let approachQueue = () => {
-		myRef.current.style.marginLeft = 10 + "px"
-		myRef.current.style.opacity = 1
+		if (myRef.current !== null) {
+			myRef.current.style.marginLeft = 10 + "px"
+			myRef.current.style.opacity = 1
+		}
+	}
+
+	let clearFn = () => {
+		clearInterval(countInt.current)
+		// console.log("clr called", countInt.current)
 	}
 
 	let resp = () => { 
@@ -40,6 +69,7 @@ export function TruckPreview({ truck }) {
 					 draggable={ true }
 
 					 onDragStart = { e => {
+						 clearFn()
 						 dispatch( drag( true ) )
 						 dispatch( pick( truck ) )
 						 dispatch( source( {
@@ -48,7 +78,8 @@ export function TruckPreview({ truck }) {
 						 } ) )
 					 }}
 
-					 onDragEnd = { () => { dispatch( drag( false ) ) }}
+					 onDragEnd = { () => { 
+						 dispatch( drag( false ) ) }}
 					 > 
 
 				{ truck.type } 

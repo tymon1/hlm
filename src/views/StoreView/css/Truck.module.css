@@ -47,7 +47,9 @@
 
 .tcover_bonus {
 	width: 150px;
-	background: #533939;
+	background: #39686b;
+	border-bottom: 24px solid darkslategray;
+	margin-bottom: 25px;
 }
 
 .tcover_s {

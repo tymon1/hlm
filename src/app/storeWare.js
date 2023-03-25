@@ -173,6 +173,7 @@ export const storeWare = (state) => (next) => (action) => {
 					let bonus_truck = {
 						id: cTruckId, 
 						type: 'bonus',
+						target: 'p-1',
 						cover: true, 
 						empty: false, 
 						pallets: []
