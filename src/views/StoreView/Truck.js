@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Pallet } from './Pallet';
 
 import { useDispatch } from 'react-redux';
-import { unparkTruck } from '../../slice/StoreSlice';
+import { unparkTruck, unSelectPal } from '../../slice/StoreSlice';
 
 
 
@@ -25,8 +25,16 @@ export function Truck({ truck }) {
 
 	// moving to / from ramp
 	useEffect(() => {
-		if (truck.empty === true) {
+		// regular trucks go offramp if empty
+		if (truck.type !== 'bonus' && truck.empty === true) {
 			setTimeout( () => { dispatch( unparkTruck({id: truck.id}) ) }, 1500 )
+			return offRamp()
+		}
+		if (truck.type === 'bonus' && truck.empty === true) {
+			setTimeout( () => { 
+				dispatch( unparkTruck({id: truck.id}) ) 
+				dispatch( unSelectPal() ) 
+			}, 1500 )
 			return offRamp()
 		}
 		toRamp()

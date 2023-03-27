@@ -11,6 +11,8 @@ export const storeSlice = createSlice({
 
 		counter: { palletId: 1, truckId: 1 }, 
 
+		bonus_target_pallette: { zone_no: 100, pid: 0 },
+
 		// trucks with load waiting in line for unload
 		queue: [],
 
@@ -90,6 +92,24 @@ export const storeSlice = createSlice({
 			state.counter.palletId = cId + Number( payload.payload.amount )
 		},
 
+		unSelectPal: (state) => {
+			let bonus = state.bonus_target_pallette
+			if (bonus.zone_no !== 100 && bonus.pid !== 0) {
+				let palInx = state.zones[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
+				state.zones[bonus.zone_no].pallets[palInx].selected = false
+				// state.bonus_target_pallette = { zone_no: 0, pid: 0 }
+			}
+		},
+
+		selectPallette: (state, payload) => {
+      let pInx = state.zones[payload.payload.zone_index].pallets.findIndex( inx => inx.id === payload.payload.pal_id )
+			state.zones[payload.payload.zone_index].pallets[pInx].selected = true
+      // save target destination
+			state.bonus_target_pallette = { 
+				zone_no: payload.payload.zone_index, 
+				pid: payload.payload.pal_id }
+		},
+
 //////////////////////////////////
 		addPal: (state, payload) => {},
 
@@ -163,6 +183,8 @@ export const { addQueueTruck, remQueueTruck,
 							 truckOnDockEmpty,
 							 setSorting,
 							 resetZones,
+							 selectPallette,
+							 unSelectPal,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,
 							 remPal, remPalFrZone, remPalFrRamp, remPalFrTruck,

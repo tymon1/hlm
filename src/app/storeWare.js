@@ -5,6 +5,7 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 resetZones, 
 				 setSorting, 
 				 setTruckCounter, setPalletsCounter,
+				 selectPallette,
 				 truckOnDockEmpty, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
@@ -19,6 +20,7 @@ import { saveTimer, setStamp,
 
 import { genTruck, 
 				 unloadingDone, 
+				 drawUnloaded, 
 				 totalTime, 
 				 makeMinutes, 
 				 storeMess } from '../app/helpers.js';
@@ -33,6 +35,7 @@ export const storeWare = (state) => (next) => (action) => {
 	let levels = state.getState().app.levels
 	let docks = state.getState().store.docks
 	let ramps = state.getState().store.ramps
+	let zones = state.getState().store.zones
 	
 
 	switch (action.type) {
@@ -86,12 +89,13 @@ export const storeWare = (state) => (next) => (action) => {
 					//
 						state.dispatch( showMsg({ text: "Nadciąga następna ekipa kurierów" }) )
 						state.dispatch( increaseWave() )
+	
 					}
 				}
 				else {
 					// check for mess
 					//
-					let mStatus = storeMess( state.getState().store.zones )
+					let mStatus = storeMess( zones )
 					state.dispatch( setMess( mStatus ) )
 					let sorting = state.getState().store.sorting
 
@@ -146,6 +150,7 @@ export const storeWare = (state) => (next) => (action) => {
 		//
 		case 'app/runLevel':
 			if ( action.payload === true ) {
+				////////////////////////////////////////////////  HERE //////////
 				// 
 				// adding a group of trucks
 				
@@ -167,18 +172,25 @@ export const storeWare = (state) => (next) => (action) => {
 					}, i*500 )
 				}
 
-				// bonus client truck
-				if (true) {
-					let cTruckId = state.getState().store.counter.truckId
-					let bonus_truck = {
-						id: cTruckId, 
-						type: 'bonus',
-						target: 'p-1',
-						cover: true, 
-						empty: false, 
-						pallets: []
-					}
-					state.dispatch( addQueueTruck({ truck: bonus_truck }) )
+				// bonus client truck, on second+ waves
+				if (level.wave > 0) {
+						// add some probability fn
+						if (true) {
+							// he came for this pallette:
+					    let bonusTarget = drawUnloaded( zones )
+							let cTruckId = state.getState().store.counter.truckId
+
+							let bonus_truck = {
+								id: cTruckId, 
+								type: 'bonus',
+								target: bonusTarget,
+								cover: true, 
+								empty: false, 
+								pallets: []
+							}
+							state.dispatch( selectPallette(bonusTarget) )
+							state.dispatch( addQueueTruck({ truck: bonus_truck }) )
+						}
 				}
 			}
 

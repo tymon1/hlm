@@ -12,7 +12,7 @@
 	cursor:pointer;
 }
 
-.pallet:hover {
+.pallet:hover, .selected {
 	filter: brightness(1.6) saturate(1.6);
 	/* filter: brightness(1.7); */
 }

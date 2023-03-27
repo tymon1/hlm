@@ -25,7 +25,7 @@ export const appSlice = createSlice({
 						 current: 0,
 						 wave: 0 },
 
-		levels: [ { waves:1, truckMax:1 }, 
+		levels: [ { waves:5, truckMax:1 }, 
 						  { waves:2, truckMax:2 },
 						  { waves:1, truckMax:3 },
 						  { waves:3, truckMax:2 },

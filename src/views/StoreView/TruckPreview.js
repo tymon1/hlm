@@ -2,6 +2,7 @@ import s from './css/TruckPreview.module.css';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
+import { unSelectPal } from '../../slice/StoreSlice';
 
 
 
@@ -19,15 +20,15 @@ export function TruckPreview( props ) {
 
 		if (truck.type === 'bonus') { 
 			return () => {
-				let timr = 3
+				let timr = 6
 				
 				countInt.current = setInterval( () => { 
 					if (timr >= 0 ) {
 						if (myRef.current !== null) { myRef.current.innerHTML = timr-- }
 					}
 					else { 
-						props.remTruck( truck.id ) 
 						clearFn() 
+						props.remTruck( truck.id ) 
 					}
 				}, 1000)
 			}
@@ -44,7 +45,7 @@ export function TruckPreview( props ) {
 
 	let clearFn = () => {
 		clearInterval(countInt.current)
-		// console.log("clr called", countInt.current)
+		dispatch( unSelectPal() )
 	}
 
 	let resp = () => { 
@@ -69,7 +70,6 @@ export function TruckPreview( props ) {
 					 draggable={ true }
 
 					 onDragStart = { e => {
-						 clearFn()
 						 dispatch( drag( true ) )
 						 dispatch( pick( truck ) )
 						 dispatch( source( {

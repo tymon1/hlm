@@ -55,8 +55,8 @@ export const genTruck = (tid, pid) => {
 					 type: type,
 					 cover: true, 
 					 empty: false, 
-					 pallets: drawPallets( pid, randMax(max) )
-					 // pallets: drawPallets( pid, randMax(1) )
+					 // pallets: drawPallets( pid, randMax(max) )
+					 pallets: drawPallets( pid, randMax(1) )
 				 } 
 }
 
@@ -83,6 +83,7 @@ let drawPalletType = () => {
 }
 
 
+
 //////////////////////////////
 //
 //   idf_ - pallet start id 
@@ -95,11 +96,34 @@ let drawPallets = (idf_, len_) => {
   for ( let i = 0; i < len_; i++ ) {
 		let type = drawPalletType()
 		let id = idf_ + i
-		let palElem = { id: "p" + id, c: type }
+
+		// pallette object:
+		//
+		let palElem = { id: "p" + id, c: type, selected: false }
 		retArr.push(palElem)
 	}
 
 	return retArr
+}
+
+
+//////////////////////////////
+//
+//   pick unloaded pallette 
+//   from zones
+//
+
+export const drawUnloaded = zones => {
+	// array of all unloaded pallets based on existing store zones:
+	let pZone = zones.filter( zone => zone.pallets.length > 0 )
+	//let all = [].concat( ...pZone.map(zone=> zone.pallets) )
+	// const random = Math.floor(Math.random() * all.length)
+	// return all[random]
+	const rndZone = Math.floor(Math.random() * pZone.length)
+	const rndInd = Math.floor(Math.random() * pZone[rndZone].pallets.length)
+	let rndPalObj = { zone_index: pZone[rndZone].no, pal_id: pZone[rndZone].pallets[rndInd].id }
+	console.log("rndPalObj",rndPalObj)
+	return rndPalObj
 }
 
 
