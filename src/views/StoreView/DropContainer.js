@@ -40,9 +40,7 @@ export function DropContainer({ elementId }) {
 											 pallet: app.picked }) )
 
 		dispatch( drag( false ) )
-
 		dispatch( checkTrucks() )
-
 	}
 
 	return (

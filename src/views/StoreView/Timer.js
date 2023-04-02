@@ -10,10 +10,11 @@ export function Timer() {
 	const stamp = useSelector(state => state.app.stamp)
 	const time = useSelector(state => state.app.timer)
 	const run = useSelector(state => state.app.level.run)
+	const msgVisible = useSelector(state => state.app.msg.visible)
 
 	useEffect(() => {
-		const timer = setInterval( () => { updTimer() } ,700 )
-		return () => { clearInterval(timer) }
+		const timerInt = setInterval( () => { updTimer() } ,700 )
+		return () => { clearInterval(timerInt) }
 	})
 
 	let updTimer = () => {
@@ -22,7 +23,7 @@ export function Timer() {
 		}
 		// jest stamp i level zatrzymany ?
 		// to resetuj tajmer
-		if ( stamp !== 0 && !run ) {
+		if ( stamp !== 0 && !run && msgVisible ) {
 			// do zmiany ten mechanizm !!!
 			dispatch( resetTimer() )
 		}

@@ -11,7 +11,8 @@ export const storeSlice = createSlice({
 
 		counter: { palletId: 1, truckId: 1 }, 
 
-		bonus_target_pallette: { zone_no: 100, pid: 0 },
+		// location types: truck, ramp, zone
+		bonus_target_pallette: { location: '', zone_no: 100, pid: 0 },
 
 		// trucks with load waiting in line for unload
 		queue: [],
@@ -94,9 +95,25 @@ export const storeSlice = createSlice({
 
 		unSelectPal: (state) => {
 			let bonus = state.bonus_target_pallette
+			// hack to detect first run
 			if (bonus.zone_no !== 100 && bonus.pid !== 0) {
-				let palInx = state.zones[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
-				state.zones[bonus.zone_no].pallets[palInx].selected = false
+				let palInx
+				switch (state.bonus_target_pallette.location) {
+					case 'zone':
+						palInx = state.zones[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
+						state.zones[bonus.zone_no].pallets[palInx].selected = false
+						break
+					case 'ramp':
+						palInx = state.ramps[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
+						state.ramps[bonus.zone_no].pallets[palInx].selected = false
+						break
+					case 'truck':
+						// palInx = state.docks[bonus.zone_no].truck.pallets.findIndex( inx => inx.id === bonus.pid )
+						// state.docks[bonus.zone_no].truck.pallets[palInx].selected = false
+						break
+					default:
+						break
+				}
 				// state.bonus_target_pallette = { zone_no: 0, pid: 0 }
 			}
 		},
@@ -106,12 +123,24 @@ export const storeSlice = createSlice({
 			state.zones[payload.payload.zone_index].pallets[pInx].selected = true
       // save target destination
 			state.bonus_target_pallette = { 
+				location: 'zone',
 				zone_no: payload.payload.zone_index, 
 				pid: payload.payload.pal_id }
 		},
 
 //////////////////////////////////
-		addPal: (state, payload) => {},
+    //
+		// helper, used to mark moving 
+		// of selected pallette
+		//
+		addPal: (state, payload) => {
+			// console.log(payload.payload)
+			if (payload.payload.pallet.selected) {
+				state.bonus_target_pallette.location = payload.payload.name
+				state.bonus_target_pallette.zone_no = payload.payload.index
+				state.bonus_target_pallette.pid = payload.payload.pallet.id
+			}
+		},
 
 		addPalToZone: (state, payload) => {
 			let l= payload.payload
@@ -125,7 +154,10 @@ export const storeSlice = createSlice({
 
 		addPalToTruck: (state, payload) => {
 			let l= payload.payload
-			state.ramps[l.index].truck.pallets.push( l.pallet ) 
+			//	l.index to truck index
+			let dockIndex = state.docks.findIndex( d => d.truck.id === Number(payload.payload.index) )
+			//console.log("..",l, "dock", state.ramps[dockIndex])
+			state.docks[dockIndex].truck.pallets.push( l.pallet ) 
 		},
 
 //////////////////////////////////

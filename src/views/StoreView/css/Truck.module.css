@@ -22,6 +22,7 @@
 	left: -165px;
 	padding-left: 80px;
 	background-image: url(i/truck_s.png);
+	overflow:hidden;
 }
 
 .truck_m {

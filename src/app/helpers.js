@@ -122,7 +122,7 @@ export const drawUnloaded = zones => {
 	const rndZone = Math.floor(Math.random() * pZone.length)
 	const rndInd = Math.floor(Math.random() * pZone[rndZone].pallets.length)
 	let rndPalObj = { zone_index: pZone[rndZone].no, pal_id: pZone[rndZone].pallets[rndInd].id }
-	console.log("rndPalObj",rndPalObj)
+	// console.log("rndPalObj",rndPalObj)
 	return rndPalObj
 }
 
@@ -131,14 +131,37 @@ export const drawUnloaded = zones => {
 //
 //   par.d - docks
 //   par.r - ramps
+//   sa pelne ciezarowki kurierow lub palety na rampach ?
 //
 export const unloadingDone = par => {
 
 	for ( let j= 0; j< par.d.length; j++ ) {
 
-		if (par.d[j].truck.empty === false || 
+		if ((par.d[j].truck.empty === false && par.d[j].truck.type !== 'bonus') || 
 				par.r[j].pallets.length > 0) { 
 
+			return false 
+		}
+	}
+	return true
+}
+
+//////////////////////////////
+//
+//   par.d - docks
+//   par.r - ramps
+//   sa puste ciezarowki do zaladunku lub palety na rampach ?
+//
+export const loadingDone = par => {
+
+	for ( let j= 0; j< par.d.length; j++ ) {
+
+
+		if ( ( par.d[j].truck.type === 'bonus' &&
+					 par.d[j].truck.pallets.length === 0 ) || 
+					 par.r[j].pallets.length > 0) { 
+
+	// console.log("loDone",j,par.d[j].truck.pallets.length)
 			return false 
 		}
 	}

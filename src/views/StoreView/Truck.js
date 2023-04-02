@@ -1,9 +1,11 @@
 import s from './css/Truck.module.css';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { Pallet } from './Pallet';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unparkTruck, unSelectPal } from '../../slice/StoreSlice';
+
+import { DropContainer } from './DropContainer';
 
 
 
@@ -13,31 +15,43 @@ export function Truck({ truck }) {
 
 	const id = truck.id
 	const dispatch = useDispatch()
-
+	const dragging = useSelector(state => state.app.drag )
+	const source = useSelector(state => state.app.source )
+	const picked = useSelector(state => state.app.picked )
+	const elementId = "truck-" + truck.id 
 
 	// covering up 
 	useEffect(() => {
-		if (truck.empty === true) { 
-			onCover() 
+		if (truck.empty) { 
+			putCover() 
 		}
 	})
+
+	useLayoutEffect(() => {
+		toRamp()
+    return () => {
+			offRamp()
+    }
+	}, [])
 
 
 	// moving to / from ramp
 	useEffect(() => {
 		// regular trucks go offramp if empty
 		if (truck.type !== 'bonus' && truck.empty === true) {
-			setTimeout( () => { dispatch( unparkTruck({id: truck.id}) ) }, 1500 )
-			return offRamp()
-		}
-		if (truck.type === 'bonus' && truck.empty === true) {
 			setTimeout( () => { 
 				dispatch( unparkTruck({id: truck.id}) ) 
-				dispatch( unSelectPal() ) 
 			}, 1500 )
 			return offRamp()
 		}
-		toRamp()
+		if (truck.type === 'bonus' && truck.empty === true) {
+			dispatch( unSelectPal() ) 
+			setTimeout( () => { 
+				dispatch( unparkTruck({id: truck.id}) ) 
+			}, 1500 )
+			return offRamp()
+		}
+		// toRamp()
 		// when resolution change ..
 		//
 		window.addEventListener("resize", toRamp);
@@ -66,7 +80,7 @@ export function Truck({ truck }) {
 		coverEl.style.visibility = "hidden"
 	}
 
-	const onCover = () => { 
+	const putCover = () => { 
 		let coverEl = document.getElementById("tcover-"+id)
 		coverEl.style.visibility = "visible"
 	}
@@ -104,9 +118,15 @@ export function Truck({ truck }) {
 		<div id={"truck-" + truck.id } 
 				 className={ resp() }>
 
+			{ truck.type === 'bonus' && 
+				dragging && 
+				(picked.id === truck.target.pal_id) && 
+				(source.name === "ramp") ? 
+				<DropContainer elementId = { elementId } /> : '' }
+
 			<div id={"tcover-" + truck.id } 
 			     className={ resp_cover() }
-					 onClick={ () => { offCover() } }> </div>
+					 onClick={ () => { offCover() } }>  </div>
 			{
 				truck.pallets.map( (pallet,index) => {
 					return ( <Pallet key={ index } pallet={ pallet }/> )

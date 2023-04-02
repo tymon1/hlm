@@ -20,6 +20,7 @@ import { saveTimer, setStamp,
 
 import { genTruck, 
 				 unloadingDone, 
+				 loadingDone, 
 				 drawUnloaded, 
 				 totalTime, 
 				 makeMinutes, 
@@ -62,18 +63,35 @@ export const storeWare = (state) => (next) => (action) => {
 		//
 		case 'store/checkTrucks':
 			for ( let i= 0; i< docks.length; i++ ) {
+
 				if ( docks[i].truck.id && 
-						 docks[i].truck.empty === false &&
-						 docks[i].truck.pallets.length === 0 && 
+				     // docks[i].truck.type !== 'bonus' && 
+						 (docks[i].truck.type !== 'bonus' && docks[i].truck.empty === false) &&
+						 (docks[i].truck.type !== 'bonus' && docks[i].truck.pallets.length === 0) && 
 						 ramps[i].pallets.length === 0 ) {
 
 					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
 				}
+
+				// instead of pallets[0] we need also array comparing logarithm
+				if ( docks[i].truck.id && 
+						 docks[i].truck.type === 'bonus' && 
+						 docks[i].truck.pallets.length > 0 && 
+						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
+					 ) {
+					console.log("loaded truck unpark !!",)
+					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
+				}
+
 			}
 			// check if docks & ramps are empty 
 			//
 			if ( unloadingDone({ r:state.getState().store.ramps, 
 													 d:state.getState().store.docks }) === true &&
+
+					 loadingDone({ r:state.getState().store.ramps, 
+												 d:state.getState().store.docks }) === true &&
+
 					 state.getState().store.queue.length === 0 ) {
 
 				//console.log("wave done !")
@@ -82,7 +100,6 @@ export const storeWare = (state) => (next) => (action) => {
 				let level = state.getState().app.level
 				let levels = state.getState().app.levels
 
-				// console.log(level.wave," < ",levels[ level.current ].waves)
 				if  ( level.wave < levels[ level.current ].waves -1 ) {
 					if  ( level.run === false ) {
 					// show msg
@@ -201,7 +218,7 @@ export const storeWare = (state) => (next) => (action) => {
 				if ( level.wave === wave_times.length -1 ) {
 					// console.log("to była ostatnia fala, przestawiasz palety")
 				}
-				else { state.dispatch( saveTimer() ) }
+				else {state.dispatch( saveTimer() ) }
 			}
 			break
 

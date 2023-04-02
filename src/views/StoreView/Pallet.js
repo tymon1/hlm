@@ -1,5 +1,5 @@
 import s from './css/Pallet.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
 
@@ -8,15 +8,17 @@ import { drag, pick, source } from '../../slice/AppSlice';
 export function Pallet({ pallet }) {
 
 	const dispatch = useDispatch()
-	const myRef = useRef(null);
+	const oneRef = useRef();
 	// const blinkInt = useRef()
 
 
 	useEffect( () => { 
 		const intId = setInterval( () => { 
 			if (pallet.selected) {
-				setTimeout( () => { myRef.current.classList.remove(s.selected) }, 600)
-				myRef.current.classList.add(s.selected)
+				setTimeout( () => { 
+					if (oneRef.current !== null) { oneRef.current.classList.remove(s.selected) }
+				}, 500)
+				oneRef.current.classList.add(s.selected)
 			}
 		}, 1200)
 
@@ -30,7 +32,7 @@ export function Pallet({ pallet }) {
 	return (
 		<div draggable={ true } className={ s.pallet }
 				 id = { pallet.id } style={{ background: pallet.c }}
-				 ref={ myRef }
+				 ref={ oneRef }
 
 				 onDragStart = { () => {
 					 let palElem = document.getElementById( pallet.id )

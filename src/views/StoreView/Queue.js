@@ -12,7 +12,7 @@ export function RampsQueue() {
 	const trucks = useSelector(state => state.store.queue)
 	const dispatch = useDispatch()
 
-	let remTruck = (id) => {
+	let remTruck = id => {
 		dispatch( remQueueTruck({ id: id }) )
 	}
 

@@ -7,7 +7,7 @@ import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
 import { Timer } from './Timer';
 import { ResultsBar } from './ResultsBar';
-// import { Admin } from './Admin';
+import { Admin } from './Admin';
 import { makeMinutes, 
 				 totalTime, 
 				 } from '../../app/helpers.js';
@@ -26,6 +26,7 @@ export function Store() {
 
   return (
     <div>
+<Admin />
 			<ResultsBar />
 			<TopBar />
 
