@@ -62,8 +62,10 @@ export const storeWare = (state) => (next) => (action) => {
 		// check which truck is empty to unpark it
 		//
 		case 'store/checkTrucks':
+
 			for ( let i= 0; i< docks.length; i++ ) {
 
+				// if regular trucks unloaded - unpark it
 				if ( docks[i].truck.id && 
 				     // docks[i].truck.type !== 'bonus' && 
 						 (docks[i].truck.type !== 'bonus' && docks[i].truck.empty === false) &&
@@ -73,17 +75,17 @@ export const storeWare = (state) => (next) => (action) => {
 					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
 				}
 
+				// if bonus truck loaded - unpark it
 				// instead of pallets[0] we need also array comparing logarithm
 				if ( docks[i].truck.id && 
 						 docks[i].truck.type === 'bonus' && 
 						 docks[i].truck.pallets.length > 0 && 
 						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
 					 ) {
-					console.log("loaded truck unpark !!",)
 					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
 				}
-
 			}
+
 			// check if docks & ramps are empty 
 			//
 			if ( unloadingDone({ r:state.getState().store.ramps, 
@@ -218,7 +220,7 @@ export const storeWare = (state) => (next) => (action) => {
 				if ( level.wave === wave_times.length -1 ) {
 					// console.log("to była ostatnia fala, przestawiasz palety")
 				}
-				else {state.dispatch( saveTimer() ) }
+				else { state.dispatch( saveTimer() ) }
 			}
 			break
 
@@ -228,8 +230,9 @@ export const storeWare = (state) => (next) => (action) => {
 			let queue = state.getState().store.queue
 			let trMax = state.getState().app.levels[level.current].truckMax
 			// 
-			// dont start to add trucks to docks unless they all arrive & show :(
-			if ( (queue.length + 1) === trMax) {
+			// dont start to add trucks to docks ,
+			// dont start timer unless they all arrive & show :(
+			if ( ((queue.length + 1) === trMax) || (queue.length === trMax) ) {
 				state.dispatch( setStamp( Date.now() ) ) 
 			}
 			break
