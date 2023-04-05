@@ -37,6 +37,8 @@ export const storeWare = (state) => (next) => (action) => {
 	let docks = state.getState().store.docks
 	let ramps = state.getState().store.ramps
 	let zones = state.getState().store.zones
+	let stamp = state.getState().app.stamp
+	let timer = state.getState().app.timer
 	
 
 	switch (action.type) {
@@ -142,7 +144,7 @@ export const storeWare = (state) => (next) => (action) => {
 
 		case 'app/hideMsg':
 			if ( state.getState().app.level.preparing === true ) {
-				// console.log("podbijanie levelu.. ") 
+				// podbijanie levelu.. 
 				state.dispatch( preparingLevel(false) )
 				state.dispatch( setSorting(false) )
 				state.dispatch( resetZones() )
@@ -169,7 +171,6 @@ export const storeWare = (state) => (next) => (action) => {
 		//
 		case 'app/runLevel':
 			if ( action.payload === true ) {
-				////////////////////////////////////////////////  HERE //////////
 				// 
 				// adding a group of trucks
 				
@@ -215,12 +216,16 @@ export const storeWare = (state) => (next) => (action) => {
 
 			// stop level
 			if ( action.payload === false ) {
-				// jesli byla to ostatnia fala to nie rob saveTimer 
+				// in case of last wave dont do saveTimer:
 				//
-				if ( level.wave === wave_times.length -1 ) {
-					// console.log("to była ostatnia fala, przestawiasz palety")
+				if ( level.wave > wave_times.length -1 ) {
+					state.dispatch( saveTimer( timer ) ) 
 				}
-				else { state.dispatch( saveTimer() ) }
+				// delete 4 lines below:
+				// if ( level.wave === wave_times.length -1 ) {
+					// console.log("to była ostatnia fala, przestawiasz palety")
+				// }
+				// else { state.dispatch( saveTimer( timer ) )  }
 			}
 			break
 
@@ -232,16 +237,17 @@ export const storeWare = (state) => (next) => (action) => {
 			// 
 			// dont start to add trucks to docks ,
 			// dont start timer unless they all arrive & show :(
-			if ( ((queue.length + 1) === trMax) || (queue.length === trMax) ) {
+			if ( (((queue.length + 1) === trMax) || (queue.length === trMax)) && stamp === 0 ) {
 				state.dispatch( setStamp( Date.now() ) ) 
 			}
 			break
 
 			
 		default:
-			// return next(action)
-			//console.log("add to zone", state.getState().store.counter)
+
 	}
 
+	// 4 hard debug purpose:
+	// console.log("next",action)
 	next(action)
 }

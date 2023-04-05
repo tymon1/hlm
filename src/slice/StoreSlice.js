@@ -134,7 +134,6 @@ export const storeSlice = createSlice({
 		// of selected pallette
 		//
 		addPal: (state, payload) => {
-			// console.log(payload.payload)
 			if (payload.payload.pallet.selected) {
 				state.bonus_target_pallette.location = payload.payload.name
 				state.bonus_target_pallette.zone_no = payload.payload.index
@@ -154,9 +153,7 @@ export const storeSlice = createSlice({
 
 		addPalToTruck: (state, payload) => {
 			let l= payload.payload
-			//	l.index to truck index
 			let dockIndex = state.docks.findIndex( d => d.truck.id === Number(payload.payload.index) )
-			//console.log("..",l, "dock", state.ramps[dockIndex])
 			state.docks[dockIndex].truck.pallets.push( l.pallet ) 
 		},
 

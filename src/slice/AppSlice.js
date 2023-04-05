@@ -44,9 +44,8 @@ export const appSlice = createSlice({
 
   reducers: {
 
-    saveTimer: state => {
-			console.log("sejw tajm")
-			state.wave_times.push( state.timer )
+    saveTimer: (state, payload) => {
+			state.wave_times.push( payload.payload )
 		},
 
     runLevel: (state, payload) => {
@@ -79,7 +78,6 @@ export const appSlice = createSlice({
 		},
 
     resetTimeResults: state => {
-			console.log("reset tajm result")
 			state.wave_times = [] 
 		},
 
@@ -102,7 +100,6 @@ export const appSlice = createSlice({
 		},
 
     resetTimer: state => {
-			console.log("resetTajmer")
 			state.timer = 0
 			state.stamp = 0
 		},

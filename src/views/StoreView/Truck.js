@@ -45,7 +45,7 @@ export function Truck({ truck }) {
 			return offRamp()
 		}
 		if (truck.type === 'bonus' && truck.empty === true) {
-			dispatch( unSelectPal() ) 
+			//dispatch( unSelectPal() ) 
 			setTimeout( () => { 
 				dispatch( unparkTruck({id: truck.id}) ) 
 			}, 1500 )
