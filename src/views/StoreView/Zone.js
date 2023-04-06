@@ -9,6 +9,8 @@ export function Zone({ zone }) {
 
 	const dragging = useSelector(state => state.app.drag )
 	const src = useSelector(state => state.app.source.name )
+	const curr  = useSelector(state => state.app.level.current )
+	const colorized = useSelector(state => state.app.levels[ curr ].colorized )
 	const elementId = "zone-" + zone.no
 
 	return (

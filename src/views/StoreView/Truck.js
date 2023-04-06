@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { Pallet } from './Pallet';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { unparkTruck, unSelectPal } from '../../slice/StoreSlice';
+import { unparkTruck } from '../../slice/StoreSlice';
 
 import { DropContainer } from './DropContainer';
 
@@ -32,7 +32,7 @@ export function Truck({ truck }) {
     return () => {
 			offRamp()
     }
-	}, [])
+	})
 
 
 	// moving to / from ramp

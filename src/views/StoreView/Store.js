@@ -5,9 +5,9 @@ import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
-import { Timer } from './Timer';
 import { ResultsBar } from './ResultsBar';
-import { Admin } from './Admin';
+// import { Timer } from './Timer';
+// import { Admin } from './Admin';
 import { makeMinutes, 
 				 totalTime, 
 				 } from '../../app/helpers.js';
@@ -26,7 +26,7 @@ export function Store() {
 
   return (
     <div>
-<Admin />
+		
 			<ResultsBar />
 			<TopBar />
 
@@ -61,7 +61,6 @@ export function Store() {
 
       </div>
 
-			<Timer />
 
 			<div className={ s.levelTimes }>
 			  {

@@ -1,10 +1,6 @@
 .timer, .timerZero {
-  font-size: 4.4em;
-	/* position: absolute; */
-  top: -5px;	
-	left: 10px;
 	color: #eee;
-	padding: 0px 10px;
+	padding: 2px 10px;
 }
 
 .timer { background: red; }
@@ -14,8 +10,13 @@
 	background: grey; }
 
 .timerOuter {
-	text-align: center;
-	position: relative;
-	width: 100%;
+	font-size: 1.5em;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	display: table;
+	height: 20px;
+	padding: 2px 10px;
 	background: #979797;
+	transition: margin-left 1s ease-in-out, opacity 0.5s ease-in-out;
 }
