@@ -7,7 +7,7 @@ import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
 import { ResultsBar } from './ResultsBar';
 // import { Timer } from './Timer';
-// import { Admin } from './Admin';
+import { Admin } from './Admin';
 import { makeMinutes, 
 				 totalTime, 
 				 } from '../../app/helpers.js';
@@ -22,11 +22,11 @@ export function Store() {
 	const lock = useSelector(state => state.app.msg.visible)
 	const level_times = useSelector(state => state.app.level_times)
 
-	// <Admin />
 
   return (
     <div>
 		
+	<Admin />
 			<ResultsBar />
 			<TopBar />
 

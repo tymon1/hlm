@@ -4,9 +4,10 @@
 	flex-wrap: wrap;
 	align-content:flex-start;
 	margin: 20px 0px 0px 20px;
-	background: grey;
+	/* background: grey; */
 	width: 100px;
 	height: 110px;
+	filter: brightness(0.9) saturate(0.9);
 	/* border: 3px dashed #ddd; */
 }
 

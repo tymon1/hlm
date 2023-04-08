@@ -22,7 +22,7 @@ export function Truck({ truck }) {
 
 	// covering up 
 	useEffect(() => {
-		if (truck.empty) { 
+		if (truck.ready) { 
 			putCover() 
 		}
 	})
@@ -38,13 +38,13 @@ export function Truck({ truck }) {
 	// moving to / from ramp
 	useEffect(() => {
 		// regular trucks go offramp if empty
-		if (truck.type !== 'bonus' && truck.empty === true) {
+		if (truck.type !== 'bonus' && truck.ready === true) {
 			setTimeout( () => { 
 				dispatch( unparkTruck({id: truck.id}) ) 
 			}, 1500 )
 			return offRamp()
 		}
-		if (truck.type === 'bonus' && truck.empty === true) {
+		if (truck.type === 'bonus' && truck.ready === true) {
 			//dispatch( unSelectPal() ) 
 			setTimeout( () => { 
 				dispatch( unparkTruck({id: truck.id}) ) 

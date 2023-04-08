@@ -14,35 +14,58 @@ export const appSlice = createSlice({
 		stamp: 0,
 		timer: 0,
 		level_times: [],
+		level_bonuses: [],
 		wave_times: [],
 
 		drag: false,
 		source: {},
 		picked: {},
 
-		level: { preparing: false,
-						 run: false,
-						 current: 0,
-						 wave: 0 },
+		level: { 
+			preparing: false,
+			run: false,
+			current: 0,
+			          // { index, color }
+			color_zone: [],
+			wave: 0 
+		},
 
-		levels: [ { waves:5, truckMax:1, colorized:true }, 
-						  { waves:2, truckMax:2, colorized:false },
-						  { waves:1, truckMax:3, colorized:false },
-						  { waves:3, truckMax:2, colorized:false },
-						  { waves:3, truckMax:3, colorized:false },
-						  { waves:2, truckMax:4, colorized:false },
-						  { waves:3, truckMax:4, colorized:false },
-						  { waves:3, truckMax:5, colorized:false },
-						  { waves:3, truckMax:5, colorized:false },
-						  { waves:4, truckMax:4, colorized:false },
-						  { waves:4, truckMax:5, colorized:false },
-						  { waves:4, truckMax:6, colorized:false },
-						  { waves:5, truckMax:3, colorized:false } ],
+		levels: [ { waves:2, truckMax:1, color_zones: { colorize:true, count:6 } }, 
+						  { waves:2, truckMax:2, color_zones: { colorize:true, count:2 } },
+						  { waves:1, truckMax:3, color_zones: { colorize:true, count:4 } },
+						  { waves:3, truckMax:2, color_zones: { colorize:false } },
+						  { waves:3, truckMax:3, color_zones: { colorize:false } },
+						  { waves:2, truckMax:4, color_zones: { colorize:false } },
+						  { waves:3, truckMax:4, color_zones: { colorize:false } },
+						  { waves:3, truckMax:5, color_zones: { colorize:false } },
+						  { waves:3, truckMax:5, color_zones: { colorize:false } },
+						  { waves:4, truckMax:4, color_zones: { colorize:false } },
+						  { waves:4, truckMax:5, color_zones: { colorize:false } },
+						  { waves:4, truckMax:6, color_zones: { colorize:false } },
+						  { waves:5, truckMax:3, color_zones: { colorize:false } } ],
 
 	},
 
 
   reducers: {
+
+		colorZonesReset: state => {
+			state.level.color_zone = []
+		},
+
+		setColorZone: (state, payload) => {
+			state.level.color_zone = payload.payload
+		},
+
+		setBonusCounter: (state, payload) => {
+			let levInx = state.level_bonuses.findIndex( inx => inx.level === payload.payload.level )
+			if (levInx === -1) {
+				state.level_bonuses.push( {"level":payload.payload.level, "count":1} )
+			}
+			else {
+				state.level_bonuses[levInx].count++
+			}
+		},
 
     saveTimer: (state, payload) => {
 			state.wave_times.push( payload.payload )
@@ -140,6 +163,8 @@ export const { runLevel, increaseWave, resetWave,
 							 preparingLevel,
 							 showMsg, hideMsg,
 							 popTimeSum,
+							 setBonusCounter,
+							 setColorZone, colorZonesReset,
 						 } = appSlice.actions;
 
 export default appSlice.reducer;

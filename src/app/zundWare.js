@@ -46,7 +46,7 @@ export const zundWare = (state) => (next) => (action) => {
 			break
 
 
-		case 'store/truckOnDockEmpty':
+		case 'store/truckOnDockReady':
 
 			switch (action.payload.type) {
 				case 's':
@@ -68,11 +68,10 @@ export const zundWare = (state) => (next) => (action) => {
 			let level = state.getState().app.level
 			let levels = state.getState().app.levels
 			let mess = state.getState().store.mess
-			let sorting = state.getState().store.sorting
+			//let sorting = state.getState().store.sorting
 
 			if  ( level.wave === levels[ level.current ].waves -1 &&
-					  mess === false && 
-						sorting === false) {
+					  mess === false ) {
 				complete.play()
 			}
 			else {

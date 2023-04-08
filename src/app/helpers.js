@@ -20,8 +20,8 @@ const pallets_colors = ['blue',
 											  'green',
 											  'purple',
 											  'white',
-											  'deepPink',
-											  'royalBlue',
+											  'pink',
+											  'black',
 											  'red']
 
 
@@ -54,9 +54,9 @@ export const genTruck = (tid, pid) => {
 					 id: tid, 
 					 type: type,
 					 cover: true, 
-					 empty: false, 
+					 ready: false, 
 					 // pallets: drawPallets( pid, randMax(max) )
-					 pallets: drawPallets( pid, randMax(1) )
+					 pallets: drawPallets( pid, randMax(5) )
 				 } 
 }
 
@@ -114,15 +114,15 @@ let drawPallets = (idf_, len_) => {
 //
 
 export const drawUnloaded = zones => {
+	//
 	// array of all unloaded pallets based on existing store zones:
-	let pZone = zones.filter( zone => zone.pallets.length > 0 )
-	//let all = [].concat( ...pZone.map(zone=> zone.pallets) )
-	// const random = Math.floor(Math.random() * all.length)
-	// return all[random]
-	const rndZone = Math.floor(Math.random() * pZone.length)
-	const rndInd = Math.floor(Math.random() * pZone[rndZone].pallets.length)
-	let rndPalObj = { zone_index: pZone[rndZone].no, pal_id: pZone[rndZone].pallets[rndInd].id }
-	// console.log("rndPalObj",rndPalObj)
+	let filZone = zones.filter( zone => zone.pallets.length > 0 )
+	const rndZone = Math.floor( Math.random() * filZone.length )
+	const rndPalInd = Math.floor( Math.random() * filZone[rndZone].pallets.length )
+	let rndPalObj = { 
+		zone_index: filZone[rndZone].no, 
+		pal_id: filZone[rndZone].pallets[rndPalInd].id 
+	}
 	return rndPalObj
 }
 
@@ -137,7 +137,7 @@ export const unloadingDone = par => {
 
 	for ( let j= 0; j< par.d.length; j++ ) {
 
-		if ((par.d[j].truck.empty === false && par.d[j].truck.type !== 'bonus') || 
+		if ((par.d[j].truck.ready === false && par.d[j].truck.type !== 'bonus') || 
 				par.r[j].pallets.length > 0) { 
 
 			return false 
@@ -191,6 +191,61 @@ export const storeMess = zones => {
 }
 
 
+//////////////////////////////
+//
+//  p.zones - all store zones
+//  p.czones - colored zones
+//  zones{no, pallets}, czones {index, color}
+//  
+//
+
+export const colorStoreMess = p => {
+
+	let retVal = []
+
+	// helpers helper palColor, znsCol
+	let colorObligatory = col => {
+		let zoneInx = col.znsCol.findIndex( 
+				o => o.color === col.palColor )
+		if (zoneInx !== -1) {
+			return true
+		}
+		return false
+	}
+
+	// helpers helper palColor, znsCol
+	let colZoneIx = col => {
+		let zoneInx = col.znsCol.findIndex( 
+				o => o.color === col.palColor )
+		if (zoneInx !== -1) {
+			return col.znsCol[ zoneInx ].index
+		}
+		return false
+	}
+
+	p.zones.forEach( (zone, index) => {
+		// if field contains more than 2 pallets
+		if (zone.pallets.length > 1) {
+			for ( let i= 1; i< zone.pallets.length; i++ ) {
+				// compare each one with first element
+				if (zone.pallets[0].c !== zone.pallets[i].c) {
+					retVal.push(false)
+				}
+			}
+		}
+		// for every non-empty field
+		if (zone.pallets.length > 0) {
+			if ( colorObligatory({ palColor: zone.pallets[0].c, znsCol: p.czones }) ) {
+				if (zone.no !== colZoneIx({ palColor: zone.pallets[0].c, znsCol: p.czones })) {
+					retVal.push(false)
+				}
+			}
+		}
+	})
+	return retVal.includes(false)
+}
+
+
 
 //////////////////////////////
 //
@@ -218,4 +273,32 @@ export const makeMinutes = secs => {
 	}
 	if (m > 0) { return m + "m " + secs } 
 	else { return secs }
+}
+
+
+
+//////////////////////////////
+//
+//  draw zones 
+//  indexes & colors
+//
+export const drawZones = zone => {
+	let zoneInd = []
+	let retArr = []
+	let colors_copy = structuredClone(pallets_colors)
+	// let colors_copy = pallets_colors.map(a => {return {...a}})
+
+	for (let j=0; j<zone.len; j++) { zoneInd.push(j) }
+
+	for (let i=0; i<zone.count; i++) {
+		let randZoneInd = zoneInd[ Math.floor( Math.random() * zoneInd.length ) ]
+		zoneInd.splice( zoneInd.indexOf(randZoneInd), 1)
+
+		let randCol = colors_copy[ Math.floor( Math.random() * colors_copy.length ) ]
+		colors_copy.splice( colors_copy.indexOf(randCol), 1 )
+
+		retArr.push({ index: randZoneInd, color: randCol })
+	}
+
+	return retArr
 }

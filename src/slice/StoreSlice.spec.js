@@ -35,7 +35,7 @@ describe('store reducer', () => {
 				id:4, 
 				type:'xl', 
 				cover:true, 
-				empty:false, 
+				ready:false, 
 				pallets: [
 						{id:4, c:"blue"},
 						{id:5, c:"green"}
@@ -68,7 +68,7 @@ describe('store reducer', () => {
 				id:4, 
 				type:'xl', 
 				cover:true, 
-				empty:false, 
+				ready:false, 
 				pallets: [
 						{id:4, c:"blue"},
 						{id:5, c:"green"}
@@ -78,7 +78,7 @@ describe('store reducer', () => {
     const actual = storeReducer(initialState, addQueueTruck( truck ));
 
     expect(actual.queue[0]).toEqual({
-			id:4, type:'xl', cover:true, empty:false, pallets:[{id:4, c:"blue"},{id:5, c:"green"}],
+			id:4, type:'xl', cover:true, ready:false, pallets:[{id:4, c:"blue"},{id:5, c:"green"}],
 		});
   });
 

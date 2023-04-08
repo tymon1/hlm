@@ -6,7 +6,7 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 setSorting, 
 				 setTruckCounter, setPalletsCounter,
 				 selectPallette,
-				 truckOnDockEmpty, } from '../slice/StoreSlice';
+				 truckOnDockReady, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
 	       increaseWave,
@@ -16,6 +16,8 @@ import { saveTimer, setStamp,
 	       preparingLevel,
 	       popTimeSum,
 				 showMsg,
+				 setBonusCounter,
+				 setColorZone, colorZonesReset,
 	       runLevel } from '../slice/AppSlice';
 
 import { genTruck, 
@@ -24,6 +26,8 @@ import { genTruck,
 				 drawUnloaded, 
 				 totalTime, 
 				 makeMinutes, 
+				 drawZones, 
+				 colorStoreMess, 
 				 storeMess } from '../app/helpers.js';
 
 
@@ -46,18 +50,37 @@ export const storeWare = (state) => (next) => (action) => {
 		// addPal helper
 		//
 		case 'store/addPal':
-			if (action.payload.name === "zone") { state.dispatch( addPalToZone(action.payload) ) }
-			if (action.payload.name === "ramp") { state.dispatch( addPalToRamp(action.payload) ) }
-			if (action.payload.name === "truck") { state.dispatch( addPalToTruck(action.payload) ) }
+
+			if (action.payload.name === "zone") { 
+				state.dispatch( addPalToZone(action.payload) ) 
+			}
+			if (action.payload.name === "ramp") { 
+				state.dispatch( addPalToRamp(action.payload) ) 
+			}
+			if (action.payload.name === "truck") { 
+				state.dispatch( addPalToTruck(action.payload) ) 
+				// count bonus truck pallettes:
+				if (action.payload.pallet.selected) {
+					state.dispatch( setBonusCounter( { level: level.current } ) ) 
+					console.log("bonus loaded!! count it")
+				}
+			}
 			break
 
 
 		// remPal helper
 		//
 		case 'store/remPal':
-			if (action.payload.name === "zone") { state.dispatch( remPalFrZone(action.payload) ) }
-			if (action.payload.name === "ramp") { state.dispatch( remPalFrRamp(action.payload) ) }
-			if (action.payload.name === "truck") { state.dispatch( remPalFrTruck(action.payload) ) }
+
+			if (action.payload.name === "zone") { 
+				state.dispatch( remPalFrZone(action.payload) ) 
+			}
+			if (action.payload.name === "ramp") { 
+				state.dispatch( remPalFrRamp(action.payload) ) 
+			}
+			if (action.payload.name === "truck") { 
+				state.dispatch( remPalFrTruck(action.payload) ) 
+			}
 			break
 
 
@@ -65,16 +88,18 @@ export const storeWare = (state) => (next) => (action) => {
 		//
 		case 'store/checkTrucks':
 
+			let current = levels[ level.current ]
+
 			for ( let i= 0; i< docks.length; i++ ) {
 
 				// if regular trucks unloaded - unpark it
 				if ( docks[i].truck.id && 
 				     // docks[i].truck.type !== 'bonus' && 
-						 (docks[i].truck.type !== 'bonus' && docks[i].truck.empty === false) &&
+						 (docks[i].truck.type !== 'bonus' && docks[i].truck.ready === false) &&
 						 (docks[i].truck.type !== 'bonus' && docks[i].truck.pallets.length === 0) && 
 						 ramps[i].pallets.length === 0 ) {
 
-					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
+					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 				}
 
 				// if bonus truck loaded - unpark it
@@ -84,7 +109,7 @@ export const storeWare = (state) => (next) => (action) => {
 						 docks[i].truck.pallets.length > 0 && 
 						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
 					 ) {
-					state.dispatch( truckOnDockEmpty({index: i, type: docks[i].truck.type}) )
+					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 				}
 			}
 
@@ -116,11 +141,19 @@ export const storeWare = (state) => (next) => (action) => {
 				else {
 					// check for mess
 					//
-					let mStatus = storeMess( zones )
-					state.dispatch( setMess( mStatus ) )
+					let messStatus
+						// level have color zones
+					if (current.color_zones.colorize) {
+						messStatus = colorStoreMess({ zones: zones, czones: level.color_zone })
+					}
+						// level doesnt have color zones
+					else {
+						messStatus = storeMess( zones )
+					}
+					state.dispatch( setMess( messStatus ) )
 					let sorting = state.getState().store.sorting
 
-					if (mStatus) { 
+					if (messStatus) { 
 
 						if (!sorting) {
 							state.dispatch( setSorting(true) )
@@ -147,6 +180,7 @@ export const storeWare = (state) => (next) => (action) => {
 				// podbijanie levelu.. 
 				state.dispatch( preparingLevel(false) )
 				state.dispatch( setSorting(false) )
+				state.dispatch( colorZonesReset() ) 
 				state.dispatch( resetZones() )
 				state.dispatch( resetWave() )
 				// todo zrobic ogranicznik leveli
@@ -170,12 +204,26 @@ export const storeWare = (state) => (next) => (action) => {
 		// start Level
 		//
 		case 'app/runLevel':
+
 			if ( action.payload === true ) {
+
+				let current = levels[ level.current ]
+				//
+				// make color zone / zones
+				if ( current.color_zones.colorize 
+						 && level.color_zone.length === 0 ) {
+					let cZone = drawZones({ 
+						count: current.color_zones.count, 
+						len: state.getState().store.zones.length 
+					})
+					state.dispatch( setColorZone( cZone ) )
+				}
+
 				// 
 				// adding a group of trucks
 				
 				// level trucks
-				for ( let i= 1; i<= levels[level.current].truckMax; i++ ) {
+				for ( let i= 1; i<= current.truckMax; i++ ) {
 					setTimeout( () => { 
 						// get current truck and pallets counters
 						//
@@ -205,7 +253,7 @@ export const storeWare = (state) => (next) => (action) => {
 								type: 'bonus',
 								target: bonusTarget,
 								cover: true, 
-								empty: false, 
+								ready: false, 
 								pallets: []
 							}
 							state.dispatch( selectPallette(bonusTarget) )
@@ -221,11 +269,6 @@ export const storeWare = (state) => (next) => (action) => {
 				if ( level.wave > wave_times.length -1 ) {
 					state.dispatch( saveTimer( timer ) ) 
 				}
-				// delete 4 lines below:
-				// if ( level.wave === wave_times.length -1 ) {
-					// console.log("to była ostatnia fala, przestawiasz palety")
-				// }
-				// else { state.dispatch( saveTimer( timer ) )  }
 			}
 			break
 

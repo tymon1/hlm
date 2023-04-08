@@ -179,8 +179,9 @@ export const storeSlice = createSlice({
 //////////////////////////////////
 		checkTrucks: (state) => {},
 
-		truckOnDockEmpty: (state, payload) => {
-			state.docks[ payload.payload.index ].truck.empty = true
+		// former truckOnDockEmpty
+		truckOnDockReady: (state, payload) => {
+			state.docks[ payload.payload.index ].truck.ready = true
 		},
 
 //////////////////////////////////
@@ -209,7 +210,7 @@ export const storeSlice = createSlice({
 
 export const { addQueueTruck, remQueueTruck, 
 							 parkTruck, unparkTruck, checkTrucks, setMess,
-							 truckOnDockEmpty,
+							 truckOnDockReady,
 							 setSorting,
 							 resetZones,
 							 selectPallette,
