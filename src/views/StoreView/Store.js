@@ -14,6 +14,7 @@ import { makeMinutes,
 
 //import { useEffect } from 'react';
 
+	// <Admin />
 
 export function Store() {
 

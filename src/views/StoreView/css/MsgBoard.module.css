@@ -9,7 +9,7 @@
 	font-size: 1.6em;
 	display: flex;
 	flex-direction: column;
-	padding: 10%;
+	padding: 4% 10%;
 	opacity: 0;
 	/* margin-left: 130px; */
 	transition: margin-left 1s ease-in-out, opacity 0.6s ease-in-out;
@@ -28,11 +28,92 @@
 	cursor: pointer;
 	display: table;
 	height: 40px;
+	width: 40%;
+	margin: 0 auto;
 	padding: 10px 12px;
 	background: green;
 	text-align:center;
+	border-radius:4px;
 }
 
 .msgBtn:hover {
 	filter: brightness(1.6) saturate(1.8);
+}
+
+.iconCnt {
+	flex-direction: row;
+	display: flex;
+	margin: 0 auto;
+}
+
+.levNr {
+	font-size:1.4em;
+	color:#c39c00;
+	font-weight:bold;
+	position:relative;
+	top:79px;
+	left:30px;
+}
+
+.stihl {
+	width:180px;
+	height:180px;
+	background-image: url(i/stihl96.png);
+	background-position-y: 6px;
+	background-position-x: 4px;
+	margin:20px;
+}
+
+.startIco {
+	width:180px;
+	height:180px;
+	background-image: url(i/start.png);
+	background-position-y: 6px;
+	background-position-x: 4px;
+}
+
+.messy {
+	width:180px;
+	height:180px;
+	background-image: url(i/mess.png);
+	background-position-y: 6px;
+	background-position-x: 4px;
+}
+
+.stihlCup {
+	position:absolute;
+	width:180px;
+	height:180px;
+	background-image: url(i/stihl96cup.png);
+	background-position-y: 6px;
+	background-position-x: 4px;
+	top:49px;
+	transition: top 1.6s ease-in-out;
+}
+
+.stwatch {
+	width:180px;
+	height:180px;
+	background-image: url(i/stwatch.png);
+	margin:20px;
+	background-position-y: 6px;
+	background-position-x: 4px;
+}
+
+.timeResult {
+	font-size:1.3em;
+	color:#313131;
+	font-weight:bold;
+	position:relative;
+	top:82px;
+	left:44px;
+}
+
+.truckArt {
+	width:180px;
+	height:180px;
+	background-image: url(i/truckArt.png);
+	margin:0 auto 30px;
+	background-position-y: 6px;
+	background-position-x: 4px;
 }

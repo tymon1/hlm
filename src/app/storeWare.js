@@ -62,7 +62,6 @@ export const storeWare = (state) => (next) => (action) => {
 				// count bonus truck pallettes:
 				if (action.payload.pallet.selected) {
 					state.dispatch( setBonusCounter( { level: level.current } ) ) 
-					console.log("bonus loaded!! count it")
 				}
 			}
 			break
@@ -129,14 +128,11 @@ export const storeWare = (state) => (next) => (action) => {
 				let level = state.getState().app.level
 				let levels = state.getState().app.levels
 
-				if  ( level.wave < levels[ level.current ].waves -1 ) {
-					if  ( level.run === false ) {
+				if  ( level.wave< levels[ level.current ].waves-1 && !level.run ) {
 					// show msg
 					//
-						state.dispatch( showMsg({ text: "Nadciąga następna ekipa kurierów" }) )
-						state.dispatch( increaseWave() )
-	
-					}
+					state.dispatch( showMsg({ type:"next", text: "Nadjeżdza kolejna grupa kurierów" }) )
+					state.dispatch( increaseWave() )
 				}
 				else {
 					// check for mess
@@ -157,7 +153,7 @@ export const storeWare = (state) => (next) => (action) => {
 
 						if (!sorting) {
 							state.dispatch( setSorting(true) )
-							state.dispatch( showMsg({ text: "Żeby ukończyć poziom, posortuj palety" }) )
+							state.dispatch( showMsg({ type:"mess", text: "Żeby ukończyć poziom, posortuj palety" }) )
 						}
 
 					} else {
@@ -166,7 +162,7 @@ export const storeWare = (state) => (next) => (action) => {
 												 level.current + ", w  czasie " +
 												 makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
 
-						state.dispatch( showMsg({ text: gratz }) )
+						state.dispatch( showMsg({ type:"gratz", text: gratz }) )
 						state.dispatch( popTimeSum() )
 						state.dispatch( preparingLevel(true) )
 					}
@@ -187,12 +183,23 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( increaseLevel() )
 				state.dispatch( resetTimeResults() )
 			}
-			if ( action.payload === true) {
-				if ( level.wave === wave_times.length -1 ) { }
+			// if ( !state.getState().store.sorting &&
+			// 		 !state.getState().app.level.preparing ) {
+			// 		state.dispatch( runLevel(true) )
+			// }
+
+			// if ( action.payload === true) {
+			// 	console.log("lev.wave", level.wave, "wav_tim.len", wave_times.length)
+			// 	// popTimeSum ruined it
+			// 	// jesli koniec to nie rob nic ??
+			// 	// if ( level.wave === wave_times.length-1 ) { }
+				
+				if ( level.wave === wave_times.length-1 && state.getState().store.sorting ) { }
 				else {
 					state.dispatch( runLevel(true) )
 				}
-			}
+
+			// }
 			break
 
 

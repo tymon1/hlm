@@ -9,7 +9,7 @@ export const appSlice = createSlice({
 
   initialState: {
 
-		msg: { text: "Rozpocznij grę", visible: true },
+		msg: { text:"Rozpocznij grę", type:"start", visible:true },
 
 		stamp: 0,
 		timer: 0,
@@ -89,6 +89,7 @@ export const appSlice = createSlice({
 
     showMsg: (state, payload) => {
 			state.msg.text = payload.payload.text
+			state.msg.type = payload.payload.type
 			state.msg.visible = true
 		},
 
@@ -109,8 +110,6 @@ export const appSlice = createSlice({
 			state.wave_times.forEach( time => {
 				sum += time
 			})
-			let eqSum = " ="+sum
-			state.wave_times.push(eqSum)
 			state.level_times.push(sum)
 		},
 

@@ -31,6 +31,7 @@ const pallets_colors = ['blue',
 //  tid - truck id
 //  pid - pallette start number id
 //
+
 export const genTruck = (tid, pid) => {
 
 	let type = drawTruckType()
@@ -41,10 +42,10 @@ export const genTruck = (tid, pid) => {
 			max = 3
 			break
 		case 'm':
-			max = 5
+			max = 6
 			break
 		case 'xl':
-			max = 8
+			max = 12
 			break
 		default:
 			max = 1
@@ -56,7 +57,7 @@ export const genTruck = (tid, pid) => {
 					 cover: true, 
 					 ready: false, 
 					 // pallets: drawPallets( pid, randMax(max) )
-					 pallets: drawPallets( pid, randMax(5) )
+					 pallets: drawPallets( pid, randMax(1) )
 				 } 
 }
 
@@ -89,6 +90,7 @@ let drawPalletType = () => {
 //   idf_ - pallet start id 
 //   len_ - amount of pallettes
 //
+
 let drawPallets = (idf_, len_) => {
 
 	let retArr = []
@@ -133,6 +135,7 @@ export const drawUnloaded = zones => {
 //   par.r - ramps
 //   sa pelne ciezarowki kurierow lub palety na rampach ?
 //
+
 export const unloadingDone = par => {
 
 	for ( let j= 0; j< par.d.length; j++ ) {
@@ -145,6 +148,7 @@ export const unloadingDone = par => {
 	}
 	return true
 }
+
 
 //////////////////////////////
 //
@@ -252,6 +256,7 @@ export const colorStoreMess = p => {
 //  simple sum fn
 //  times - [] waves times
 //  
+
 export const totalTime = times => {
 	let sum = 0
 	times.forEach( time => {
@@ -265,14 +270,15 @@ export const totalTime = times => {
 //
 //  secs to min:sec
 //
+
 export const makeMinutes = secs => {
 	let m=0
 	while (secs - 60 >= 0) { 
 		secs -= 60
 		m++ 
 	}
-	if (m > 0) { return m + "m " + secs } 
-	else { return secs }
+	if (m > 0) { return m + ":" + secs } 
+	else { return "00:"+secs }
 }
 
 
@@ -282,6 +288,7 @@ export const makeMinutes = secs => {
 //  draw zones 
 //  indexes & colors
 //
+
 export const drawZones = zone => {
 	let zoneInd = []
 	let retArr = []
