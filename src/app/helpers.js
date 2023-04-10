@@ -56,8 +56,8 @@ export const genTruck = (tid, pid) => {
 					 type: type,
 					 cover: true, 
 					 ready: false, 
-					 // pallets: drawPallets( pid, randMax(max) )
-					 pallets: drawPallets( pid, randMax(1) )
+					 pallets: drawPallets( pid, randMax(max) )
+					 // pallets: drawPallets( pid, randMax(1) )
 				 } 
 }
 
@@ -273,14 +273,24 @@ export const totalTime = times => {
 
 export const makeMinutes = secs => {
 	let m=0
+
+	let digify = dig => {
+		if (dig < 10) { return "0"+dig }
+		else return dig
+	}
+
 	while (secs - 60 >= 0) { 
 		secs -= 60
 		m++ 
 	}
-	if (m > 0) { return m + ":" + secs } 
-	else { return "00:"+secs }
-}
 
+	if (m > 0) {
+		return digify(m) + ":" + digify(secs)
+	}
+	else {
+		return "00:" + digify(secs)
+	}
+}
 
 
 //////////////////////////////

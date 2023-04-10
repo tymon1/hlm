@@ -48,7 +48,7 @@
 
 .levNr {
 	font-size:1.4em;
-	color:#c39c00;
+	color:#555;
 	font-weight:bold;
 	position:relative;
 	top:79px;
@@ -87,7 +87,7 @@
 	background-image: url(i/stihl96cup.png);
 	background-position-y: 6px;
 	background-position-x: 4px;
-	top:49px;
+	top:66px;
 	transition: top 1.6s ease-in-out;
 }
 
@@ -107,6 +107,25 @@
 	position:relative;
 	top:82px;
 	left:44px;
+}
+
+.bonus {
+	width:180px;
+	height:180px;
+	background-image: url(i/bonus.png);
+	background-position-y: 6px;
+	background-position-x: 4px;
+	margin:20px;
+}
+
+.bonusResult {
+	font-size:1.4em;
+	/* color:#80833e; */
+	color: #333;
+	font-weight:bold;
+	position:relative;
+	top:58px;
+	left:69px;
 }
 
 .truckArt {

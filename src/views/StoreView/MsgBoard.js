@@ -21,10 +21,10 @@ export function MsgBoard() {
 	const visible = useSelector(state => state.app.msg.visible)
 	const levelNumber = useSelector(state => state.app.level.current)
 	const waveTimes = useSelector(state => state.app.wave_times)
+	const bonuses = useSelector(state => state.app.level_bonuses)
 	const dispatch = useDispatch()
 
 	useEffect(() => { 
-
 		setTimeout( () => { 
 			let melem = document.querySelector("#msg")
 			if (melem !== null) {
@@ -34,20 +34,10 @@ export function MsgBoard() {
 			}
 			let cup = document.getElementById("cup")
 			if (cup !== null) {
-				cup.style.top = "9px"
+				cup.style.top = "43px"
 			}
 			approachBoard() 
 		}, 100 )
-
-		// setTimeout( () => { 
-		// 	let cup = document.getElementById("cup")
-		// 	if (cup !== null) { cup.style.top = "-35px" }
-		// }, 1000 )
-
-		// blinkBtn()
-		// setTimeout( () => { blinkBtn() }, 4000)
-		// const blink = setInterval( () => { blinkBtn() }, 1700 )
-    // return () => { departBoard() }
 	})
 
 
@@ -67,15 +57,12 @@ export function MsgBoard() {
 		switch(type) {
 			case 'gratz':
 				return s.stihl
-				break
 			case 'start':
 				return s.startIco
-				break
 			case 'next':
 				return s.truckArt
 			case 'mess':
 				return s.messy
-				break
 			default:
 			  return s.stihl
 	}}
@@ -87,6 +74,12 @@ export function MsgBoard() {
 	// 		el.style.background = "green"
 	// 	}, 100)
 	// }
+
+	let levInx = () => { 
+		let retV = bonuses.findIndex(l => l.level === levelNumber)
+		console.log("ratV",retV)
+		return retV
+	}
 
   return (
 		<div>
@@ -108,15 +101,27 @@ export function MsgBoard() {
 							?  <div className={ s.stwatch }>
 									 <span className={ s.timeResult }>{ 
 											 makeMinutes( Number(totalTime( waveTimes )) )
-										 }"</span>
+										 }</span>
 								 </div> 
+							: '' }
+
+						{ (msgType === 'gratz' && levInx() !== -1) 
+							? <div className={ s.bonus }>
+									 <span className={ s.bonusResult }>{ 
+											 "x"+bonuses[ levInx() ].count
+										 }</span>
+								</div>
 							: '' }
 
 					</div>
 
 					{ (msgType === 'start') ?  <span>jak grać ?</span> : '' }
 
-					<div className={ s.msgContent }>{ msg }</div>
+						{ (msgType === 'gratz') 
+							? ''
+							: <div className={ s.msgContent }>{ msg }</div>
+						}
+
 					<div id="fwBtn" onClick={ mvForward }
 								className={ s.msgBtn }>kontynuacja</div>
 				</div> 

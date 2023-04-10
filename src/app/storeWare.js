@@ -183,23 +183,11 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( increaseLevel() )
 				state.dispatch( resetTimeResults() )
 			}
-			// if ( !state.getState().store.sorting &&
-			// 		 !state.getState().app.level.preparing ) {
-			// 		state.dispatch( runLevel(true) )
-			// }
-
-			// if ( action.payload === true) {
-			// 	console.log("lev.wave", level.wave, "wav_tim.len", wave_times.length)
-			// 	// popTimeSum ruined it
-			// 	// jesli koniec to nie rob nic ??
-			// 	// if ( level.wave === wave_times.length-1 ) { }
-				
-				if ( level.wave === wave_times.length-1 && state.getState().store.sorting ) { }
-				else {
-					state.dispatch( runLevel(true) )
-				}
-
-			// }
+			if ( level.wave === wave_times.length-1 && 
+					 state.getState().store.sorting ) { }
+			else {
+				state.dispatch( runLevel(true) )
+			}
 			break
 
 
@@ -217,8 +205,8 @@ export const storeWare = (state) => (next) => (action) => {
 				let current = levels[ level.current ]
 				//
 				// make color zone / zones
-				if ( current.color_zones.colorize 
-						 && level.color_zone.length === 0 ) {
+				if ( current.color_zones.colorize && 
+						 level.color_zone.length === 0 ) {
 					let cZone = drawZones({ 
 						count: current.color_zones.count, 
 						len: state.getState().store.zones.length 
@@ -271,7 +259,7 @@ export const storeWare = (state) => (next) => (action) => {
 
 			// stop level
 			if ( action.payload === false ) {
-				// in case of last wave dont do saveTimer:
+				// in case of last wave dont saveTimer:
 				//
 				if ( level.wave > wave_times.length -1 ) {
 					state.dispatch( saveTimer( timer ) ) 
