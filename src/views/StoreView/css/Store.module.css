@@ -67,10 +67,14 @@
 
 
 
-@media only screen and (min-width: 100px) and (max-width: 1000px) {
+@media only screen and (min-width: 100px) and (max-width: 900px) {
 
 	.store {
 		flex: 1.3 1;
 	}
+
+.rampsArea {
+	border-left: 5px dashed orange;
+}
 
 }

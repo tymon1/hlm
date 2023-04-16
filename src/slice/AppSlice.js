@@ -22,9 +22,10 @@ export const appSlice = createSlice({
 		picked: {},
 
 		level: { 
+			loadTruck: false,
 			preparing: false,
 			run: false,
-			current: 0,
+			current: 4,
 			          // { index, color }
 			color_zone: [],
 			wave: 0 
@@ -34,15 +35,23 @@ export const appSlice = createSlice({
 						  { waves:2, truckMax:2, color_zones: { colorize:true, count:2 } },
 						  { waves:1, truckMax:3, color_zones: { colorize:true, count:4 } },
 						  { waves:3, truckMax:2, color_zones: { colorize:false } },
-						  { waves:3, truckMax:3, color_zones: { colorize:true, count:3 } },
-						  { waves:2, truckMax:4, color_zones: { colorize:true, count:1 } },
+						  { waves:1, truckMax:1, color_zones: { colorize:true, count:3 } },
+						  { waves:1, truckMax:1, color_zones: { colorize:true, count:3 } },
 						  { waves:3, truckMax:4, color_zones: { colorize:false } },
 						  { waves:3, truckMax:5, color_zones: { colorize:true, count:2 } },
 						  { waves:3, truckMax:5, color_zones: { colorize:true, count:4 } },
 						  { waves:4, truckMax:4, color_zones: { colorize:false } },
 						  { waves:4, truckMax:5, color_zones: { colorize:true, count:5 } },
-						  { waves:4, truckMax:6, color_zones: { colorize:false } },
-						  { waves:5, truckMax:3, color_zones: { colorize:false } } ],
+						  { waves:4, truckMax:6, color_zones: { colorize:true, count:3 } },
+						  { waves:4, truckMax:6, color_zones: { colorize:true, count:2 } },
+						  { waves:4, truckMax:6, color_zones: { colorize:true, count:3 } },
+						  { waves:4, truckMax:4, color_zones: { colorize:true, count:3 } },
+						  { waves:4, truckMax:7, color_zones: { colorize:false } },
+						  { waves:5, truckMax:4, color_zones: { colorize:true, count:5 } },
+						  { waves:5, truckMax:7, color_zones: { colorize:true, count:2 } },
+						  { waves:6, truckMax:6, color_zones: { colorize:true, count:4 } },
+						  { waves:6, truckMax:7, color_zones: { colorize:false } },
+						  { waves:7, truckMax:5, color_zones: { colorize:false } } ],
 
 	},
 
@@ -51,6 +60,10 @@ export const appSlice = createSlice({
 
 		colorZonesReset: state => {
 			state.level.color_zone = []
+		},
+
+		loadTruck: (state, payload) => {
+			state.level.loadTruck = payload.payload
 		},
 
 		setColorZone: (state, payload) => {
@@ -162,6 +175,7 @@ export const { runLevel, increaseWave, resetWave,
 							 preparingLevel,
 							 showMsg, hideMsg,
 							 popTimeSum,
+							 loadTruck,
 							 setBonusCounter,
 							 setColorZone, colorZonesReset,
 						 } = appSlice.actions;

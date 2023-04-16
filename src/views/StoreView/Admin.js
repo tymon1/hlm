@@ -36,14 +36,13 @@ export function Admin({ ramp }) {
 	}
 
 
-
   return (
-			<div className={s.admin}>
-				<div className={s.btn} onClick={ dump }>Dump Store</div>
-				<div className={s.btn} onClick={ dump_app }>Dump App</div>
-				<div className={s.btnB} onClick={  }>nuttn</div>
-				<div className={s.btnS} onClick={ hide }>Hide msg</div>
-				<div className={s.btnG} onClick={ stCheck }>Check Store</div>
-			</div>
+		<div className={s.admin}>
+			<div className={s.btn} onClick={ dump }>Dump Store</div>
+			<div className={s.btn} onClick={ dump_app }>Dump App</div>
+			<div className={s.btnB} onClick={ hide }>nuttn</div>
+			<div className={s.btnS} onClick={ hide }>Hide msg</div>
+			<div className={s.btnG} onClick={ stCheck }>Check Store</div>
+		</div>
 	)
 }

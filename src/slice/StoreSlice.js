@@ -46,6 +46,7 @@ export const storeSlice = createSlice({
 			{ no: 5, pallets: [] },
 			{ no: 6, pallets: [] },
 			{ no: 7, pallets: [] },
+			{ no: 8, pallets: [] },
 		],
 	},
 

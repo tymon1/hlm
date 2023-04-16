@@ -4,6 +4,7 @@ import { reverse_l,
          wave,
 				 complete,
          newQ,
+         beep,
          rush_largo,
          rush_xxl,
          rush_m,
@@ -25,7 +26,8 @@ export const zundWare = (state) => (next) => (action) => {
 
 
 		case 'store/addPal':
-			stomp.play()
+			if (action.payload.name === "ramp") { beep.play() } 
+			else { stomp.play() }
 			break
 
 

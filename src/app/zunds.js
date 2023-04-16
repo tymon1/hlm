@@ -4,6 +4,11 @@ import { Howl } from 'howler';
 // Howler.volume(0.8);
 // Howler.autoUnlock(true);
 
+export const beep = new Howl({
+	src: ['s/beep.mp3'],
+	volume: 0.05,
+})
+
 export const reverse_l = new Howl({
 	src: ['s/truck_l_reverse.mp3'],
 	volume: 0.9,

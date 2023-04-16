@@ -1,7 +1,30 @@
-.tType_s { background:#444;width:25px }
-.tType_m { background:#333; width:50px }
-.tType_xl { background:#222; width:85px }
-.tType_bonus { background:#533939; width:25px }
+.tType_s { 
+	/* background:#444; */
+	background-position-y:209px;
+  width:64px;
+	padding: 2px 4px;
+}
+
+.tType_m { 
+  /* background:#333; */ 
+	background-position-y:134px;
+  width:80px;
+	padding: 2px 4px;
+}
+
+.tType_xl { 
+  /* background:#222; */ 
+	background-position-y:64px;
+  width:115px;
+	padding: 2px 4px;
+}
+
+.tType_bonus { 
+  /* background:#533939; */ 
+	background-position-y:281px;
+	width:31px; 
+	padding: 7px 0 0 41px;
+}
 
 
 .tType_xl, .tType_m, .tType_s, .tType_bonus {
@@ -11,13 +34,13 @@
 	margin-top: 10px;
 	margin-right: 0px;
 	margin-bottom: 10px;
-	margin-left: 80px;
+	margin-left: 0px;
 	opacity: 0;
 	display: table;
-	height: 20px;
-	padding: 2px 10px;
+	height: 48px;
 	transition: margin-left 1s ease-in-out, opacity 0.6s ease-in-out;
 	touch-action: none;
+	background-image: url(i/topb.png);
 
 }
 

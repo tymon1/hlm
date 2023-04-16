@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setTimer, resetTimer } from '../../slice/AppSlice.js'
 
+import { makeMinutes } from '../../app/helpers';
+
+
 
 export function Timer() {
 
@@ -39,7 +42,7 @@ export function Timer() {
 	return (
 			<div className={s.timerOuter}>
 				<span id="timer" className={ resp() }> 
-					{ time }
+					{ makeMinutes(time) }
 				</span>
 			</div>
 	)

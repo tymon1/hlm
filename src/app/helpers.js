@@ -19,6 +19,7 @@ const pallets_colors = ['blue',
 											  'sandyBrown',
 											  'green',
 											  'purple',
+											  'yellow',
 											  'white',
 											  'pink',
 											  'black',
@@ -56,8 +57,8 @@ export const genTruck = (tid, pid) => {
 					 type: type,
 					 cover: true, 
 					 ready: false, 
-					 pallets: drawPallets( pid, randMax(max) )
-					 // pallets: drawPallets( pid, randMax(1) )
+					 // pallets: drawPallets( pid, randMax(max) )
+					 pallets: drawPallets( pid, randMax(1) )
 				 } 
 }
 

@@ -86,8 +86,6 @@ export function TruckPreview( props ) {
 						 dispatch( drag( false ) ) }}
 					 > 
 
-				{ truck.type } 
-
 			</div> 
 	)
 }

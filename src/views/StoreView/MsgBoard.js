@@ -34,10 +34,27 @@ export function MsgBoard() {
 			}
 			let cup = document.getElementById("cup")
 			if (cup !== null) {
-				cup.style.top = "43px"
+				cup.style.top = "-30px"
 			}
 			approachBoard() 
 		}, 100 )
+
+
+		setTimeout( () => { 
+			let watch = document.getElementById("watch")
+			if (watch !== null) {
+				watch.style.opacity = "1"
+			}
+		}, 1100 )
+
+		setTimeout( () => { 
+			let bonz = document.getElementById("bonuz")
+			if (bonz !== null) {
+				bonz.style.opacity = "1"
+			}
+		}, 2200 )
+
+
 	})
 
 
@@ -77,7 +94,6 @@ export function MsgBoard() {
 
 	let levInx = () => { 
 		let retV = bonuses.findIndex(l => l.level === levelNumber)
-		console.log("ratV",retV)
 		return retV
 	}
 
@@ -85,20 +101,29 @@ export function MsgBoard() {
 		<div>
 			{ visible ? 
 				<div id="msg" className={ s.msg }> 
+				<div className={ s.msgWindow }> 
+
+					<div className={ s.iconCntHdr }>
+						{ (msgType === 'gratz') 
+							? <div className={ s.calHdr }>
+									<span className={ s.levNrHdr }>{ levelNumber }</span>
+								</div>
+							: '' }
+
+					</div>
 
 					<div className={ s.iconCnt }>
+
 						<div className={ clipart(msgType) }> 
 
 						{ (msgType === 'gratz') 
-							? <div id="cup" className={ s.stihlCup }>
-									<span className={ s.levNr }>{ levelNumber }</span> 
-								</div>
+							? <div id="cup" className={ s.stihlCup }> </div>
 							: '' }
 
 						</div>
 
 						{ (msgType === 'gratz') 
-							?  <div className={ s.stwatch }>
+							?  <div id="watch" className={ s.stwatch }>
 									 <span className={ s.timeResult }>{ 
 											 makeMinutes( Number(totalTime( waveTimes )) )
 										 }</span>
@@ -106,24 +131,22 @@ export function MsgBoard() {
 							: '' }
 
 						{ (msgType === 'gratz' && levInx() !== -1) 
-							? <div className={ s.bonus }>
+							? <div id="bonuz" className={ s.bonus }>
 									 <span className={ s.bonusResult }>{ 
 											 "x"+bonuses[ levInx() ].count
 										 }</span>
 								</div>
 							: '' }
 
-					</div>
 
 					{ (msgType === 'start') ?  <span>jak grać ?</span> : '' }
 
-						{ (msgType === 'gratz') 
-							? ''
-							: <div className={ s.msgContent }>{ msg }</div>
-						}
+					{ (msgType === 'gratz') ? '' : <div className={ s.msgContent }>{ msg }</div> }
 
+					</div>
 					<div id="fwBtn" onClick={ mvForward }
-								className={ s.msgBtn }>kontynuacja</div>
+							 className={ s.msgBtn }> kontynuacja </div>
+		</div>
 				</div> 
 				: "" 
 			}

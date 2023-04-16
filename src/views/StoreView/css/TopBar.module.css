@@ -1,6 +1,7 @@
 .topbar {
 	display: flex;
 	background: #979797;
-	height: 55px;
+	height: 90px;
 	top:0;
+	padding-top:15px;
 }

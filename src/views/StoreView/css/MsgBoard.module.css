@@ -27,35 +27,66 @@
 	color: #fff;
 	cursor: pointer;
 	display: table;
-	height: 40px;
-	width: 40%;
-	margin: 0 auto;
-	padding: 10px 12px;
-	background: green;
+	margin: 20px auto -15px;
+	padding: 10px 42px;
+	background: #377d37;
 	text-align:center;
-	border-radius:4px;
 }
 
 .msgBtn:hover {
 	filter: brightness(1.6) saturate(1.8);
 }
 
-.iconCnt {
+.iconCntHdr {
 	flex-direction: row;
 	display: flex;
 	margin: 0 auto;
+	/* background: #aaa; */
+	border-radius: 10px 10px 0 0 ;
 }
 
-.levNr {
-	font-size:1.4em;
-	color:#555;
+.levNrHdr {
+	position:absolute;
+	top:33px;
+	width:100%;
+	text-align:center;
 	font-weight:bold;
-	position:relative;
-	top:79px;
-	left:30px;
+	color:#666;
+	font-size:1.2em;
 }
+
+.iconCnt {
+	flex-direction: row;
+	display: flex;
+	margin: 25px auto 10px;
+	background: #515151;
+	border-top: 5px solid grey;
+	border-bottom: 5px solid grey;
+	/* border-radius:10px; */
+	padding: 0 25px;
+}
+
+.msgWindow {
+	background:#515151;
+	display: flex;
+	flex-direction: inherit;
+	padding:50px;
+}
+
+/* .levNr { */
+/* 	font-size:1.4em; */
+/* 	color:#555; */
+/* 	font-weight:bold; */
+/* 	position:relative; */
+/* 	top:79px; */
+/* 	left:25px; */
+/* 	width: 40px; */
+/* 	display: inline-block; */
+/* 	text-align: center; */
+/* } */
 
 .stihl {
+	position:relative;
 	width:180px;
 	height:180px;
 	background-image: url(i/stihl96.png);
@@ -87,7 +118,7 @@
 	background-image: url(i/stihl96cup.png);
 	background-position-y: 6px;
 	background-position-x: 4px;
-	top:66px;
+	top:0px;
 	transition: top 1.6s ease-in-out;
 }
 
@@ -98,7 +129,17 @@
 	margin:20px;
 	background-position-y: 6px;
 	background-position-x: 4px;
+	opacity:0;
+	transition: opacity 1.6s ease-in-out;
 }
+
+/*
+.animate { 
+	transform: scale(1.3);
+	opacity:1;
+	transition: transform, opacity 1.6s ease-in-out;
+}
+*/
 
 .timeResult {
 	font-size:1.3em;
@@ -113,18 +154,29 @@
 	width:180px;
 	height:180px;
 	background-image: url(i/bonus.png);
-	background-position-y: 6px;
+	background-position-y: 4px;
 	background-position-x: 4px;
 	margin:20px;
+	opacity:0;
+	transition: opacity 1.6s ease-in-out;
+}
+
+.calHdr {
+	position:relative;
+	width:80px;
+	height:90px;
+	background-image: url(i/calHdr.png);
+	background-position-y: -35px;
+	background-position-x: -46px;
 }
 
 .bonusResult {
 	font-size:1.4em;
-	/* color:#80833e; */
-	color: #333;
+	color:#b9b9b9;
+	/* color: #333; */
 	font-weight:bold;
 	position:relative;
-	top:58px;
+	top:56px;
 	left:69px;
 }
 
@@ -135,4 +187,116 @@
 	margin:0 auto 30px;
 	background-position-y: 6px;
 	background-position-x: 4px;
+}
+
+
+
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+
+.stihl {
+	position:relative;
+	width:100px;
+	height:100px;
+	background-image: url(i/sprite2mob.png);
+	background-position-y: 2px;
+	background-position-x: -6px;
+	margin:10px 10px 20px 10px;
+}
+
+.stwatch {
+	width:100px;
+	height:100px;
+	background-image: url(i/sprite2mob.png);
+	margin:10px;
+	background-position-y: 6px;
+	background-position-x: 200px;
+	opacity:0;
+	transition: opacity 1.6s ease-in-out;
+}
+
+.timeResult {
+	font-size:0.8em;
+	font-weight:normal;
+	top:42px;
+	left:25px;
+}
+
+.iconCnt {
+	flex-direction: row;
+	display: flex;
+	margin: 15px auto 5px;
+	background: #515151;
+	border-top: 3px solid grey;
+	border-bottom: 3px solid grey;
+	/* border-radius:10px; */
+	padding: 0 15px;
+}
+
+.stihlCup {
+	position:absolute;
+	width:100px;
+	height:100px;
+	background-image: url(i/sprite1mob.png);
+	background-position-y: 6px;
+	background-position-x: -2px;
+	top:0px;
+	transition: top 1.6s ease-in-out;
+}
+
+.bonus {
+	width:100px;
+	height:100px;
+	background-image: url(i/sprite2mob.png);
+	background-position-y: 4px;
+	background-position-x: -212px;
+	margin:10px;
+	opacity:0;
+	transition: opacity 1.6s ease-in-out;
+}
+
+.bonusResult {
+	font-size:0.85em;
+	color:#b9b9b9;
+	position:relative;
+	font-weight:normal;
+	top:31px;
+	left:38px;
+}
+
+.msgWindow {
+	padding:10px;
+}
+
+.calHdr {
+	position:relative;
+	width:40px;
+	height:50px;
+	font-weight:normal;
+	background-image: url(i/sprite1mob.png);
+	background-position-y: -22px;
+	background-position-x: 68px;
+}
+
+.levNrHdr {
+	top:13px;
+	width:100%;
+	font-weight:normal;
+	color:#666;
+	font-size:0.9em;
+}
+
+.msgBtn {
+	margin: 20px auto 15px;
+	font-size:0.9em;
+}
+
+.iconCntHdr {
+	margin: 10px auto 0;
+}
+
+.msg {
+	padding: 4% 20%;
+}
+
 }

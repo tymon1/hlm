@@ -1,6 +1,7 @@
 import s from './css/ResultsBar.module.css';
 import { useSelector } from 'react-redux';
 
+import { makeMinutes } from '../../app/helpers';
 import { Timer } from './Timer';
 
 
@@ -47,13 +48,17 @@ export function ResultsBar() {
 
 			{
 				results.map( (sec, index) => {
-					return <span key={index} className={s.res}>{sec} s.</span>
+					return <span key={index} className={s.res}>{ makeMinutes(sec) }</span>
 				} )
 			}
 
 			{ voids }
 
-			<div className={s.calendar}>Dzień: { level.current }</div>
+			<div className={s.calendar}>
+				<span className={s.calendarInner}>
+					{ level.current }
+				</span>
+			</div>
 
 		</div>
 	)
