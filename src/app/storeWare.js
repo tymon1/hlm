@@ -3,9 +3,12 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 addQueueTruck, 
 				 setMess, 
 				 resetZones, 
+				 parkTruck, 
 				 setSorting, 
 				 setTruckCounter, setPalletsCounter,
 				 selectPallette,
+				 unSelectPal,
+				 setNewTarget,
 				 truckOnDockReady, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
@@ -16,6 +19,7 @@ import { saveTimer, setStamp,
 	       preparingLevel,
 	       popTimeSum,
 				 showMsg,
+				 loadTruck,
 				 setBonusCounter,
 				 setColorZone, colorZonesReset,
 	       runLevel } from '../slice/AppSlice';
@@ -24,6 +28,7 @@ import { genTruck,
 				 unloadingDone, 
 				 loadingDone, 
 				 drawUnloaded, 
+				 drawUnloadedArray, 
 				 totalTime, 
 				 makeMinutes, 
 				 drawZones, 
@@ -62,6 +67,7 @@ export const storeWare = (state) => (next) => (action) => {
 				// count bonus truck pallettes:
 				if (action.payload.pallet.selected) {
 					state.dispatch( setBonusCounter( { level: level.current } ) ) 
+					state.dispatch( unSelectPal() )
 				}
 			}
 			break
@@ -93,22 +99,61 @@ export const storeWare = (state) => (next) => (action) => {
 
 				// if regular trucks unloaded - unpark it
 				if ( docks[i].truck.id && 
-				     // docks[i].truck.type !== 'bonus' && 
-						 (docks[i].truck.type !== 'bonus' && docks[i].truck.ready === false) &&
-						 (docks[i].truck.type !== 'bonus' && docks[i].truck.pallets.length === 0) && 
-						 ramps[i].pallets.length === 0 ) {
+					 (docks[i].truck.type !== 'bonus' && docks[i].truck.ready === false) &&
+					 (docks[i].truck.type !== 'bonus' && docks[i].truck.pallets.length === 0) && 
+					 (docks[i].truck.type !== 'full' && docks[i].truck.ready === false) &&
+					 (docks[i].truck.type !== 'full' && docks[i].truck.pallets.length === 0) && 
+					 ramps[i].pallets.length === 0 ) {
 
 					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
+				}
+
+				// if full truck loaded ..
+				if ( docks[i].truck.id && 
+						 docks[i].truck.type === 'full'
+						 && docks[i].truck.pallets.length > 0
+						 && docks[i].truck.pallets[docks[i].truck.pallets.length -1].id === 
+						 docks[i].truck.target[docks[i].truck.pallets.length -1].pal_id
+					 ) {
+					// is it the last target?
+					if (docks[i].truck.pallets.length === docks[i].truck.target.length) {
+						console.log("FULL TRUCK LOADED !!")
+						state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
+						// state.dispatch( loadTruck(false) )
+					}
+					// mark next target pallette
+					else {
+						let nextTarget = {
+							zone_index: docks[i].truck.target[docks[i].truck.pallets.length].zone_index,
+							pal_id: docks[i].truck.target[docks[i].truck.pallets.length].pal_id,
+						}
+						if (nextTarget.pal_id === state.getState().store.bonus_target_pallette.pid) {
+							console.log("nutting")
+						}
+						else {
+							state.dispatch( selectPallette(nextTarget) )
+						}
+					}
+					console.log("checkTruck-full")
 				}
 
 				// if bonus truck loaded - unpark it
 				// instead of pallets[0] we need also array comparing logarithm
 				if ( docks[i].truck.id && 
 						 docks[i].truck.type === 'bonus' && 
-						 docks[i].truck.pallets.length > 0 && 
-						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
+						 docks[i].truck.pallets[0].id === 
+						 docks[i].truck.target.pal_id
 					 ) {
-					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
+						 // docks[i].truck.pallets[docks[i].truck.pallets.length -1].id === 
+					// console.log("dan")
+
+					let target = drawUnloaded( state.getState().store.zones )
+					state.dispatch( selectPallette(target) )
+					state.dispatch( setNewTarget({ target: target }) )
+
+					// one of the former condition:
+						 // docks[i].truck.pallets.length === docks[i].truck.target.length
+					// state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 				}
 			}
 
@@ -172,7 +217,33 @@ export const storeWare = (state) => (next) => (action) => {
 
 
 		case 'app/hideMsg':
-			if ( state.getState().app.level.preparing === true ) {
+			// przygotowanie załadunku linii 
+			if ( state.getState().app.level.preparing &&
+					 state.getState().app.level.loadTruck ) {
+
+				state.dispatch( resetTimeResults() )
+					//
+
+				// how to forge target array.. 
+				let target = drawUnloadedArray( state.getState().store.zones )
+
+				// for full select 1st pallette
+				state.dispatch( selectPallette(target[0]) )
+
+				let fullTruck = genTruck( state.getState().store.counter.truckId, 1, target )
+
+				state.dispatch( parkTruck({ index: 1, truck: fullTruck }) )
+
+				console.log("dont prepare level, cause truckLd incoming!!",)
+				// dispatch those after successfull load
+				// state.dispatch( loadTruck(false) )
+				// state.dispatch( increaseLevel() )
+			}
+
+			// przygotowanie zwykłego levelu
+			if ( state.getState().app.level.preparing &&
+					 !state.getState().app.level.loadTruck ) {
+
 				// podbijanie levelu.. 
 				state.dispatch( preparingLevel(false) )
 				state.dispatch( setSorting(false) )
@@ -200,7 +271,11 @@ export const storeWare = (state) => (next) => (action) => {
 		//
 		case 'app/runLevel':
 
-			if ( action.payload === true ) {
+			if ( action.payload === true && state.getState().app.level.loadTruck) {
+				console.log("runLev tru loadtruck tru")
+			}
+
+			if ( action.payload === true && !state.getState().app.level.loadTruck) {
 
 				let current = levels[ level.current ]
 				//
@@ -224,9 +299,9 @@ export const storeWare = (state) => (next) => (action) => {
 						//
 						let currTruckId = state.getState().store.counter.truckId
 						let currPalId = state.getState().store.counter.palletId
-						// generate random truck
+						// generate random regular truck
 						//
-						let truck = genTruck( currTruckId, currPalId )
+						let truck = genTruck( currTruckId, currPalId, null )
 						state.dispatch( addQueueTruck({ truck: truck }) )
 						// alter current pallet id counter
 						//
@@ -243,6 +318,9 @@ export const storeWare = (state) => (next) => (action) => {
 					    let bonusTarget = drawUnloaded( zones )
 							let cTruckId = state.getState().store.counter.truckId
 
+							// use 
+							// genTruck()
+							
 							let bonus_truck = {
 								id: cTruckId, 
 								type: 'bonus',
@@ -286,6 +364,6 @@ export const storeWare = (state) => (next) => (action) => {
 	}
 
 	// 4 hard debug purpose:
-	// console.log("next",action)
+	// console.log(action)
 	next(action)
 }

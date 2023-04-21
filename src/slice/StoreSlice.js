@@ -9,7 +9,7 @@ export const storeSlice = createSlice({
 
   initialState: {
 
-		counter: { palletId: 1, truckId: 1 }, 
+		counter: { palletId: 2, truckId: 1 }, 
 
 		// location types: truck, ramp, zone
 		bonus_target_pallette: { location: '', zone_no: 100, pid: 0 },
@@ -56,6 +56,10 @@ export const storeSlice = createSlice({
 
     addQueueTruck: (state, payload) => {
 			state.queue.push( payload.payload.truck )
+		},
+
+		setNewTarget: (state, payload) => {
+			state.docks[1].truck.target = payload.payload.target
 		},
 
 		setTruckCounter: state => {
@@ -105,10 +109,22 @@ export const storeSlice = createSlice({
 						state.zones[bonus.zone_no].pallets[palInx].selected = false
 						break
 					case 'ramp':
-						palInx = state.ramps[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
-						state.ramps[bonus.zone_no].pallets[palInx].selected = false
+						// max Ugly full truck iz docked
+						if (state.docks[1].truck && state.docks[1].truck.type === "full") {
+							state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
+						}
+						// unselect pal in zone
+						else {
+							palInx = state.ramps[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
+							state.ramps[bonus.zone_no].pallets[palInx].selected = false
+						}
 						break
 					case 'truck':
+						// currently deselects full trucks only 
+						// if (state.docks[1].truck.type === "full") {
+							// console.log("full pal",state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)])
+							// state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
+						// }
 						// palInx = state.docks[bonus.zone_no].truck.pallets.findIndex( inx => inx.id === bonus.pid )
 						// state.docks[bonus.zone_no].truck.pallets[palInx].selected = false
 						break
@@ -121,6 +137,7 @@ export const storeSlice = createSlice({
 
 		selectPallette: (state, payload) => {
       let pInx = state.zones[payload.payload.zone_index].pallets.findIndex( inx => inx.id === payload.payload.pal_id )
+				console.log("pInx",pInx,"payload", payload.payload)
 			state.zones[payload.payload.zone_index].pallets[pInx].selected = true
       // save target destination
 			state.bonus_target_pallette = { 
@@ -129,13 +146,14 @@ export const storeSlice = createSlice({
 				pid: payload.payload.pal_id }
 		},
 
-//////////////////////////////////
+		//////////////////////////////////
     //
 		// helper, used to mark moving 
 		// of selected pallette
 		//
 		addPal: (state, payload) => {
 			if (payload.payload.pallet.selected) {
+				console.log("mark bonus palette location",payload.payload)
 				state.bonus_target_pallette.location = payload.payload.name
 				state.bonus_target_pallette.zone_no = payload.payload.index
 				state.bonus_target_pallette.pid = payload.payload.pallet.id
@@ -215,6 +233,7 @@ export const { addQueueTruck, remQueueTruck,
 							 setSorting,
 							 resetZones,
 							 selectPallette,
+							 setNewTarget,
 							 unSelectPal,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,

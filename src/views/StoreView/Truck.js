@@ -38,19 +38,19 @@ export function Truck({ truck }) {
 	// moving to / from ramp
 	useEffect(() => {
 		// regular trucks go offramp if empty
-		if (truck.type !== 'bonus' && truck.ready === true) {
+		if (truck.ready === true) {
 			setTimeout( () => { 
 				dispatch( unparkTruck({id: truck.id}) ) 
 			}, 1500 )
 			return offRamp()
 		}
-		if (truck.type === 'bonus' && truck.ready === true) {
-			//dispatch( unSelectPal() ) 
-			setTimeout( () => { 
-				dispatch( unparkTruck({id: truck.id}) ) 
-			}, 1500 )
-			return offRamp()
-		}
+		//if (truck.type === 'bonus' && truck.ready === true) {
+		//	//dispatch( unSelectPal() ) 
+		//	setTimeout( () => { 
+		//		dispatch( unparkTruck({id: truck.id}) ) 
+		//	}, 1500 )
+		//	return offRamp()
+		//}
 		// toRamp()
 		// when resolution change ..
 		//
@@ -72,7 +72,9 @@ export function Truck({ truck }) {
 	const offRamp = () => {
 		let truckEl = document.getElementById("truck-"+id)
 		// truck.classList.remove(styles.approaching)
-		truckEl.style.marginLeft = "-" + cssCabin + "px"
+		if (truckEl !== null) {
+			truckEl.style.marginLeft = "-" + cssCabin + "px"
+		}
 	}
 
 	const offCover = () => {
@@ -87,6 +89,8 @@ export function Truck({ truck }) {
 
 	let resp = () => { 
 		switch(truck.type) {
+			case 'full':
+				return s.truck_xl
 			case 'bonus':
 				return s.truck_s
 			case 's':
@@ -101,6 +105,8 @@ export function Truck({ truck }) {
 
 	let resp_cover = () => { 
 		switch(truck.type) {
+			case 'full':
+				return s.tcover_xl
 			case 'bonus':
 				return s.tcover_bonus
 			case 's':
@@ -114,14 +120,18 @@ export function Truck({ truck }) {
 	}}
 
 
+	//  (picked.id === truck.target[ truck.pallets.length ].pal_id) && 
+
 	return (
 		<div id={"truck-" + truck.id } 
 				 className={ resp() }>
 
-			{ truck.type === 'bonus' && 
-				dragging && 
+			{ (truck.type === 'bonus' && dragging && 
 				(picked.id === truck.target.pal_id) && 
-				(source.name === "ramp") ? 
+				(source.name === "ramp")) || 
+			  ((truck.type === 'full' && dragging && 
+				picked.id === truck.target[truck.pallets.length].pal_id) && 
+				(source.name === "ramp")) ? 
 				<DropContainer elementId = { elementId } /> : '' }
 
 			<div id={"tcover-" + truck.id } 

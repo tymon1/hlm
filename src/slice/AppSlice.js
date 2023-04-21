@@ -14,6 +14,7 @@ export const appSlice = createSlice({
 		stamp: 0,
 		timer: 0,
 		level_times: [],
+		level_start_pal_count: [],
 		level_bonuses: [],
 		wave_times: [],
 
@@ -25,7 +26,7 @@ export const appSlice = createSlice({
 			loadTruck: false,
 			preparing: false,
 			run: false,
-			current: 4,
+			current: 5,
 			          // { index, color }
 			color_zone: [],
 			wave: 0 
@@ -36,7 +37,7 @@ export const appSlice = createSlice({
 						  { waves:1, truckMax:3, color_zones: { colorize:true, count:4 } },
 						  { waves:3, truckMax:2, color_zones: { colorize:false } },
 						  { waves:1, truckMax:1, color_zones: { colorize:true, count:3 } },
-						  { waves:1, truckMax:1, color_zones: { colorize:true, count:3 } },
+						  { waves:1, truckMax:2, color_zones: { colorize:true, count:3 } },
 						  { waves:3, truckMax:4, color_zones: { colorize:false } },
 						  { waves:3, truckMax:5, color_zones: { colorize:true, count:2 } },
 						  { waves:3, truckMax:5, color_zones: { colorize:true, count:4 } },
@@ -81,7 +82,9 @@ export const appSlice = createSlice({
 		},
 
     saveTimer: (state, payload) => {
-			state.wave_times.push( payload.payload )
+				state.wave_times.push( payload.payload )
+			// if (payload.payload !== 0) {
+			// }
 		},
 
     runLevel: (state, payload) => {

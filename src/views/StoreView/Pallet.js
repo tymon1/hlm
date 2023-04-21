@@ -51,7 +51,6 @@ export function Pallet({ pallet }) {
 					 dispatch( drag( false ) )
 				 }}
 
-				 //onDrop = { console.log("check empties") }
 				 >
 
 		</div>

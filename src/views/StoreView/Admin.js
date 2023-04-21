@@ -28,7 +28,9 @@ export function Admin({ ramp }) {
 	// }, [])
 
 	let hide = () => {
-		dispatch( hideMsg() )
+	}
+
+	let show = () => {
 	}
 
 	let stCheck = () => {
@@ -40,8 +42,8 @@ export function Admin({ ramp }) {
 		<div className={s.admin}>
 			<div className={s.btn} onClick={ dump }>Dump Store</div>
 			<div className={s.btn} onClick={ dump_app }>Dump App</div>
-			<div className={s.btnB} onClick={ hide }>nuttn</div>
-			<div className={s.btnS} onClick={ hide }>Hide msg</div>
+			<div className={s.btnB} onClick={ hide() }>undrag</div>
+			<div className={s.btnS} onClick={ show() }>drag</div>
 			<div className={s.btnG} onClick={ stCheck }>Check Store</div>
 		</div>
 	)

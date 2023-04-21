@@ -41,6 +41,7 @@
 	height: 20px;
 	padding: 2px 10px;
 	transition: margin-left 1s ease-in-out, opacity 0.5s ease-in-out;
+	border-bottom: 4px solid #a8b7c2;
 }
 
 .calendar {

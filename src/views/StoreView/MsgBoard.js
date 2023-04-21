@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 import {
 				 hideMsg,
+				 loadTruck,
 	     } from '../../slice/AppSlice';
 
 import {
@@ -17,10 +18,12 @@ import {
 export function MsgBoard() {
 
 	const msg = useSelector(state => state.app.msg.text)
+	const trLoading = useSelector(state => state.app.level.loadTruck)
 	const msgType = useSelector(state => state.app.msg.type)
 	const visible = useSelector(state => state.app.msg.visible)
 	const levelNumber = useSelector(state => state.app.level.current)
-	const waveTimes = useSelector(state => state.app.wave_times)
+	// const waveTimes = useSelector(state => state.app.wave_times)
+	const levelTimes = useSelector(state => state.app.level_times)
 	const bonuses = useSelector(state => state.app.level_bonuses)
 	const dispatch = useDispatch()
 
@@ -67,6 +70,13 @@ export function MsgBoard() {
 	}
 
 	let mvForward = () => {
+		// kolejnosc ma znaczenie :(( 
+		dispatch( loadTruck(false) )
+		dispatch( hideMsg(true) )
+	}
+
+	let mvLoadTruck = () => {
+		dispatch( loadTruck(true) )
 		dispatch( hideMsg(true) )
 	}
 
@@ -125,7 +135,7 @@ export function MsgBoard() {
 						{ (msgType === 'gratz') 
 							?  <div id="watch" className={ s.stwatch }>
 									 <span className={ s.timeResult }>{ 
-											 makeMinutes( Number(totalTime( waveTimes )) )
+											 makeMinutes( Number( levelTimes[levelTimes.length -1] ) )
 										 }</span>
 								 </div> 
 							: '' }
@@ -144,8 +154,15 @@ export function MsgBoard() {
 					{ (msgType === 'gratz') ? '' : <div className={ s.msgContent }>{ msg }</div> }
 
 					</div>
-					<div id="fwBtn" onClick={ mvForward }
-							 className={ s.msgBtn }> kontynuacja </div>
+
+					{ (levelNumber%5 === 0 && msgType === 'gratz' && !trLoading) 
+
+						? <div id="fwBtn" onClick={ mvLoadTruck } 
+						   className={ s.msgBtn }> załaduj fracht </div> 
+
+						: <div id="fwBtn" onClick={ mvForward }
+							 className={ s.msgBtn }> kontynuacja </div> }
+
 		</div>
 				</div> 
 				: "" 

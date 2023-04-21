@@ -30,14 +30,25 @@ const pallets_colors = ['blue',
 //////////////////////////////////
 // 
 //  tid - truck id
-//  pid - pallette start number id
+//  pid - pallette start number id,
+//        pass 0 to make bonus truck
+//        pass 1 to make full truck
+//  target - gotta pass target pal...
+//           pass regular truck gets 
+//           null
 //
 
-export const genTruck = (tid, pid) => {
+export const genTruck = (tid, pid, target) => {
 
-	let type = drawTruckType()
+	let retType = pid => {
+		if ( pid === 0 ) { return 'bonus' }
+		if ( pid === 1 ) { return 'full' }
+		else { return drawTruckType() }
+	}
+
+	let type = retType(pid)
 	let max
-	// 3 5 8
+
 	switch (type) {
 		case 's':
 			max = 3
@@ -46,7 +57,7 @@ export const genTruck = (tid, pid) => {
 			max = 6
 			break
 		case 'xl':
-			max = 12
+			max = 10
 			break
 		default:
 			max = 1
@@ -56,14 +67,12 @@ export const genTruck = (tid, pid) => {
 					 id: tid, 
 					 type: type,
 					 cover: true, 
+					 target: target,
 					 ready: false, 
 					 // pallets: drawPallets( pid, randMax(max) )
-					 pallets: drawPallets( pid, randMax(1) )
+					 pallets: drawPallets( pid, randMax(6) )
 				 } 
 }
-
-
-//////////////////////////////////
 
 
 export const drawTruckType = () => {
@@ -79,6 +88,7 @@ let randMax = max => {
 }
 
 
+// pick random available pallette color
 let drawPalletType = () => {
 	const random = Math.floor(Math.random() * pallets_colors.length)
 	return pallets_colors[random]
@@ -89,21 +99,28 @@ let drawPalletType = () => {
 //////////////////////////////
 //
 //   idf_ - pallet start id 
+//          pass 0 or 1 to return 
+//          empty array
 //   len_ - amount of pallettes
+//   
 //
 
 let drawPallets = (idf_, len_) => {
 
 	let retArr = []
 
-  for ( let i = 0; i < len_; i++ ) {
-		let type = drawPalletType()
-		let id = idf_ + i
+	// warunek stworzony zeby byla mozliwosc
+	// zwrocenia pustej tablicy
+	if (idf_ > 1 ) {
+		for ( let i = 0; i < len_; i++ ) {
+			let colorType = drawPalletType()
+			let id = idf_ + i
 
-		// pallette object:
-		//
-		let palElem = { id: "p" + id, c: type, selected: false }
-		retArr.push(palElem)
+			// pallette object:
+			//
+			let palElem = { id: "p" + id, c: colorType, selected: false }
+			retArr.push(palElem)
+		}
 	}
 
 	return retArr
@@ -130,11 +147,46 @@ export const drawUnloaded = zones => {
 }
 
 
+
+//////////////////////////////
+//
+//   forge an array from unloaded 
+//   pallettes, based on zones
+//   
+//   currently it returns pallets
+//   from 2 most populated zones
+//
+
+export const drawUnloadedArray = zones => {
+
+	let rndPalArr = []
+
+	let filZone = zones.filter( zone => zone.pallets.length > 0 )
+	let zonesDesc = filZone.sort( (a,b) => { return b.pallets.length - a.pallets.length } )
+	console.log("zonesDesc",zonesDesc)
+
+	for (let i = 0; i <= 1; i++) {
+		if (zonesDesc[i].pallets.length >= 1) {
+		  for (let j=0; j<zonesDesc[i].pallets.length; j++) {
+				console.log("zone",i,"pallet",zonesDesc[i].pallets[j])
+				rndPalArr.push({
+					zone_index: zonesDesc[i].no, 
+					pal_id: zonesDesc[i].pallets[j].id 
+				})
+			}
+		}
+	}
+	return rndPalArr
+}
+
+
+
 //////////////////////////////
 //
 //   par.d - docks
 //   par.r - ramps
 //   sa pelne ciezarowki kurierow lub palety na rampach ?
+//   unloaded truck or pallets on ramps present ?
 //
 
 export const unloadingDone = par => {
@@ -194,6 +246,7 @@ export const storeMess = zones => {
 	})
 	return retVal.includes(false)
 }
+
 
 
 //////////////////////////////
