@@ -10,7 +10,7 @@ import {
 
 import {
 				 makeMinutes,
-				 totalTime,
+				 // totalTime,
 	     } from '../../app/helpers';
 
 
@@ -109,61 +109,66 @@ export function MsgBoard() {
   return (
 		<div>
 			{ visible ? 
+
 				<div id="msg" className={ s.msg }> 
 				<div className={ s.msgWindow }> 
 
 					<div className={ s.iconCntHdr }>
-						{ (msgType === 'gratz') 
-							? <div className={ s.calHdr }>
+						{ (msgType === 'gratz') ? 
+							  <div className={ s.calHdr }>
 									<span className={ s.levNrHdr }>{ levelNumber }</span>
 								</div>
 							: '' }
-
 					</div>
 
 					<div className={ s.iconCnt }>
 
 						<div className={ clipart(msgType) }> 
-
-						{ (msgType === 'gratz') 
-							? <div id="cup" className={ s.stihlCup }> </div>
-							: '' }
-
+							{ (msgType === 'gratz') ? 
+								<div id="cup" className={ s.stihlCup }> </div>
+								: '' }
 						</div>
 
-						{ (msgType === 'gratz' && !trLoading) 
-							?  <div id="watch" className={ s.stwatch }>
-									 <span className={ s.timeResult }>{ 
-											 makeMinutes( Number( levelTimes[levelTimes.length -1] ) )
-										 }</span>
-								 </div> 
+						{ (msgType === 'gratz' && !trLoading) ?  
+							  <div id="watch" className={ s.stwatch }>
+									<span className={ s.timeResult }>
+									  { makeMinutes( Number( levelTimes[levelTimes.length -1] ) ) }
+							    </span>
+								</div> 
 							: '' }
 
-						{ (msgType === 'gratz' && levInx() !== -1) 
-							? <div id="bonuz" className={ s.bonus }>
-									 <span className={ s.bonusResult }>{ 
-											 "x"+bonuses[ levInx() ].count
-										 }</span>
+						{ (msgType === 'gratz' && levInx() !== -1) ? 
+							  <div id="bonuz" className={ s.bonus }>
+									 <span className={ s.bonusResult }>
+									 	 { "x"+bonuses[ levInx() ].count } 
+								   </span>
 								</div>
 							: '' }
 
 
-					{ (msgType === 'start') ?  <span>jak grać ?</span> : '' }
+						<div className={ s.msgCnt }>
 
-					{ (msgType === 'gratz') ? '' : <div className={ s.msgContent }>{ msg }</div> }
+							{ (msgType === 'start') ?  <span className={ s.msgContent } >Jak grać ?</span> : '' }
+
+							{ (msgType === 'gratz') ? '' : <div className={ s.msgContent }>{ msg }</div> }
+
+						</div>
 
 					</div>
+
 
 					{ (levelNumber %3 === 0 && msgType === 'gratz' && !trLoading) 
 
 						? <div id="fwBtn" onClick={ mvLoadTruck } 
-						   className={ s.msgBtn }> załaduj fracht </div> 
+							 className={ s.msgBtn }> załaduj fracht </div> 
 
 						: <div id="fwBtn" onClick={ mvForward }
 							 className={ s.msgBtn }> kontynuacja </div> }
 
-		</div>
+
+				</div>
 				</div> 
+
 				: "" 
 			}
 		</div>

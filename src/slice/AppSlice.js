@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { storeSlice } from './StoreSlice.js';
 
 
 
@@ -14,7 +13,8 @@ export const appSlice = createSlice({
 		stamp: 0,
 		timer: 0,
 		level_times: [],
-		level_start_pal_count: [],
+		// initial value is 2: store.counter.palletId
+		level_start_pal_count: [2],
 		level_bonuses: [],
 		wave_times: [],
 
@@ -32,32 +32,46 @@ export const appSlice = createSlice({
 			wave: 0 
 		},
 
-		levels: [ { waves:1, truckMax:1, color_zones: { colorize:false } }, 
-						  { waves:2, truckMax:2, color_zones: { colorize:true, count:2 } },
-						  { waves:1, truckMax:3, color_zones: { colorize:true, count:4 } },
-						  { waves:3, truckMax:2, color_zones: { colorize:false } },
-						  { waves:1, truckMax:1, color_zones: { colorize:true, count:3 } },
-						  { waves:1, truckMax:2, color_zones: { colorize:true, count:3 } },
-						  { waves:3, truckMax:4, color_zones: { colorize:false } },
-						  { waves:3, truckMax:5, color_zones: { colorize:true, count:2 } },
-						  { waves:3, truckMax:5, color_zones: { colorize:true, count:4 } },
-						  { waves:4, truckMax:4, color_zones: { colorize:false } },
-						  { waves:4, truckMax:5, color_zones: { colorize:true, count:5 } },
-						  { waves:4, truckMax:6, color_zones: { colorize:true, count:3 } },
-						  { waves:4, truckMax:5, color_zones: { colorize:true, count:2 } },
-						  { waves:4, truckMax:6, color_zones: { colorize:true, count:3 } },
-						  { waves:4, truckMax:4, color_zones: { colorize:true, count:3 } },
-						  { waves:4, truckMax:6, color_zones: { colorize:false } },
-						  { waves:5, truckMax:4, color_zones: { colorize:true, count:5 } },
-						  { waves:5, truckMax:7, color_zones: { colorize:true, count:2 } },
-						  { waves:6, truckMax:6, color_zones: { colorize:true, count:4 } },
-						  { waves:6, truckMax:7, color_zones: { colorize:false } },
+		levels: [ { waves:0, truckMax:0, color_zones: { colorize:false } }, 
+						  { waves:1, truckMax:1, color_zones: { colorize:true, count:2 } },
+						  { waves:1, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { waves:2, truckMax:2, color_zones: { colorize:false } },
+						  { waves:2, truckMax:1, color_zones: { colorize:true, count:3 } },
+						  { waves:1, truckMax:3, color_zones: { colorize:true, count:3 } },
+						  { waves:1, truckMax:4, color_zones: { colorize:false } },
+						  { waves:2, truckMax:3, color_zones: { colorize:true, count:2 } },
+						  { waves:3, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { waves:2, truckMax:4, color_zones: { colorize:false } },
+						  { waves:1, truckMax:5, color_zones: { colorize:true, count:5 } },
+						  { waves:2, truckMax:5, color_zones: { colorize:true, count:3 } },
+						  { waves:4, truckMax:2, color_zones: { colorize:true, count:2 } },
+						  { waves:3, truckMax:4, color_zones: { colorize:true, count:3 } },
+						  { waves:3, truckMax:5, color_zones: { colorize:true, count:3 } },
+						  { waves:2, truckMax:6, color_zones: { colorize:false } },
+						  { waves:5, truckMax:3, color_zones: { colorize:true, count:5 } },
+						  { waves:3, truckMax:6, color_zones: { colorize:true, count:2 } },
+						  { waves:4, truckMax:5, color_zones: { colorize:true, count:6 } },
+						  { waves:2, truckMax:8, color_zones: { colorize:true, count:4 } },
+						  { waves:3, truckMax:5, color_zones: { colorize:true, count:6 } },
+						  { waves:6, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { waves:5, truckMax:2, color_zones: { colorize:false } },
+						  { waves:6, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { waves:5, truckMax:3, color_zones: { colorize:true, count:6 } },
+						  { waves:2, truckMax:8, color_zones: { colorize:true, count:4 } },
+						  { waves:2, truckMax:8, color_zones: { colorize:false } },
+						  { waves:2, truckMax:8, color_zones: { colorize:true, count:6 } },
+						  { waves:2, truckMax:8, color_zones: { colorize:true, count:5 } },
+						  { waves:2, truckMax:8, color_zones: { colorize:true, count:3 } },
 						  { waves:7, truckMax:5, color_zones: { colorize:false } } ],
 
 	},
 
 
   reducers: {
+
+		markLevelPalCount: (state, payload) => {
+			state.level_start_pal_count.push( payload.payload )
+		},
 
 		colorZonesReset: state => {
 			state.level.color_zone = []
@@ -82,9 +96,7 @@ export const appSlice = createSlice({
 		},
 
     saveTimer: (state, payload) => {
-				state.wave_times.push( payload.payload )
-			// if (payload.payload !== 0) {
-			// }
+			state.wave_times.push( payload.payload )
 		},
 
     runLevel: (state, payload) => {
@@ -180,6 +192,7 @@ export const { runLevel, increaseWave, resetWave,
 							 popTimeSum,
 							 loadTruck,
 							 setBonusCounter,
+							 markLevelPalCount,
 							 setColorZone, colorZonesReset,
 						 } = appSlice.actions;
 

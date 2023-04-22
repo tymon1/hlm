@@ -69,8 +69,8 @@ export const genTruck = (tid, pid, target) => {
 					 cover: true, 
 					 target: target,
 					 ready: false, 
-					 // pallets: drawPallets( pid, randMax(max) )
-					 pallets: drawPallets( pid, randMax(6) )
+					 pallets: drawPallets( pid, randMax(max) )
+					 // pallets: drawPallets( pid, randMax(6) )
 				 } 
 }
 
@@ -163,12 +163,10 @@ export const drawUnloadedArray = zones => {
 
 	let filZone = zones.filter( zone => zone.pallets.length > 0 )
 	let zonesDesc = filZone.sort( (a,b) => { return b.pallets.length - a.pallets.length } )
-	console.log("zonesDesc",zonesDesc)
 
 	for (let i = 0; i <= 1; i++) {
 		if (zonesDesc[i].pallets.length >= 1) {
 		  for (let j=0; j<zonesDesc[i].pallets.length; j++) {
-				console.log("zone",i,"pallet",zonesDesc[i].pallets[j])
 				rndPalArr.push({
 					zone_index: zonesDesc[i].no, 
 					pal_id: zonesDesc[i].pallets[j].id 

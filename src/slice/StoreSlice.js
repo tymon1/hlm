@@ -58,10 +58,6 @@ export const storeSlice = createSlice({
 			state.queue.push( payload.payload.truck )
 		},
 
-		setNewTarget: (state, payload) => {
-			state.docks[1].truck.target = payload.payload.target
-		},
-
 		setTruckCounter: state => {
 			state.counter.truckId++ 
 		},
@@ -129,12 +125,7 @@ export const storeSlice = createSlice({
 						break
 					case 'truck':
 						// currently deselects full trucks only 
-						// if (state.docks[1].truck.type === "full") {
-							// console.log("full pal",state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)])
-							// state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
-						// }
-						// palInx = state.docks[bonus.zone_no].truck.pallets.findIndex( inx => inx.id === bonus.pid )
-						// state.docks[bonus.zone_no].truck.pallets[palInx].selected = false
+						// not available
 						break
 					default:
 						break
@@ -145,13 +136,27 @@ export const storeSlice = createSlice({
 
 		selectPallette: (state, payload) => {
       let pInx = state.zones[payload.payload.zone_index].pallets.findIndex( inx => inx.id === payload.payload.pal_id )
-				console.log("pInx",pInx,"payload", payload.payload)
-			state.zones[payload.payload.zone_index].pallets[pInx].selected = true
-      // save target destination
-			state.bonus_target_pallette = { 
-				location: 'zone',
-				zone_no: payload.payload.zone_index, 
-				pid: payload.payload.pal_id }
+			if (pInx !== -1) {
+				state.zones[payload.payload.zone_index].pallets[pInx].selected = true
+				// save target destination
+				state.bonus_target_pallette = { 
+					location: 'zone',
+					zone_no: payload.payload.zone_index, 
+					pid: payload.payload.pal_id 
+				}
+			}
+			// iteration over all pallettes standing on ramps :(
+			else {
+				for (let z=0; z<3; z++) {
+					if (state.ramps[z].pallets.length > 0) {
+						for (let p=0; p<state.ramps[z].pallets.length; p++) {
+							if (state.ramps[z].pallets[p].id === payload.payload.pal_id) {
+								state.ramps[z].pallets[p].selected = true
+							}
+						}
+					}
+				}
+			}
 		},
 
 		//////////////////////////////////
@@ -161,7 +166,6 @@ export const storeSlice = createSlice({
 		//
 		addPal: (state, payload) => {
 			if (payload.payload.pallet.selected) {
-				console.log("mark bonus palette location",payload.payload)
 				state.bonus_target_pallette.location = payload.payload.name
 				state.bonus_target_pallette.zone_no = payload.payload.index
 				state.bonus_target_pallette.pid = payload.payload.pallet.id
@@ -241,7 +245,7 @@ export const { addQueueTruck, remQueueTruck,
 							 setSorting,
 							 resetZones,
 							 selectPallette,
-							 setNewTarget,
+							 // setNewTarget,
 							 unSelectPal,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,

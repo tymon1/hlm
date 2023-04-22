@@ -8,7 +8,7 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 setTruckCounter, setPalletsCounter,
 				 selectPallette,
 				 unSelectPal,
-				 setNewTarget,
+				 // setNewTarget,
 				 truckOnDockReady, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
@@ -19,7 +19,8 @@ import { saveTimer, setStamp,
 	       preparingLevel,
 	       popTimeSum,
 				 showMsg,
-				 loadTruck,
+				 markLevelPalCount,
+				 // loadTruck,
 				 setBonusCounter,
 				 setColorZone, colorZonesReset,
 	       runLevel } from '../slice/AppSlice';
@@ -46,6 +47,7 @@ export const storeWare = (state) => (next) => (action) => {
 	let docks = state.getState().store.docks
 	let ramps = state.getState().store.ramps
 	let zones = state.getState().store.zones
+	let palCnt = state.getState().store.counter.palletId
 	let stamp = state.getState().app.stamp
 	let timer = state.getState().app.timer
 	
@@ -117,7 +119,6 @@ export const storeWare = (state) => (next) => (action) => {
 					 ) {
 					// is it the last target?
 					if (docks[i].truck.pallets.length === docks[i].truck.target.length) {
-						console.log("FULL TRUCK LOADED !!")
 						state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 						// state.dispatch( loadTruck(false) )
 					}
@@ -127,14 +128,11 @@ export const storeWare = (state) => (next) => (action) => {
 							zone_index: docks[i].truck.target[docks[i].truck.pallets.length].zone_index,
 							pal_id: docks[i].truck.target[docks[i].truck.pallets.length].pal_id,
 						}
-						if (nextTarget.pal_id === state.getState().store.bonus_target_pallette.pid) {
-							console.log("nutting")
-						}
+						if (nextTarget.pal_id === state.getState().store.bonus_target_pallette.pid) { }
 						else {
 							state.dispatch( selectPallette(nextTarget) )
 						}
 					}
-					console.log("checkTruck-full")
 				}
 
 				// if bonus truck loaded - unpark it
@@ -144,8 +142,6 @@ export const storeWare = (state) => (next) => (action) => {
 						 docks[i].truck.pallets.length > 0 && 
 						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
 					 ) {
-						 // docks[i].truck.pallets[docks[i].truck.pallets.length -1].id === 
-					// console.log("dan")
 
 					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 					// let target = drawUnloaded( state.getState().store.zones )
@@ -168,7 +164,6 @@ export const storeWare = (state) => (next) => (action) => {
 
 					 state.getState().store.queue.length === 0 ) {
 
-				//console.log("wave done !")
 				state.dispatch( runLevel(false) )
 
 				let level = state.getState().app.level
@@ -222,23 +217,13 @@ export const storeWare = (state) => (next) => (action) => {
 			if ( state.getState().app.level.preparing &&
 					 state.getState().app.level.loadTruck ) {
 
+				// dont prepare level, cause truckLd incoming!!
 				state.dispatch( resetTimeResults() )
-					//
-
-				// how to forge target array.. 
 				let target = drawUnloadedArray( state.getState().store.zones )
-
 				// for full select 1st pallette
 				state.dispatch( selectPallette(target[0]) )
-
 				let fullTruck = genTruck( state.getState().store.counter.truckId, 1, target )
-
 				state.dispatch( parkTruck({ index: 1, truck: fullTruck }) )
-
-				console.log("dont prepare level, cause truckLd incoming!!",)
-				// dispatch those after successfull load
-				// state.dispatch( loadTruck(false) )
-				// state.dispatch( increaseLevel() )
 			}
 
 			// przygotowanie zwykłego levelu
@@ -246,6 +231,7 @@ export const storeWare = (state) => (next) => (action) => {
 					 !state.getState().app.level.loadTruck ) {
 
 				// podbijanie levelu.. 
+				state.dispatch( markLevelPalCount( palCnt ) ) 
 				state.dispatch( preparingLevel(false) )
 				state.dispatch( setSorting(false) )
 				state.dispatch( colorZonesReset() ) 
@@ -271,10 +257,6 @@ export const storeWare = (state) => (next) => (action) => {
 		// start Level
 		//
 		case 'app/runLevel':
-
-			if ( action.payload === true && state.getState().app.level.loadTruck) {
-				console.log("runLev tru loadtruck tru")
-			}
 
 			if ( action.payload === true && !state.getState().app.level.loadTruck) {
 
@@ -313,23 +295,14 @@ export const storeWare = (state) => (next) => (action) => {
 
 				// bonus client truck, on second+ waves
 				if (level.wave > 0) {
-						// add some probability fn
-						if (true) {
+						// 66% chances for bonusTruck
+						if ( Math.random() < Number(0.66) ) {
 							// he came for this pallette:
 					    let bonusTarget = drawUnloaded( zones )
 							let cTruckId = state.getState().store.counter.truckId
 
-							// use 
-							// genTruck()
+							let bonus_truck = genTruck( cTruckId, 0, bonusTarget )
 							
-							let bonus_truck = {
-								id: cTruckId, 
-								type: 'bonus',
-								target: bonusTarget,
-								cover: true, 
-								ready: false, 
-								pallets: []
-							}
 							state.dispatch( selectPallette(bonusTarget) )
 							state.dispatch( addQueueTruck({ truck: bonus_truck }) )
 						}
@@ -340,7 +313,7 @@ export const storeWare = (state) => (next) => (action) => {
 			if ( action.payload === false ) {
 				// in case of last wave dont saveTimer:
 				//
-				if ( level.wave > wave_times.length -1 ) {
+				if ( level.wave > wave_times.length -1) {
 					state.dispatch( saveTimer( timer ) ) 
 				}
 			}
