@@ -141,15 +141,16 @@ export const storeWare = (state) => (next) => (action) => {
 				// instead of pallets[0] we need also array comparing logarithm
 				if ( docks[i].truck.id && 
 						 docks[i].truck.type === 'bonus' && 
-						 docks[i].truck.pallets[0].id === 
-						 docks[i].truck.target.pal_id
+						 docks[i].truck.pallets.length > 0 && 
+						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
 					 ) {
 						 // docks[i].truck.pallets[docks[i].truck.pallets.length -1].id === 
 					// console.log("dan")
 
-					let target = drawUnloaded( state.getState().store.zones )
-					state.dispatch( selectPallette(target) )
-					state.dispatch( setNewTarget({ target: target }) )
+					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
+					// let target = drawUnloaded( state.getState().store.zones )
+					// state.dispatch( selectPallette(target) )
+					// state.dispatch( setNewTarget({ target: target }) )
 
 					// one of the former condition:
 						 // docks[i].truck.pallets.length === docks[i].truck.target.length

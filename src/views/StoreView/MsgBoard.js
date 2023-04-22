@@ -22,7 +22,6 @@ export function MsgBoard() {
 	const msgType = useSelector(state => state.app.msg.type)
 	const visible = useSelector(state => state.app.msg.visible)
 	const levelNumber = useSelector(state => state.app.level.current)
-	// const waveTimes = useSelector(state => state.app.wave_times)
 	const levelTimes = useSelector(state => state.app.level_times)
 	const bonuses = useSelector(state => state.app.level_bonuses)
 	const dispatch = useDispatch()
@@ -132,7 +131,7 @@ export function MsgBoard() {
 
 						</div>
 
-						{ (msgType === 'gratz') 
+						{ (msgType === 'gratz' && !trLoading) 
 							?  <div id="watch" className={ s.stwatch }>
 									 <span className={ s.timeResult }>{ 
 											 makeMinutes( Number( levelTimes[levelTimes.length -1] ) )
@@ -155,7 +154,7 @@ export function MsgBoard() {
 
 					</div>
 
-					{ (levelNumber%5 === 0 && msgType === 'gratz' && !trLoading) 
+					{ (levelNumber %3 === 0 && msgType === 'gratz' && !trLoading) 
 
 						? <div id="fwBtn" onClick={ mvLoadTruck } 
 						   className={ s.msgBtn }> załaduj fracht </div> 

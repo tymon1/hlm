@@ -171,13 +171,15 @@
 }
 
 .bonusResult {
-	font-size:1.4em;
+	font-size:1.2em;
 	color:#b9b9b9;
 	/* color: #333; */
 	font-weight:bold;
+	text-align: center;
 	position:relative;
-	top:56px;
-	left:69px;
+	width: 180px;
+	top:60px;
+	display: block;
 }
 
 .truckArt {
@@ -256,12 +258,12 @@
 }
 
 .bonusResult {
-	font-size:0.85em;
+	font-size:0.7em;
 	color:#b9b9b9;
 	position:relative;
 	font-weight:normal;
-	top:31px;
-	left:38px;
+	width:100px;
+	top:37px;
 }
 
 .msgWindow {

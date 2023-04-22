@@ -109,6 +109,12 @@ export const storeSlice = createSlice({
 						state.zones[bonus.zone_no].pallets[palInx].selected = false
 						break
 					case 'ramp':
+						for (let z=0; z<3; z++) {
+							if (state.docks[z].truck && state.docks[z].truck.type === "bonus") {
+								// or pallets[0]
+								state.docks[z].truck.pallets[(state.docks[z].truck.pallets.length-1)].selected = false
+							}
+						}
 						// max Ugly full truck iz docked
 						if (state.docks[1].truck && state.docks[1].truck.type === "full") {
 							state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
@@ -116,7 +122,9 @@ export const storeSlice = createSlice({
 						// unselect pal in zone
 						else {
 							palInx = state.ramps[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
-							state.ramps[bonus.zone_no].pallets[palInx].selected = false
+							if (palInx !== -1) {
+								state.ramps[bonus.zone_no].pallets[palInx].selected = false
+							}
 						}
 						break
 					case 'truck':

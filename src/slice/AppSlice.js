@@ -26,13 +26,13 @@ export const appSlice = createSlice({
 			loadTruck: false,
 			preparing: false,
 			run: false,
-			current: 5,
+			current: 1,
 			          // { index, color }
 			color_zone: [],
 			wave: 0 
 		},
 
-		levels: [ { waves:2, truckMax:1, color_zones: { colorize:false } }, 
+		levels: [ { waves:1, truckMax:1, color_zones: { colorize:false } }, 
 						  { waves:2, truckMax:2, color_zones: { colorize:true, count:2 } },
 						  { waves:1, truckMax:3, color_zones: { colorize:true, count:4 } },
 						  { waves:3, truckMax:2, color_zones: { colorize:false } },
@@ -44,10 +44,10 @@ export const appSlice = createSlice({
 						  { waves:4, truckMax:4, color_zones: { colorize:false } },
 						  { waves:4, truckMax:5, color_zones: { colorize:true, count:5 } },
 						  { waves:4, truckMax:6, color_zones: { colorize:true, count:3 } },
-						  { waves:4, truckMax:6, color_zones: { colorize:true, count:2 } },
+						  { waves:4, truckMax:5, color_zones: { colorize:true, count:2 } },
 						  { waves:4, truckMax:6, color_zones: { colorize:true, count:3 } },
 						  { waves:4, truckMax:4, color_zones: { colorize:true, count:3 } },
-						  { waves:4, truckMax:7, color_zones: { colorize:false } },
+						  { waves:4, truckMax:6, color_zones: { colorize:false } },
 						  { waves:5, truckMax:4, color_zones: { colorize:true, count:5 } },
 						  { waves:5, truckMax:7, color_zones: { colorize:true, count:2 } },
 						  { waves:6, truckMax:6, color_zones: { colorize:true, count:4 } },
