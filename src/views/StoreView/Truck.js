@@ -3,7 +3,8 @@ import { useEffect, useLayoutEffect } from 'react';
 import { Pallet } from './Pallet';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { unparkTruck } from '../../slice/StoreSlice';
+import { unparkTruck, 
+	       setTruckCover } from '../../slice/StoreSlice';
 
 import { DropContainer } from './DropContainer';
 
@@ -80,11 +81,13 @@ export function Truck({ truck }) {
 	const offCover = () => {
 		let coverEl = document.getElementById("tcover-"+id)
 		coverEl.style.visibility = "hidden"
+		dispatch( setTruckCover({id: truck.id, cover: false}) ) 
 	}
 
 	const putCover = () => { 
 		let coverEl = document.getElementById("tcover-"+id)
 		coverEl.style.visibility = "visible"
+		dispatch( setTruckCover({id: truck.id, cover: true}) ) 
 	}
 
 	let resp = () => { 
@@ -126,12 +129,14 @@ export function Truck({ truck }) {
 		<div id={"truck-" + truck.id } 
 				 className={ resp() }>
 
-			{ (truck.type === 'bonus' && dragging && 
+			{ (truck.type === 'bonus' && dragging && !truck.cover &&
 				(picked.id === truck.target.pal_id) && 
-				(source.name === "ramp")) || 
-			  ((truck.type === 'full' && dragging && 
+				(source.name === "ramp") ) || 
+
+			  ((truck.type === 'full' && dragging && !truck.cover &&
 				picked.id === truck.target[truck.pallets.length].pal_id) && 
-				(source.name === "ramp")) ? 
+				(source.name === "ramp") ) ? 
+
 				<DropContainer elementId = { elementId } /> : '' }
 
 			<div id={"tcover-" + truck.id } 

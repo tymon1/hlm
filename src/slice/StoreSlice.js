@@ -83,6 +83,12 @@ export const storeSlice = createSlice({
 			state.docks[o.index].truck = o.truck
 		},
 
+    setTruckCover: (state, payload) => {
+			let id = Number(payload.payload.id)
+			let cvr = state.docks.findIndex( d => d.truck.id === id )
+			state.docks[cvr].truck.cover = payload.payload.cover
+		},
+
     unparkTruck: (state, payload) => {
 			let id = Number(payload.payload.id)
 			let rReady = state.docks.findIndex( d => d.truck.id === id )
@@ -94,7 +100,9 @@ export const storeSlice = createSlice({
 			state.counter.palletId = cId + Number( payload.payload.amount )
 		},
 
+		// very nasty coded action
 		unSelectPal: (state) => {
+			// console.log("unselect location",state.bonus_target_pallette.location)
 			let bonus = state.bonus_target_pallette
 			// hack to detect first run
 			if (bonus.zone_no !== 100 && bonus.pid !== 0) {
@@ -113,6 +121,7 @@ export const storeSlice = createSlice({
 						}
 						// max Ugly full truck iz docked
 						if (state.docks[1].truck && state.docks[1].truck.type === "full") {
+							// console.log("unSelected:",state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].id)
 							state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
 						}
 						// unselect pal in zone
@@ -125,6 +134,9 @@ export const storeSlice = createSlice({
 						break
 					case 'truck':
 						// currently deselects full trucks only 
+						if (state.docks[1].truck && state.docks[1].truck.type === "full") {
+							state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
+						}
 						// not available
 						break
 					default:
@@ -133,6 +145,8 @@ export const storeSlice = createSlice({
 				// state.bonus_target_pallette = { zone_no: 0, pid: 0 }
 			}
 		},
+
+
 
 		selectPallette: (state, payload) => {
       let pInx = state.zones[payload.payload.zone_index].pallets.findIndex( inx => inx.id === payload.payload.pal_id )
@@ -245,8 +259,8 @@ export const { addQueueTruck, remQueueTruck,
 							 setSorting,
 							 resetZones,
 							 selectPallette,
-							 // setNewTarget,
 							 unSelectPal,
+							 setTruckCover,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,
 							 remPal, remPalFrZone, remPalFrRamp, remPalFrTruck,

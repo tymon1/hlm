@@ -2,9 +2,10 @@
 	display:block;
 	/* border-top: 4px dotted #ddd; */
 	height: 100px;
+	width:100%;
 	position:relative;
 	/* background: #a27c7c; */
-	background: url(i/dock_floor.png);
+	background: url(i/dock_floor_L.png);
 	background-repeat: repeat-x;
 }
 
@@ -16,3 +17,11 @@
 }
 
 /* .blockade { background: rgba(0,0,0,0.3); } */
+
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+	.ramps {
+		height: 80px;
+		background: url(i/dock_floor_S.png);
+	}
+}

@@ -1,7 +1,7 @@
 .cover {
 	/* transition: all 3s ease-in-out; */
-	left:0px !important;
-	height: 100%;
+	left: 0px;
+	height: inherit;
 	width: 100%;
 	background: white;
 	opacity: 0.5;
@@ -9,4 +9,14 @@
 	z-index: 10001;
 	position: absolute;
 	user-select: none;
+}
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+	.cover {
+		/* right: 14px; */
+		right: 0px;
+		left: unset;
+		height: inherit;
+		width: inherit;
+	}
 }

@@ -1,5 +1,5 @@
 .truck_m, .truck_s, .truck_xl {
-	transition: all 1.5s ease-in-out;
+	transition: margin 1.5s ease-in-out;
 
 	display:flex;
 	flex-direction: column;
@@ -15,13 +15,15 @@
 	padding-bottom: 15px;
 
 	height:85px;
+	background-image: url(i/trucks_sprite.png);
 }
 
 .truck_s {
 	width: 155px;
 	left: -165px;
 	padding-left: 80px;
-	background-image: url(i/truck_s.png);
+	background-position-x:-23px;
+	background-position-y:-23px;
 	overflow:hidden;
 }
 
@@ -29,18 +31,26 @@
 	width:230px;
 	left: -250px;
 	padding-left: 90px;
-	background-image: url(i/truck_m.png);
+	background-position-x:-23px;
+	background-position-y:-162px;
 }
 
 .truck_xl {
 	width: 346px;
 	left: -374px;
-	/* background: #222; */
 	padding-left: 98px;
-	background-image: url(i/truck_xl.png);
+	background-position-x:-23px;
+	background-position-y:-301px;
 }
 
-.tcover_s, .tcover_m, .tcover_xl, .tcover_bonus {
+.tcover_bonus {
+	position:absolute;
+	z-index:10002;
+	height:85px;
+}
+
+.tcover_s, .tcover_m, .tcover_xl {
+	background-image: url(i/covers_sprite.png);
 	position:absolute;
 	z-index:10002;
 	height:83px;
@@ -55,16 +65,72 @@
 
 .tcover_s {
 	width: 150px;
-	background-image: url(i/namiot_s.png);
+	background-position-x:-103px;
+	background-position-y:-23px;
 }
 
 .tcover_m {
 	width:230px;
-	background-image: url(i/namiot_m.png);
+	background-position-x:-110px;
+	background-position-y:-162px;
 }
 
 .tcover_xl {
 	width:344px;
-	background-image: url(i/namiot_xl.png);
+	background-position-x:-123px;
+	background-position-y:-301px;
 }
 
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+
+	.truck_m, .truck_s, .truck_xl {
+		height: 66px;
+	}
+
+	.truck_s {
+		width:130px;
+		left: -120px;
+		padding-left: 61px;
+		background-position-x:-23px;
+		background-position-y:-483px;
+	}
+
+	.truck_m {
+		width:202px;
+		left: -193px;
+		padding-left: 68px;
+		background-position-x:-20px;
+		background-position-y:-597px;
+	}
+
+	.truck_xl {
+		padding-left:93px;
+		width:283px;
+		left: -306px;
+		background-position-x:-8px;
+		background-position-y:-712px;
+	}
+
+	.tcover_s {
+		width: 127px;
+		height: 67px;
+		background-position-x:-85px;
+		background-position-y:-483px;
+	}
+
+	.tcover_m {
+		width:198px;
+		height: 67px;
+		background-position-x:-88px;
+		background-position-y:-598px;
+	}
+
+	.tcover_xl {
+		width:281px;
+		height: 67px;
+		background-position-x:-101px;
+		background-position-y:-714px;
+	}
+
+}

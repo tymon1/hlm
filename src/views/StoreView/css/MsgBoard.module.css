@@ -24,7 +24,7 @@
 	color: #ccc;
 	font-size:1.3em;
 	text-align:center;
-	margin: 0.5em 0;
+	margin: 0.7em 0;
 }
 
 .msgBtn {
@@ -77,18 +77,6 @@
 	flex-direction: inherit;
 	padding:50px;
 }
-
-/* .levNr { */
-/* 	font-size:1.4em; */
-/* 	color:#555; */
-/* 	font-weight:bold; */
-/* 	position:relative; */
-/* 	top:79px; */
-/* 	left:25px; */
-/* 	width: 40px; */
-/* 	display: inline-block; */
-/* 	text-align: center; */
-/* } */
 
 .stihl {
 	position:relative;
@@ -284,7 +272,15 @@
 	font-weight:normal;
 	background-image: url(i/sprite1mob.png);
 	background-position-y: -22px;
-	background-position-x: 68px;
+	background-position-x: 201px;
+}
+
+.gratzTruck {
+	background-image: url(i/sprite1mob.png);
+	width:98px;
+	height:50px;
+	background-position-y: -22px;
+	background-position-x: 132px;
 }
 
 .levNrHdr {
@@ -306,6 +302,14 @@
 
 .msg {
 	padding: 4% 20%;
+}
+
+.msgContent {
+	font-size: 1em;
+}
+
+.truckArt {
+	margin: 0;
 }
 
 }

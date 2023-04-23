@@ -119,6 +119,10 @@ export function MsgBoard() {
 									<span className={ s.levNrHdr }>{ levelNumber }</span>
 								</div>
 							: '' }
+
+						{ (msgType === 'gratz' && trLoading) ? 
+							<div className={ s.gratzTruck }> </div>
+							: '' }
 					</div>
 
 					<div className={ s.iconCnt }>

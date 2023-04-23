@@ -8,7 +8,6 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 setTruckCounter, setPalletsCounter,
 				 selectPallette,
 				 unSelectPal,
-				 // setNewTarget,
 				 truckOnDockReady, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
@@ -20,7 +19,6 @@ import { saveTimer, setStamp,
 	       popTimeSum,
 				 showMsg,
 				 markLevelPalCount,
-				 // loadTruck,
 				 setBonusCounter,
 				 setColorZone, colorZonesReset,
 	       runLevel } from '../slice/AppSlice';
@@ -120,7 +118,6 @@ export const storeWare = (state) => (next) => (action) => {
 					// is it the last target?
 					if (docks[i].truck.pallets.length === docks[i].truck.target.length) {
 						state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
-						// state.dispatch( loadTruck(false) )
 					}
 					// mark next target pallette
 					else {
@@ -142,15 +139,7 @@ export const storeWare = (state) => (next) => (action) => {
 						 docks[i].truck.pallets.length > 0 && 
 						 docks[i].truck.pallets[0].id === docks[i].truck.target.pal_id
 					 ) {
-
 					state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
-					// let target = drawUnloaded( state.getState().store.zones )
-					// state.dispatch( selectPallette(target) )
-					// state.dispatch( setNewTarget({ target: target }) )
-
-					// one of the former condition:
-						 // docks[i].truck.pallets.length === docks[i].truck.target.length
-					// state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 				}
 			}
 
@@ -204,7 +193,11 @@ export const storeWare = (state) => (next) => (action) => {
 												 makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
 
 						state.dispatch( showMsg({ type:"gratz", text: gratz }) )
-						state.dispatch( popTimeSum() )
+						// pop time sum pop ONLY after regular level
+						// not after full truck load!
+						if ( !state.getState().app.level.loadTruck ) {
+							state.dispatch( popTimeSum() )
+						}
 						state.dispatch( preparingLevel(true) )
 					}
 				}
@@ -258,7 +251,8 @@ export const storeWare = (state) => (next) => (action) => {
 		//
 		case 'app/runLevel':
 
-			if ( action.payload === true && !state.getState().app.level.loadTruck) {
+			if ( action.payload === true && 
+					 !state.getState().app.level.loadTruck) {
 
 				let current = levels[ level.current ]
 				//
@@ -295,17 +289,17 @@ export const storeWare = (state) => (next) => (action) => {
 
 				// bonus client truck, on second+ waves
 				if (level.wave > 0) {
-						// 66% chances for bonusTruck
-						if ( Math.random() < Number(0.66) ) {
-							// he came for this pallette:
-					    let bonusTarget = drawUnloaded( zones )
-							let cTruckId = state.getState().store.counter.truckId
+					// 66% chances for bonusTruck
+					if ( Math.random() < Number(0.66) ) {
+						// he came for this pallette:
+						let bonusTarget = drawUnloaded( zones )
+						let cTruckId = state.getState().store.counter.truckId
 
-							let bonus_truck = genTruck( cTruckId, 0, bonusTarget )
-							
-							state.dispatch( selectPallette(bonusTarget) )
-							state.dispatch( addQueueTruck({ truck: bonus_truck }) )
-						}
+						let bonus_truck = genTruck( cTruckId, 0, bonusTarget )
+						
+						state.dispatch( selectPallette(bonusTarget) )
+						state.dispatch( addQueueTruck({ truck: bonus_truck }) )
+					}
 				}
 			}
 
@@ -313,7 +307,8 @@ export const storeWare = (state) => (next) => (action) => {
 			if ( action.payload === false ) {
 				// in case of last wave dont saveTimer:
 				//
-				if ( level.wave > wave_times.length -1) {
+				if ( level.wave > wave_times.length -1 && 
+						 !state.getState().app.level.loadTruck ) {
 					state.dispatch( saveTimer( timer ) ) 
 				}
 			}
@@ -332,12 +327,19 @@ export const storeWare = (state) => (next) => (action) => {
 			}
 			break
 
-			
 		default:
 
 	}
 
 	// 4 hard debug purpose:
-	// console.log(action)
+	if (action.type === 'app/setTimer' ||
+			action.type === 'store/remPal' ||
+			action.type === 'store/addPal' ||
+			action.type === 'app/drag' ||
+			action.type === 'app/pick' ||
+			action.type === 'app/source' 
+			)  {}
+	else { console.log(action) }
+
 	next(action)
 }

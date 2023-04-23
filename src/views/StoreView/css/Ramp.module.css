@@ -9,3 +9,9 @@
 	height: 67px;
 	/* border: 3px dashed #ddd; */
 }
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+	.ramp {
+		height: 53px;
+	}
+}

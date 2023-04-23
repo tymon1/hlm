@@ -26,7 +26,7 @@ export const appSlice = createSlice({
 			loadTruck: false,
 			preparing: false,
 			run: false,
-			current: 1,
+			current: 3,
 			          // { index, color }
 			color_zone: [],
 			wave: 0 
