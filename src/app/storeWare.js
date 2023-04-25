@@ -192,6 +192,7 @@ export const storeWare = (state) => (next) => (action) => {
 												 level.current + ", w  czasie " +
 												 makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
 
+					  // needed in gratz window for number of processed pallets  
 						state.dispatch( showMsg({ type:"gratz", text: gratz }) )
 						// pop time sum pop ONLY after regular level
 						// not after full truck load!

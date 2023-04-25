@@ -27,7 +27,6 @@ export function Store() {
   return (
     <div>
 		
-	<Admin />
 			<ResultsBar />
 			<TopBar />
 
@@ -63,6 +62,7 @@ export function Store() {
       </div>
 
 
+	<Admin />
 			<div className={ s.levelTimes }>
 			  {
 					level_times.map( (t,index) => { 

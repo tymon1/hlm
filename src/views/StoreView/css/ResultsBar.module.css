@@ -44,6 +44,10 @@
 	border-bottom: 4px solid #a8b7c2;
 }
 
+.topRes {
+	display: flex;
+}
+
 .calendar {
 	font-size: 1.5em;
 	margin: 4px 26px;

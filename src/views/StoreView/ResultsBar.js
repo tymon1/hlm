@@ -14,17 +14,6 @@ export function ResultsBar() {
 	const prep = useSelector(state => state.app.level.preparing)
 	const sorting = useSelector(state => state.store.sorting)
 
-	// todo results follows same drop as queue trucks
-	// useEffect(() => { 
-	// 	setTimeout( () => { (approachQueue()) }, 500 )
-	// })
-
-	// let approachRes = () => {
-	// 	let truckEl = document.getElementById("queueTruck-"+truck.id)
-	// 	truckEl.style.marginLeft = 10 + "px"
-	// 	truckEl.style.opacity = 1
-	// }
-	
 	let wavesLeft = levels[level.current].waves - level.wave
   let voids = []
 

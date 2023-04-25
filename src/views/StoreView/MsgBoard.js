@@ -3,13 +3,11 @@ import s from './css/MsgBoard.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import {
-				 hideMsg,
+import { hideMsg,
 				 loadTruck,
 	     } from '../../slice/AppSlice';
 
-import {
-				 makeMinutes,
+import { makeMinutes,
 				 // totalTime,
 	     } from '../../app/helpers';
 
@@ -17,6 +15,7 @@ import {
 
 export function MsgBoard() {
 
+	const dispatch = useDispatch()
 	const msg = useSelector(state => state.app.msg.text)
 	const trLoading = useSelector(state => state.app.level.loadTruck)
 	const msgType = useSelector(state => state.app.msg.type)
@@ -24,7 +23,14 @@ export function MsgBoard() {
 	const levelNumber = useSelector(state => state.app.level.current)
 	const levelTimes = useSelector(state => state.app.level_times)
 	const bonuses = useSelector(state => state.app.level_bonuses)
-	const dispatch = useDispatch()
+
+	const waveTim = useSelector(state => state.app.wave_times)
+	const waveCur = useSelector(state => state.app.level.wave)
+	const levels = useSelector(state => state.app.levels)
+
+	const levStartCnt = useSelector(state => state.app.level_start_pal_count)
+	const levFinCnt = useSelector(state => state.store.counter.palletId)
+	const levelPalNum = levFinCnt - levStartCnt[ levelNumber -1 ]
 
 	useEffect(() => { 
 		setTimeout( () => { 
@@ -114,15 +120,32 @@ export function MsgBoard() {
 				<div className={ s.msgWindow }> 
 
 					<div className={ s.iconCntHdr }>
+						{ (msgType === 'next') ? 
+							<div className={ s.topRes }>
+								<span className={ s.resEmptyBis }>{ waveCur } / { levels[ levelNumber].waves }</span>
+								<span className={ s.resBis }>
+									{ makeMinutes( Number( waveTim[ waveCur-1]) ) }
+								</span>
+							</div>
+							: '' }
+
 						{ (msgType === 'gratz') ? 
+							<div className={ s.topRes }>
+								<span className={ s.resEmptyPrim }> { levels[ levelNumber].waves } / { levels[ levelNumber].waves }</span>
 							  <div className={ s.calHdr }>
 									<span className={ s.levNrHdr }>{ levelNumber }</span>
 								</div>
+								<div className={ s.palHdr }>
+									<span className={ s.palCnt }>{ levelPalNum }</span>
+								</div>
+								<span className={ s.resEmptyPrim }>{ (levelPalNum/levelTimes[levelTimes.length -1]).toFixed(3) }</span>
+							</div>
 							: '' }
 
 						{ (msgType === 'gratz' && trLoading) ? 
 							<div className={ s.gratzTruck }> </div>
 							: '' }
+
 					</div>
 
 					<div className={ s.iconCnt }>
