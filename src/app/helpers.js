@@ -17,7 +17,7 @@ const truck_types = ['s','m','xl']
 
 const pallets_colors = ['blue',
 											  'sandyBrown',
-											  'green',
+											  'springgreen',
 											  'purple',
 											  'yellow',
 											  'white',

@@ -9,7 +9,6 @@ export function Pallet({ pallet }) {
 
 	const dispatch = useDispatch()
 	const oneRef = useRef();
-	// const blinkInt = useRef()
 
 
 	useEffect( () => { 

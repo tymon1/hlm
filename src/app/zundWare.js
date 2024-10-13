@@ -73,11 +73,14 @@ export const zundWare = (state) => (next) => (action) => {
 			//let sorting = state.getState().store.sorting
 
 			if  ( level.wave === levels[ level.current ].waves -1 &&
+					  action.payload.type !== "howto" &&
 					  mess === false ) {
 				complete.play()
 			}
 			else {
-				wave.play()
+				if (action.payload.type !== "howto") {
+					wave.play()
+				}
 			}
 			break
 

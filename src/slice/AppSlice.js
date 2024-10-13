@@ -2,16 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 
-export const appSlice = createSlice({
-
-  name: 'app',
-
-  initialState: {
+const initialState = {
 
 		msg: { text:"Rozpocznij grę", type:"start", visible:true },
-
+		howtoPage: 1,
 		stamp: 0,
 		timer: 0,
+		bonus_wait: 4,
 		level_times: [],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [2],
@@ -64,10 +61,27 @@ export const appSlice = createSlice({
 						  { waves:2, truckMax:8, color_zones: { colorize:true, count:3 } },
 						  { waves:7, truckMax:5, color_zones: { colorize:false } } ],
 
-	},
+}
 
+
+
+export const appSlice = createSlice({
+
+  name: 'app',
+
+  initialState,
 
   reducers: {
+
+		hardReset: () => initialState,
+
+		incHowto: state => {
+			if (state.howtoPage < 3) { state.howtoPage++ }
+		},
+
+		decHowto: state => {
+			if (state.howtoPage > 1) { state.howtoPage-- }
+		},
 
 		markLevelPalCount: (state, payload) => {
 			state.level_start_pal_count.push( payload.payload )
@@ -190,7 +204,9 @@ export const { runLevel, increaseWave, resetWave,
 							 preparingLevel,
 							 showMsg, hideMsg,
 							 popTimeSum,
+							 incHowto, decHowto,
 							 loadTruck,
+							 hardReset,
 							 setBonusCounter,
 							 markLevelPalCount,
 							 setColorZone, colorZonesReset,

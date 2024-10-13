@@ -11,6 +11,7 @@ import { colorStoreMess } from '../../app/helpers';
 
 import { dump as app_dump, 
 				 showMsg as shMsg,
+				 hardReset,
 	       runLevel } from '../../slice/AppSlice';
 
 
@@ -33,8 +34,8 @@ export function Admin({ ramp }) {
 	let show = () => {
 	}
 
-	let stCheck = () => {
-		dispatch( setMess() )
+	let hReset = () => {
+		dispatch( hardReset() )
 	}
 
 
@@ -42,9 +43,7 @@ export function Admin({ ramp }) {
 		<div className={s.admin}>
 			<div className={s.btn} onClick={ dump }>Dump Store</div>
 			<div className={s.btn} onClick={ dump_app }>Dump App</div>
-			<div className={s.btnB} onClick={ hide() }>undrag</div>
-			<div className={s.btnS} onClick={ show() }>drag</div>
-			<div className={s.btnG} onClick={ stCheck }>Check Store</div>
+			<div className={s.btnG} onClick={ hReset }>Reset app</div>
 		</div>
 	)
 }

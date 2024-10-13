@@ -1,13 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
-
-
-export const storeSlice = createSlice({
-
-  name: 'store',
-
-  initialState: {
+const initialState = {
 
 		counter: { palletId: 2, truckId: 1 }, 
 
@@ -48,11 +42,20 @@ export const storeSlice = createSlice({
 			{ no: 7, pallets: [] },
 			{ no: 8, pallets: [] },
 		],
-	},
+}
 
+
+
+export const storeSlice = createSlice({
+
+  name: 'store',
+
+  initialState,
 
   // REDUCERS 
   reducers: {
+
+		storeReset: () => initialState,
 
     addQueueTruck: (state, payload) => {
 			state.queue.push( payload.payload.truck )
@@ -260,6 +263,7 @@ export const { addQueueTruck, remQueueTruck,
 							 resetZones,
 							 selectPallette,
 							 unSelectPal,
+							 storeReset,
 							 setTruckCover,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,

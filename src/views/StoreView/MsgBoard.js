@@ -1,11 +1,16 @@
 import s from './css/MsgBoard.module.css';
+import p from './css/Pallet.module.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 import { hideMsg,
+				 showMsg,
 				 loadTruck,
+				 incHowto,
+				 decHowto,
 	     } from '../../slice/AppSlice';
+
 
 import { makeMinutes,
 				 // totalTime,
@@ -31,6 +36,10 @@ export function MsgBoard() {
 	const levStartCnt = useSelector(state => state.app.level_start_pal_count)
 	const levFinCnt = useSelector(state => state.store.counter.palletId)
 	const levelPalNum = levFinCnt - levStartCnt[ levelNumber -1 ]
+
+	const howtoPage = useSelector(state => state.app.howtoPage)
+
+	const ppMinute = ((levelPalNum/levelTimes[levelTimes.length -1]) *60).toFixed(1)
 
 	useEffect(() => { 
 		setTimeout( () => { 
@@ -62,7 +71,24 @@ export function MsgBoard() {
 			}
 		}, 2200 )
 
+	})
 
+
+	// for blinking in howto page 3/3
+	useEffect( () => { 
+		if (msgType === 'howto' && howtoPage === 3) {
+			let demoP = document.getElementById("demoP")
+			const intId = setInterval( () => { 
+				setTimeout( () => { 
+					if (demoP !== null) { demoP.classList.remove(p.selected) }
+				}, 500)
+				demoP.classList.add(p.selected)
+			}, 1200)
+
+			return () => {
+				clearInterval(intId)
+			}
+		}
 	})
 
 
@@ -96,8 +122,16 @@ export function MsgBoard() {
 			case 'mess':
 				return s.messy
 			default:
-			  return s.stihl
+			  return ''
 	}}
+
+
+	let speedAnimal = speed => { 
+		if (speed >= 0 && speed <= 10) { return s.slime } 
+		if (speed > 10 && speed <= 20) { return s.turtle } 
+		if (speed > 20 && speed <= 30) { return s.hare } 
+		if (speed > 30 && speed <= 50) { return s.gepart } 
+	}
 
 	// let blinkBtn = () => {
 	// 	let el = document.getElementById("fwBtn")
@@ -106,6 +140,18 @@ export function MsgBoard() {
 	// 		el.style.background = "green"
 	// 	}, 100)
 	// }
+
+	let showHowto = () => { 
+		dispatch( showMsg({ type:"howto", text:"pl" }) )
+	}
+
+	let showStart = () => {
+		dispatch( showMsg({ type:"start", text:"Rozpocznij grę" }) )
+	}
+
+	let incHT = () => { dispatch( incHowto() ) }
+	let decHT = () => { dispatch( decHowto() ) }
+
 
 	let levInx = () => { 
 		let retV = bonuses.findIndex(l => l.level === levelNumber)
@@ -131,19 +177,25 @@ export function MsgBoard() {
 
 						{ (msgType === 'gratz') ? 
 							<div className={ s.topRes }>
-								<span className={ s.resEmptyPrim }> { levels[ levelNumber].waves } / { levels[ levelNumber].waves }</span>
 							  <div className={ s.calHdr }>
 									<span className={ s.levNrHdr }>{ levelNumber }</span>
+								</div>
+								<div className={ speedAnimal(ppMinute) }>
+									<span className={ s.resEmptySpeed }>{ ppMinute }</span>
 								</div>
 								<div className={ s.palHdr }>
 									<span className={ s.palCnt }>{ levelPalNum }</span>
 								</div>
-								<span className={ s.resEmptyPrim }>{ (levelPalNum/levelTimes[levelTimes.length -1]).toFixed(3) }</span>
 							</div>
 							: '' }
 
-						{ (msgType === 'gratz' && trLoading) ? 
-							<div className={ s.gratzTruck }> </div>
+						{ (msgType === 'howto') ? 
+							<div className={ s.topRes }>   
+								<span className={ s.howtoBtn } onClick={ decHT }>&#60;</span>
+								<span className={ s.resEmptyPrim }> { howtoPage } / 3 </span>
+								<span className={ s.howtoBtn } onClick={ incHT }>&#62;</span>
+								<span className={ s.howtoBtn } onClick={ showStart }>x</span>
+							</div>
 							: '' }
 
 					</div>
@@ -174,11 +226,63 @@ export function MsgBoard() {
 
 
 						<div className={ s.msgCnt }>
+							{ (msgType === 'howto' && howtoPage === 1) ? 
+								<div className={ s.howtoContainer }>
+									<div className={ s.howtoBox }>
+									  <div className={ s.howToDrag }></div>
+										<div> przeciągaj ciężarówki na niezajęte rampy </div>
+									</div>
+									<div className={ s.howtoBox }>
+									  <div className={ s.howToCover }></div>
+										<div> kliknij żeby otworzyć ciężarówkę </div>
+									</div>
+								</div>
+								: '' }
 
-							{ (msgType === 'start') ?  <span className={ s.msgContent } >Jak grać ?</span> : '' }
+							{ (msgType === 'howto' && howtoPage === 2) ? 
+								<div className={ s.howtoContainer }>
+									<div className={ s.howtoBox }>
+									  <div className={ s.howToRamp }>
+											<div id="demoR" className={ p.pallet } style={{"background": "red"}}></div>
+										</div>
+										<div> przeciągaj palety na rampy żeby zeskanować </div>
+									</div>
+									<div className={ s.howtoBox }>
+									  <div className={ s.howToGroup }>
+											<div id="demoYA" className={ p.pallet } style={{"background": "yellow"}}></div>
+											<div id="demoYB" className={ p.pallet } style={{"background": "yellow"}}></div>
+											<div id="demoGA" className={ p.pallet } style={{"background": "springgreen"}}></div>
+											<div id="demoGB" className={ p.pallet } style={{"background": "springgreen"}}></div>
+										</div>
+										<div> sortuj palety według ich kolorów </div>
+									</div>
+								</div>
+								: '' }
 
-							{ (msgType === 'gratz') ? '' : <div className={ s.msgContent }>{ msg }</div> }
+							{ (msgType === 'howto' && howtoPage === 3) ? 
+								<div className={ s.howtoContainer }>
+									<div className={ s.howtoBox }>
+									  <div className={ s.howToColor }>
+											<div id="demoYA" className={ p.pallet } style={{"background": "yellow"}}></div>
+											<div id="demoYB" className={ p.pallet } style={{"background": "yellow"}}></div>
+											<div id="demoGA" className={ p.pallet } style={{"background": "springgreen"}}></div>
+											<div id="demoGB" className={ p.pallet } style={{"background": "springgreen"}}></div>
+										</div>
+										<div> na zabarwione pola stawiaj palety o korespondującym kolorze </div>
+									</div>
+									<div className={ s.howtoBox }>
+									  <div className={ s.howToBonus }>
+											<div id="demoP" className={ p.pallet } style={{"background": "sandybrown"}}></div>
+										</div>
+										<div> bonusowe ciężarówki i frachty ładuj migającymi paletami </div>
+									</div>
+								</div>
+								: '' }
 
+
+							{ (msgType === 'gratz' || msgType === 'howto') ? '' : <div className={ s.msgContent }>{ msg }</div> }
+							{ (msgType === 'start') ?  <span className={ s.msgContentRef } 
+								                               onClick={ showHowto }>Jak grać ?</span> : '' }
 						</div>
 
 					</div>
@@ -187,10 +291,12 @@ export function MsgBoard() {
 					{ (levelNumber %3 === 0 && msgType === 'gratz' && !trLoading) 
 
 						? <div id="fwBtn" onClick={ mvLoadTruck } 
-							 className={ s.msgBtn }> załaduj fracht </div> 
+							 className={ s.msgBtn }> ładuj fracht </div> 
 
-						: <div id="fwBtn" onClick={ mvForward }
-							 className={ s.msgBtn }> kontynuacja </div> }
+						: (msgType === 'howto') ? <div id="fwBtn" onClick={ mvForward } 
+							                             className={ s.msgBtn }> graj </div> :
+						   <div id="fwBtn" onClick={ mvForward } 
+															 className={ s.msgBtn }> kontynuacja </div> }
 
 
 				</div>

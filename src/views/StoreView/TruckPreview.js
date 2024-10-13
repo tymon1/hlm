@@ -1,5 +1,5 @@
 import s from './css/TruckPreview.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
 import { unSelectPal, checkTrucks } from '../../slice/StoreSlice';
@@ -10,6 +10,7 @@ import { unSelectPal, checkTrucks } from '../../slice/StoreSlice';
 export function TruckPreview( props ) {
 
 	const dispatch = useDispatch()
+	const bonusWait = useSelector(state => state.app.bonus_wait)
 	const myRef = useRef();
 	const truck = props.truck
 	const countInt = useRef()
@@ -20,7 +21,7 @@ export function TruckPreview( props ) {
 
 		if (truck.type === 'bonus') { 
 			return () => {
-				let timr = 6
+				let timr = bonusWait
 				
 				countInt.current = setInterval( () => { 
 					if (timr >= 0 ) {

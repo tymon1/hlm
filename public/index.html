@@ -12,23 +12,30 @@
       content="js game hlm"
     />
 
-    <!--
-
-			delete this or use
 
 		<style>
-			#storeCover, #extCover-0, 
-			#extCover-1, #extCover-2, 
-			#extCover-3, #extCover-4 {
-				height: 100%;
-				width: 100%;
-				background: rgba(0,0,0,0.3);
-				display: flex;
-				z-index: 10001;
-				position: absolute;
+			#demoR, #demoYA, #demoYB,
+			#demoGA, #demoGB {
+				position:absolute;
+			}
+			#demoR { left:47px; }
+			#demoYA { left:47px; }
+			#demoYB{ left:75px; }
+			#demoGA { left:152px; }
+			#demoGB { left:181px; }
+
+			@media only screen and (min-width: 100px) and (max-width: 900px) {
+			#demoR { left:8px; }
+			#demoYA { left:8px; }
+			#demoYB { left:31px; }
+			#demoGA { left:67px; }
+			#demoGB { left:90px; }
 			}
 		</style>
 
+    <!--
+
+			delete this or use
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/

@@ -123,7 +123,6 @@ export function Truck({ truck }) {
 	}}
 
 
-	//  (picked.id === truck.target[ truck.pallets.length ].pal_id) && 
 
 	return (
 		<div id={"truck-" + truck.id } 

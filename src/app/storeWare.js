@@ -3,6 +3,7 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 addQueueTruck, 
 				 setMess, 
 				 resetZones, 
+				 storeReset, 
 				 parkTruck, 
 				 setSorting, 
 				 setTruckCounter, setPalletsCounter,
@@ -206,6 +207,11 @@ export const storeWare = (state) => (next) => (action) => {
 			break
 
 
+		case 'app/hardReset':
+				state.dispatch( storeReset() ) 
+			break
+
+
 		case 'app/hideMsg':
 			// przygotowanie załadunku linii 
 			if ( state.getState().app.level.preparing &&
@@ -291,7 +297,8 @@ export const storeWare = (state) => (next) => (action) => {
 				// bonus client truck, on second+ waves
 				if (level.wave > 0) {
 					// 66% chances for bonusTruck
-					if ( Math.random() < Number(0.66) ) {
+					// if ( Math.random() < Number(0.66) ) {
+					if ( true ) {
 						// he came for this pallette:
 						let bonusTarget = drawUnloaded( zones )
 						let cTruckId = state.getState().store.counter.truckId
@@ -318,12 +325,8 @@ export const storeWare = (state) => (next) => (action) => {
 
 		// start timer when you drop first truck on the free dock
 		case 'store/parkTruck':
-			let queue = state.getState().store.queue
-			let trMax = state.getState().app.levels[level.current].truckMax
-			// 
-			// dont start to add trucks to docks ,
-			// dont start timer unless they all arrive & show :(
-			if ( (((queue.length + 1) === trMax) || (queue.length === trMax)) && stamp === 0 ) {
+			// dont start timer when full truck load
+			if ( stamp === 0 && !state.getState().app.level.loadTruck ) {
 				state.dispatch( setStamp( Date.now() ) ) 
 			}
 			break
@@ -333,14 +336,14 @@ export const storeWare = (state) => (next) => (action) => {
 	}
 
 	// 4 hard debug purpose:
-	if (action.type === 'app/setTimer' ||
-			action.type === 'store/remPal' ||
-			action.type === 'store/addPal' ||
-			action.type === 'app/drag' ||
-			action.type === 'app/pick' ||
-			action.type === 'app/source' 
-			)  {}
-	else { console.log(action) }
+	// if (action.type === 'app/setTimer' ||
+			// action.type === 'store/remPal' ||
+			// action.type === 'store/addPal' ||
+			// action.type === 'app/drag' ||
+			// action.type === 'app/pick' ||
+			// action.type === 'app/source' 
+			// )  {}
+	// else { console.log(action) }
 
 	next(action)
 }

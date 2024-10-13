@@ -14,6 +14,9 @@ export function ResultsBar() {
 	const prep = useSelector(state => state.app.level.preparing)
 	const sorting = useSelector(state => state.store.sorting)
 
+	const frLoad = useSelector(state => state.app.level.loadTruck)
+	const bonuses = useSelector(state => state.app.level_bonuses)
+
 	let wavesLeft = levels[level.current].waves - level.wave
   let voids = []
 
@@ -30,6 +33,11 @@ export function ResultsBar() {
 		}
 	}
 
+	let levInx = () => { 
+		let retV = bonuses.findIndex(l => l.level === level.current)
+		return retV
+	}
+
 	return (
 		<div className={s.resbar}>
 			
@@ -42,6 +50,14 @@ export function ResultsBar() {
 			}
 
 			{ voids }
+
+			{ (frLoad && levInx() !== -1) 
+				?	<div className={s.bonuses}>
+						<span className={s.bonusInner}>
+							{ bonuses[ levInx() ].count }
+						</span>
+				  </div> 
+				: '' }
 
 			<div className={s.calendar}>
 				<span className={s.calendarInner}>

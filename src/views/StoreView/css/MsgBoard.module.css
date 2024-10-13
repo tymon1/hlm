@@ -21,10 +21,83 @@
 
 .msgContent {
 	color: #ccc;
-	font-size:1.3em;
 	text-align:center;
 	margin: 0.7em 0;
 }
+
+.msgContentRef {
+	color: #ccc;
+	font-size:1.3em;
+	text-align:center;
+	margin: 0.7em 0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.msgContentRef:hover {
+	color: #999;
+}
+
+.howtoContainer {
+	width:100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.howtoBox {
+	flex: 1;
+	margin: 10px 0px;
+	text-align:center;
+	color: #ccc;
+	padding:0 10px;
+	font-size: 0.9em;
+}
+
+.howtoBtn {
+	border-radius: 5px;
+	background: #808080;
+	font-size: 1.1em;
+	color: #555;
+	font-weight: bold;
+	text-align: center;
+	/* margin-top:26px; */
+	margin-right:20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	display: table;
+	height: 41px;
+	width: 64px;
+	padding: 2px 10px;
+	user-select: none;
+}
+
+.howtoBtn:hover {
+	cursor:pointer;
+	background:#aaa;
+}
+
+.howToDrag , .howToCover , .howToRamp , .howToGroup , .howToColor , .howToBonus {
+	width:250px;
+	height:75px;
+	background-image: url(i/howto.png);
+	background-position-x: 14px;
+	background-repeat: no-repeat;
+	margin: 0 auto 20px;
+	position:relative;
+}
+
+.howToDrag { background-position-y: -50px; }
+.howToCover { background-position-y: -178px; }
+.howToRamp { background-position-y: -304px; }
+.howToGroup { background-position-y: -432px; }
+.howToColor { background-position-y: -558px; }
+.howToBonus { background-position-y: -692px; }
+
+.demoR {
+	position:absolute;
+	left:40px;
+}
+
 
 .msgBtn {
 	filter: brightness(1) saturate(1);
@@ -50,12 +123,12 @@
 
 .levNrHdr {
 	position:absolute;
-	top:33px;
+	top:31px;
 	width:100%;
 	text-align:center;
 	font-weight:bold;
 	color:#666;
-	font-size:1.2em;
+	font-size:34px;
 }
 
 .iconCnt {
@@ -68,6 +141,7 @@
 }
 
 .msgWindow {
+	overflow:scroll;
 	background:#515151;
 	display: flex;
 	flex-direction: inherit;
@@ -85,11 +159,11 @@
 }
 
 .startIco {
-	width:180px;
+	width:160px;
 	height:180px;
 	background-image: url(i/start.png);
 	background-position-y: 6px;
-	background-position-x: 4px;
+	background-position-x: -27px;
 	margin-bottom:10px;
 }
 
@@ -124,7 +198,8 @@
 }
 
 .timeResult {
-	font-size:1.3em;
+	/* font-size:1.3em; */
+	font-size:34px;
 	color:#313131;
 	font-weight:bold;
 	position:relative;
@@ -150,10 +225,11 @@
 	background-image: url(i/calHdr.png);
 	background-position-y: -35px;
 	background-position-x: -46px;
+	margin-top:13px;
 }
 
 .bonusResult {
-	font-size:1.2em;
+	font-size:34px;
 	color:#b9b9b9;
 	font-weight:bold;
 	text-align: center;
@@ -182,8 +258,8 @@
 	color: #333;
 	border-radius:5px;
 	background: #d3dce2;
-  font-size: 1.1em;
-	margin-top: 0px;
+  font-size: 30px;
+	margin-top: 6px;
 	margin-right: 0px;
 	margin-bottom: 10px;
 	margin-left: 10px;
@@ -194,25 +270,31 @@
 	border-bottom: 4px solid #a8b7c2;
 }
 
-.resEmptyBis, .resEmptyPrim {
+.resEmptyBis, .resEmptyPrim, .resEmptySpeed {
 	border-radius: 5px;
 	background: gray;
-	font-size: 1.1em;
+	font-size: 28px;
 	color: #555;
 	font-weight: bold;
 	text-align: center;
+	margin-top:8px;
 	margin-right: 0px;
 	margin-bottom: 10px;
 	margin-left: 10px;
 	display: table;
-	height: 41px;
-	width: 64px;
+	height: 40px;
+	width: 81px;
 	padding: 2px 10px;
 }
 
 .resEmptyPrim {
-	margin-top:26px;
 	margin-right:20px;
+}
+
+.resEmptySpeed {
+	font-size:28px;
+	height:34px;
+	margin-top:50px;
 }
 
 .palHdr {
@@ -224,17 +306,43 @@
 	background-position-x: -536px;
 	margin-left:16px;
 	margin-right:16px;
+	margin-top:11px;
 }
 
 .palCnt {
 	color: #d5c69c;
-	font-size:1.2em;
+	font-size:36px;
 	font-weight: bold;
 	position: absolute;
-	top: 17px;
+	top: 12px;
 	width: inherit;
 	text-align: center;
 }
+
+.slime,.turtle,.hare,.gepart {
+	background-image: url(i/speedA.png);
+	width:120px;
+	height:80px;
+	margin-left:10px;
+}
+
+.slime {
+	background-position-y: -17px;
+	background-position-x: -1px;
+}
+.turtle {
+	background-position-y: -103px;
+	background-position-x: -1px;
+}
+.hare {
+	background-position-y: -184px;
+	background-position-x: -1px;
+}
+.gepart {
+	background-position-y: -252px;
+	background-position-x: -1px;
+}
+
 
 @media only screen and (min-width: 100px) and (max-width: 900px) {
 
@@ -321,13 +429,13 @@
 	background-position-x: 201px;
 }
 
-.gratzTruck {
-	background-image: url(i/sprite1mob.png);
-	width:98px;
-	height:50px;
-	background-position-y: -22px;
-	background-position-x: 132px;
-}
+/* .gratzTruck { */
+/* 	background-image: url(i/sprite1mob.png); */
+/* 	width:98px; */
+/* 	height:50px; */
+/* 	background-position-y: -22px; */
+/* 	background-position-x: 132px; */
+/* } */
 
 .levNrHdr {
 	top:13px;
@@ -351,18 +459,47 @@
 }
 
 .msgContent {
-	font-size: 1em;
+	font-size: 0.9em;
+}
+
+.msgContentRef {
+	font-size:1em;
 }
 
 .truckArt {
 	margin: 0;
 }
 
-.resEmptyPrim {
+.howtoBtn {
 	margin-top: 12px;
 	font-size: 0.7em;
 	height:25px;
 	width:45px;
+}
+
+.resEmptyPrim {
+	margin-top: 12px;
+	font-size: 0.7em;
+	height:25px;
+	width:55px;
+}
+
+.resEmptySpeed {
+	margin-top: 34px;
+	font-size: 0.7em;
+	height:25px;
+	width:55px;
+}
+
+.resBis {
+	font-size: 0.8em;
+	margin-bottom: 5px;
+}
+
+.resEmptyBis {
+	font-size: 0.8em;
+	height: 31px;
+	margin-bottom: 5px;
 }
 
 .palHdr {
@@ -379,6 +516,50 @@
 	font-size:0.9em;
 	font-weight: normal;
 	top: 6px;
+}
+
+.howToDrag , .howToCover , .howToRamp , .howToGroup , .howToColor , .howToBonus {
+	width:120px;
+	height:50px;
+	background-image: url(i/howtomob.png);
+	background-position-x: 1px;
+	margin: 0 auto 10px;
+	position:relative;
+}
+
+.howToDrag { background-position-y: -21px; }
+.howToCover { background-position-y: -94px; }
+.howToRamp { background-position-x: -12px; background-position-y: -166px; }
+.howToGroup { background-position-x: -12px; background-position-y: -240px; }
+.howToColor { background-position-x: -12px; background-position-y: -312px; }
+.howToBonus { background-position-y: -386px; }
+
+.howtoBox {
+	font-size:0.7em;
+	padding: 0 5px;
+}
+
+.slime,.turtle,.hare,.gepart {
+	width:90px;
+	height:60px;
+	margin-left:10px;
+}
+
+.slime {
+	background-position-y: -73px;
+	background-position-x: 91px;
+}
+.turtle {
+	background-position-y: -125px;
+	background-position-x: 91px;
+}
+.hare {
+	background-position-y: -175px;
+	background-position-x: 91px;
+}
+.gepart {
+	background-position-y: -216px;
+	background-position-x: 91px;
 }
 
 }

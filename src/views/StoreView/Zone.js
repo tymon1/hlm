@@ -20,13 +20,12 @@ export function Zone({ zone }) {
 			for (let n=0; n<color_zone_arr.length; n++) {
 				if (color_zone_arr[n].index === zone.no ) {
 					return color_zone_arr[n].color
-					break
 				}
 			}
-			return 'grey'
+			return '#959595'
 		}
 		else {
-			return 'grey'
+			return '#959595'
 		}
 	}
 
