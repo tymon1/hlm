@@ -31,6 +31,7 @@ import { genTruck,
 				 drawUnloadedArray, 
 				 totalTime, 
 				 makeMinutes, 
+				 isFlipping, 
 				 drawZones, 
 				 colorStoreMess, 
 				 storeMess } from '../app/helpers.js';
@@ -61,7 +62,9 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( addPalToZone(action.payload) ) 
 			}
 			if (action.payload.name === "ramp") { 
-				state.dispatch( addPalToRamp(action.payload) ) 
+				//console.warn("isFlipping", isFlipping(action.payload) )
+				
+				state.dispatch( addPalToRamp( isFlipping(action.payload)) ) 
 			}
 			if (action.payload.name === "truck") { 
 				state.dispatch( addPalToTruck(action.payload) ) 
@@ -336,14 +339,14 @@ export const storeWare = (state) => (next) => (action) => {
 	}
 
 	// 4 hard debug purpose:
-	// if (action.type === 'app/setTimer' ||
-			// action.type === 'store/remPal' ||
-			// action.type === 'store/addPal' ||
-			// action.type === 'app/drag' ||
-			// action.type === 'app/pick' ||
-			// action.type === 'app/source' 
-			// )  {}
-	// else { console.log(action) }
+	if (action.type === 'app/setTimer' ||
+			action.type === 'store/remPal' ||
+			action.type === 'store/addPal' ||
+			action.type === 'app/drag' ||
+			action.type === 'app/pick' ||
+			action.type === 'app/source' 
+			)  {}
+	else { console.log(action) }
 
 	next(action)
 }

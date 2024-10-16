@@ -27,11 +27,19 @@ export function Pallet({ pallet }) {
 
 	})
 
+
 		
 	return (
-		<div draggable={ true } className={ s.pallet }
+		<div draggable={ !pallet.flipped } className={ s.pallet }
 				 id = { pallet.id } style={{ background: pallet.c }}
 				 ref={ oneRef }
+
+				 onClick = { () => {
+					   if ( pallet.flipped ) {
+							 console.log("mess")
+						 }
+				   }
+				 }
 
 				 onDragStart = { () => {
 					 let palElem = document.getElementById( pallet.id )
@@ -51,6 +59,8 @@ export function Pallet({ pallet }) {
 				 }}
 
 				 >
+       
+			{ pallet.flipped ? "X" : "" }
 
 		</div>
 	)

@@ -27,7 +27,7 @@ const initialState = {
 		// within zones
 		mess: false,
 		// sorting means that player wish to
-		// finish level
+		// finish level 
 		sorting: false,
 
 		// store zones with pallets
@@ -195,6 +195,7 @@ export const storeSlice = createSlice({
 		},
 
 		addPalToRamp: (state, payload) => {
+			// tutaj losować możliwość przewrócenia??
 			let l= payload.payload
 			state.ramps[l.index].pallets.push( l.pallet ) 
 		},

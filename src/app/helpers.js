@@ -118,7 +118,11 @@ let drawPallets = (idf_, len_) => {
 
 			// pallette object:
 			//
-			let palElem = { id: "p" + id, c: colorType, selected: false }
+			let palElem = { id: "p" + id, 
+				              c: colorType, 
+											selected: false, 
+											flipped: false, 
+			              }
 			retArr.push(palElem)
 		}
 	}
@@ -129,8 +133,38 @@ let drawPallets = (idf_, len_) => {
 
 //////////////////////////////
 //
+//  determine if pallet is 
+//  flipping ..
+//
+
+export const isFlipping = (pl) => {
+	let drawFlip = Math.round( Math.random() )
+	let flipped
+	
+	if (drawFlip === 0) { flipped = true }
+	else { flipped = false }
+
+	let actionCopy = {
+		index: pl.index,
+		name: pl.name,
+		pallet: {
+			id: pl.pallet.id,
+			c: pl.pallet.c,
+			selected: pl.pallet.selected,
+			flipped: flipped,
+		}
+
+	}
+	return actionCopy
+}
+
+
+
+//////////////////////////////
+//
 //   pick unloaded pallette 
-//   from zones
+//   from zones /used in bonus
+//   levels/
 //
 
 export const drawUnloaded = zones => {

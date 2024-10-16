@@ -1,9 +1,11 @@
 .pallet {
 	filter: brightness(0.8) saturate(0.8);
-	color: white !important;
+	/* color: white !important; */
+	color: gray !important;
 	width: 20px;
 	height: 25px;
-	font-size: 13px;
+	font-size: 30px;
+	font-weight: bold;
 	padding: 2px;
 	display: block;
 	user-select: none;
