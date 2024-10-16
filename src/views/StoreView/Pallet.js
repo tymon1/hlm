@@ -2,6 +2,7 @@ import s from './css/Pallet.module.css';
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
+import { palletRecover } from '../../slice/StoreSlice';
 
 
 
@@ -30,19 +31,27 @@ export function Pallet({ pallet }) {
 
 		
 	return (
-		<div draggable={ !pallet.flipped } className={ s.pallet }
+		<div draggable={ pallet.recovered === 100 ? true : false } className={ s.pallet }
 				 id = { pallet.id } style={{ background: pallet.c }}
 				 ref={ oneRef }
 
 				 onClick = { () => {
-					   if ( pallet.flipped ) {
-							 console.log("mess")
+					   if ( pallet.recovered < 100 ) {
+							 let pElem = oneRef.current
+							 let rampIndex = pElem.parentElement.id.split("-")[1]
+							 console.log("mess",pallet.id, rampIndex )
+							 dispatch( palletRecover( {
+								 pallet: pallet,
+								 rampIndex: rampIndex,
+								 percent: 10 
+							 }) )
 						 }
 				   }
 				 }
 
 				 onDragStart = { () => {
-					 let palElem = document.getElementById( pallet.id )
+					 // let palElem = document.getElementById( pallet.id )
+					 let palElem = oneRef.current
 					 palElem.style.zIndex="10002"
 
 					 dispatch( drag( true ) )
@@ -60,7 +69,7 @@ export function Pallet({ pallet }) {
 
 				 >
        
-			{ pallet.flipped ? "X" : "" }
+			{ pallet.recovered < 100 ? "X" : "" }
 
 		</div>
 	)

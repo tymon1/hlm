@@ -226,6 +226,16 @@ export const storeSlice = createSlice({
 		},
 		
 //////////////////////////////////
+
+		palletRecover: (state, payload) => {
+			let rampInx = payload.payload.rampIndex
+			let palInx= state.ramps[rampInx].pallets.findIndex( inx => inx.id === payload.payload.pallet.id )
+			let currPc = state.ramps[rampInx].pallets[palInx].recovered
+			let incPc = currPc + 10
+			state.ramps[rampInx].pallets[palInx].recovered = incPc
+		},
+
+//////////////////////////////////
 		checkTrucks: (state) => {},
 
 		// former truckOnDockEmpty
@@ -265,6 +275,7 @@ export const { addQueueTruck, remQueueTruck,
 							 selectPallette,
 							 unSelectPal,
 							 storeReset,
+							 palletRecover,
 							 setTruckCover,
 							 setPalletsCounter, setTruckCounter,
 							 addPal, addPalToZone, addPalToRamp, addPalToTruck,

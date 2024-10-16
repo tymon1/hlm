@@ -121,7 +121,7 @@ let drawPallets = (idf_, len_) => {
 			let palElem = { id: "p" + id, 
 				              c: colorType, 
 											selected: false, 
-											flipped: false, 
+											recovered: 100,
 			              }
 			retArr.push(palElem)
 		}
@@ -141,8 +141,8 @@ export const isFlipping = (pl) => {
 	let drawFlip = Math.round( Math.random() )
 	let flipped
 	
-	if (drawFlip === 0) { flipped = true }
-	else { flipped = false }
+	if (drawFlip === 0) { flipped = 0 }
+	else { flipped = 100 }
 
 	let actionCopy = {
 		index: pl.index,
@@ -151,7 +151,7 @@ export const isFlipping = (pl) => {
 			id: pl.pallet.id,
 			c: pl.pallet.c,
 			selected: pl.pallet.selected,
-			flipped: flipped,
+			recovered: flipped,
 		}
 
 	}
