@@ -10,6 +10,7 @@ const initialState = {
 		timer: 0,
 		bonus_wait: 4,
 		level_times: [],
+		level_points: [],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [2],
 		level_bonuses: [],
@@ -147,6 +148,10 @@ export const appSlice = createSlice({
 			state.wave_times = [] 
 		},
 
+		pushPoints: (state,payload) => {
+			state.level_points.push(payload.payload)
+		},
+
 		popTimeSum: state => {
 			let sum = 0
 			state.wave_times.forEach( time => {
@@ -206,6 +211,7 @@ export const { runLevel, increaseWave, resetWave,
 							 popTimeSum,
 							 incHowto, decHowto,
 							 loadTruck,
+							 pushPoints,
 							 hardReset,
 							 setBonusCounter,
 							 markLevelPalCount,

@@ -231,7 +231,7 @@ export const storeSlice = createSlice({
 			let rampInx = payload.payload.rampIndex
 			let palInx= state.ramps[rampInx].pallets.findIndex( inx => inx.id === payload.payload.pallet.id )
 			let currPc = state.ramps[rampInx].pallets[palInx].recovered
-			let incPc = currPc + 10
+			let incPc = currPc + payload.payload.percent
 			state.ramps[rampInx].pallets[palInx].recovered = incPc
 		},
 

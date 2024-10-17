@@ -43,7 +43,7 @@ export function Pallet({ pallet }) {
 							 dispatch( palletRecover( {
 								 pallet: pallet,
 								 rampIndex: rampIndex,
-								 percent: 10 
+								 percent: 20 
 							 }) )
 						 }
 				   }
@@ -63,7 +63,7 @@ export function Pallet({ pallet }) {
 				 }}
 
 				 onDragEnd = { () => {
-					 document.getElementById(pallet.id).style.zIndex="9001"
+					 oneRef.current.style.zIndex="9001"
 					 dispatch( drag( false ) )
 				 }}
 

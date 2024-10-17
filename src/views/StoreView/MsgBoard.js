@@ -41,6 +41,11 @@ export function MsgBoard() {
 
 	const ppMinute = ((levelPalNum/levelTimes[levelTimes.length -1]) *60).toFixed(1)
 
+	const levelPoints = useSelector(state => state.app.level_points)
+  const currLevelPoints = Math.round( (ppMinute / 60 *levelPalNum) *10) /10
+	const levelPtsSum = levelPoints.reduce( (a,b) => { return a +b }, 0 )
+
+
 	useEffect(() => { 
 		setTimeout( () => { 
 			let melem = document.querySelector("#msg")
@@ -217,10 +222,19 @@ export function MsgBoard() {
 							: '' }
 
 						{ (msgType === 'gratz' && levInx() !== -1) ? 
+								<div>
 							  <div id="bonuz" className={ s.bonus }>
 									 <span className={ s.bonusResult }>
 									 	 { "x"+bonuses[ levInx() ].count } 
 								   </span>
+								</div>
+
+							  <div className={ s.result }>
+								  <span>level pts: {  currLevelPoints } </span>
+								  <span>total pts: {  Math.round( (levelPtsSum + 
+												                           currLevelPoints) *10) /10 } 
+									</span>
+								</div> 
 								</div>
 							: '' }
 

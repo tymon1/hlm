@@ -2,6 +2,7 @@ import { reverse_l,
          reverse_s,
          reverse_xxl,
          wave,
+         error,
 				 complete,
          newQ,
          beep,
@@ -28,6 +29,11 @@ export const zundWare = (state) => (next) => (action) => {
 		case 'store/addPal':
 			if (action.payload.name === "ramp") { beep.play() } 
 			else { stomp.play() }
+			break
+
+		case 'store/addPalToRamp':
+			if (action.payload.pallet.recovered === 0) { error.play() } 
+			else { }
 			break
 
 

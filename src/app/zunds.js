@@ -9,6 +9,11 @@ export const beep = new Howl({
 	volume: 0.05,
 })
 
+export const error = new Howl({
+	src: ['s/error.mp3'],
+	volume: 0.4,
+})
+
 export const reverse_l = new Howl({
 	src: ['s/truck_l_reverse.mp3'],
 	volume: 0.9,

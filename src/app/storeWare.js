@@ -18,6 +18,7 @@ import { saveTimer, setStamp,
 	       increaseLevel,
 	       preparingLevel,
 	       popTimeSum,
+	       pushPoints,
 				 showMsg,
 				 markLevelPalCount,
 				 setBonusCounter,
@@ -29,8 +30,7 @@ import { genTruck,
 				 loadingDone, 
 				 drawUnloaded, 
 				 drawUnloadedArray, 
-				 totalTime, 
-				 makeMinutes, 
+				 // makeMinutes, 
 				 isFlipping, 
 				 drawZones, 
 				 colorStoreMess, 
@@ -47,11 +47,14 @@ export const storeWare = (state) => (next) => (action) => {
 	let docks = state.getState().store.docks
 	let ramps = state.getState().store.ramps
 	let zones = state.getState().store.zones
-	let palCnt = state.getState().store.counter.palletId
 	let stamp = state.getState().app.stamp
 	let timer = state.getState().app.timer
-	
 
+	let palCnt = state.getState().store.counter.palletId
+	let palStartCnt = state.getState().app.level_start_pal_count
+	let levelTimes = state.getState().app.level_times
+
+	
 	switch (action.type) {
 
 		// addPal helper
@@ -62,8 +65,7 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( addPalToZone(action.payload) ) 
 			}
 			if (action.payload.name === "ramp") { 
-				//console.warn("isFlipping", isFlipping(action.payload) )
-				
+				// determine if pallet is flipping
 				state.dispatch( addPalToRamp( isFlipping(action.payload)) ) 
 			}
 			if (action.payload.name === "truck") { 
@@ -192,9 +194,10 @@ export const storeWare = (state) => (next) => (action) => {
 
 					} else {
 
-						let gratz = "Gratulacje, ukończyłeś poziom " + 
-												 level.current + ", w  czasie " +
-												 makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
+						// let gratz = "Gratulacje, ukończyłeś poziom " + 
+												 // level.current + ", w  czasie " +
+												 // makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
+						let gratz 
 
 					  // needed in gratz window for number of processed pallets  
 						state.dispatch( showMsg({ type:"gratz", text: gratz }) )
@@ -202,6 +205,7 @@ export const storeWare = (state) => (next) => (action) => {
 						// not after full truck load!
 						if ( !state.getState().app.level.loadTruck ) {
 							state.dispatch( popTimeSum() )
+
 						}
 						state.dispatch( preparingLevel(true) )
 					}
@@ -240,7 +244,13 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( colorZonesReset() ) 
 				state.dispatch( resetZones() )
 				state.dispatch( resetWave() )
-				// todo zrobic ogranicznik leveli
+
+				let pCnt = palCnt-palStartCnt[palStartCnt.length -1]
+				let lTime = levelTimes[level.current-1]
+				let levelPts = ( ( pCnt *(60/lTime) ) /60 ) *pCnt
+				state.dispatch( pushPoints( Math.round(levelPts *10) /10 ) )
+				
+				// TODO ZROBIC OGRANICZNIK LEVELI
 				state.dispatch( increaseLevel() )
 				state.dispatch( resetTimeResults() )
 			}

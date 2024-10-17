@@ -186,6 +186,10 @@
 	transition: top 1.6s ease-in-out;
 }
 
+.result {
+	color: white;
+}
+
 .stwatch {
 	width:180px;
 	height:180px;
