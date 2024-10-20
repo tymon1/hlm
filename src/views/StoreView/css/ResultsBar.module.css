@@ -124,4 +124,17 @@
 	border-bottom: none;
 }
 
+.bonuses {
+	background-position-y:777px;
+	background-position-x:-6px;
+	height:62px;
+	width:66px;
+	margin-top:0px;
+}
+
+.bonusInner {
+	font-size: 20px;
+	margin-top: 3px;
+}
+
 }

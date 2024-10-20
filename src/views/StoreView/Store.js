@@ -5,6 +5,7 @@ import { Zone } from './Zone';
 import { RampsExternal } from './Ramps';
 import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
+import { BottomBar } from './BottomBar';
 import { ResultsBar } from './ResultsBar';
 // import { Timer } from './Timer';
 import { Admin } from './Admin';
@@ -66,18 +67,22 @@ export function Store() {
       </div>
 
 
+	<BottomBar />
 	<Admin />
-			<div className={ s.levelTimes }>
-			  {
-					level_times.map( (t,index) => { 
-						return ( 
-								<span key={ index } className={ s.levelTime }>{t}</span>
-						)
-					} )
-				}	
-			</div>
-			<span className={ s.levelTime }> total: { makeMinutes( Number(totalTime( level_times )) ) }</span>
 
     </div>
   );
 }
+
+
+
+			// <div className={ s.levelTimes }>
+			//   {
+			// 		level_times.map( (t,index) => { 
+			// 			return ( 
+			// 					<span key={ index } className={ s.levelTime }>{t}</span>
+			// 			)
+			// 		} )
+			// 	}	
+			// </div>
+			// <span className={ s.levelTime }> total: { makeMinutes( Number(totalTime( level_times )) ) }</span>

@@ -32,7 +32,7 @@ const initialState = {
 			loadTruck: false,
 			preparing: false,
 			run: false,
-			current: 12,
+			current: 1,
 			          // { index, color }
 			color_zone: [],
 			wave: 0 

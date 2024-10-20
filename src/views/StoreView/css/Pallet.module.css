@@ -14,7 +14,7 @@
 }
 
 .pallet:hover, .selected {
-	filter: brightness(1.6) saturate(1.6);
+	filter: brightness(1.8) saturate(1.6);
 }
 
 .recover {

@@ -16,6 +16,9 @@ import { makeMinutes,
 				 // totalTime,
 	     } from '../../app/helpers';
 
+								  // <span>total pts: {  Math.round( (levelPtsSum + 
+												                           // currLevelPoints) *10) /10 } 
+									// </span>
 
 
 export function MsgBoard() {
@@ -77,6 +80,13 @@ export function MsgBoard() {
 			}
 		}, 2200 )
 
+		setTimeout( () => { 
+			let points = document.getElementById("points")
+			if (points !== null) {
+				points.style.opacity = "1"
+			}
+		}, 3200 )
+
 	})
 
 
@@ -120,7 +130,7 @@ export function MsgBoard() {
 	let clipart = type => { 
 		switch(type) {
 			case 'gratz':
-				return s.stihl
+				return s.empty
 			case 'start':
 				return s.startIco
 			case 'next':
@@ -137,6 +147,8 @@ export function MsgBoard() {
 		if (speed > 10 && speed <= 20) { return s.turtle } 
 		if (speed > 20 && speed <= 30) { return s.hare } 
 		if (speed > 30 && speed <= 50) { return s.gepart } 
+		// todo thunder
+		if (speed > 50 ) { return s.gepart } 
 	}
 
 	// let blinkBtn = () => {
@@ -172,6 +184,10 @@ export function MsgBoard() {
 				<div className={ s.msgWindow }> 
 
 					<div className={ s.iconCntHdr }>
+						{ (msgType === 'start') ? 
+							<div className={ s.hellmutt }></div>
+							: '' }
+
 						{ (msgType === 'next') ? 
 							<div className={ s.topRes }>
 								<span className={ s.resEmptyBis }>{ waveCur } / { levels[ levelNumber].waves }</span>
@@ -209,8 +225,10 @@ export function MsgBoard() {
 					<div className={ s.iconCnt }>
 
 						<div className={ clipart(msgType) }> 
-							{ (msgType === 'gratz') ? 
-								<div id="cup" className={ s.stihlCup }> </div>
+							{ (msgType === 'gratz' && trLoading) ? 
+								<div className={ s.stihl }>
+									<div id="cup" className={ s.stihlCup }> </div>
+								</div>
 								: '' }
 						</div>
 
@@ -231,11 +249,8 @@ export function MsgBoard() {
 							: '' }
 
 						{ (msgType === 'gratz' && !trLoading) ?  
-							  <div className={ s.result }>
-								  <span>level pts: {  currLevelPoints } </span>
-								  <span>total pts: {  Math.round( (levelPtsSum + 
-												                           currLevelPoints) *10) /10 } 
-									</span>
+							  <div id="points" className={ s.levelBulions }>
+								  <div className={ s.levelPoints }>{ currLevelPoints }</div>
 								</div> 
 							: '' }
 
@@ -311,7 +326,7 @@ export function MsgBoard() {
 						: (msgType === 'howto') ? <div id="fwBtn" onClick={ mvForward } 
 							                             className={ s.msgBtn }> graj </div> :
 						   <div id="fwBtn" onClick={ mvForward } 
-															 className={ s.msgBtn }> kontynuacja </div> }
+															 className={ s.msgBtn }> dalej </div> }
 
 
 				</div>

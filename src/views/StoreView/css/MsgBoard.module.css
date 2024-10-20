@@ -44,6 +44,12 @@
 	flex-direction: row;
 }
 
+.hellmutt {
+	width:272px;
+	height:70px;
+	background-image: url(i/hlm.png);
+}
+
 .howtoBox {
 	flex: 1;
 	margin: 10px 0px;
@@ -106,7 +112,7 @@
 	display: table;
 	margin: 20px auto -15px;
 	padding: 10px 42px;
-	background: #377d37;
+	background: #4b6e57;
 	text-align:center;
 }
 
@@ -203,8 +209,31 @@
 	transition: opacity 1.6s ease-in-out;
 }
 
+.levelBulions {
+	display:block;
+	width:180px;
+	height:180px;
+	background-image: url(i/sprite2.png);
+	margin:20px;
+	background-position-y: 5px;
+	background-position-x: -568px;
+	opacity:0;
+	transition: opacity 1.6s ease-in-out;
+}
+
+.empty { }
+
+.levelPoints {
+	font-size: 34px;
+  color: #b9b9b9;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  width: 180px;
+  top: 72px;
+}
+
 .timeResult {
-	/* font-size:1.3em; */
 	font-size:34px;
 	color:#313131;
 	font-weight:bold;
@@ -241,7 +270,7 @@
 	text-align: center;
 	position:relative;
 	width: 180px;
-	top:60px;
+	top:67px;
 	display: block;
 }
 
@@ -368,16 +397,25 @@
 	height:100px;
 	background-image: url(i/sprite2mob.png);
 	margin:10px;
-	background-position-y: 6px;
-	background-position-x: 200px;
+	background-position-y: 3px;
+	background-position-x: 332px;
 	opacity:0;
 	transition: opacity 1.6s ease-in-out;
+}
+
+.levelBulions {
+	width:100px;
+	height:100px;
+	background-image: url(i/sprite2mob.png);
+	margin:10px;
+	background-position-y: 6px;
+	background-position-x: 121px;
 }
 
 .timeResult {
 	font-size:0.8em;
 	font-weight:normal;
-	top:42px;
+	top:39px;
 	left:25px;
 }
 
@@ -414,12 +452,21 @@
 }
 
 .bonusResult {
-	font-size:0.7em;
+	font-size:0.8em;
 	color:#b9b9b9;
 	position:relative;
 	font-weight:normal;
 	width:100px;
-	top:37px;
+	top:39px;
+}
+
+.levelPoints {
+	font-size:0.9em;
+	color:#b9b9b9;
+	position:relative;
+	font-weight:normal;
+	width:100px;
+	top:39px;
 }
 
 .msgWindow {
