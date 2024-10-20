@@ -1,28 +1,42 @@
 .pallet {
-	filter: brightness(0.8) saturate(0.8);
-	/* color: white !important; */
+	filter: brightness(0.95) saturate(1);
 	color: gray !important;
-	width: 20px;
-	height: 25px;
+	width: 24px;
+	height: 29px;
 	font-size: 30px;
 	font-weight: bold;
-	padding: 2px;
 	display: block;
 	user-select: none;
 	border-bottom: 11px solid #888;
 	border-left: 5px dashed brown;
 	cursor:pointer;
+	position:relative;
 }
 
 .pallet:hover, .selected {
 	filter: brightness(1.6) saturate(1.6);
-	/* filter: brightness(1.7); */
+}
+
+.recover {
+	background:lime !important;
+	display:block;
+	position:absolute;
+	bottom:0px;
+	width:100%;
+}
+
+.xrecover {
+	display:block;
+	position:absolute;
+	bottom:-2px;
+	user-select:none;
 }
 
 @media only screen and (min-width: 100px) and (max-width: 900px) {
 	.pallet {
 		width: 14px;
 		height: 17px;
+		font-size: 20px;
 	}
 }
 

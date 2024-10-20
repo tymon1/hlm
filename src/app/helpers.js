@@ -13,12 +13,14 @@ const truck_types = ['s','m','xl']
 
 
 // pellets colors / colors of available zones
-//
+// no of colors must coresponds with no of zones..
 
+											  // 'saddleBrown',
+												
 const pallets_colors = ['blue',
-											  'sandyBrown',
-											  'springgreen',
+											  'peru',
 											  'purple',
+												'slateblue',
 											  'yellow',
 											  'white',
 											  'pink',
@@ -138,19 +140,19 @@ let drawPallets = (idf_, len_) => {
 //
 
 export const isFlipping = (pl) => {
-	let drawFlip = Math.round( Math.random() )
+	let drawFlip = Math.round( Math.random() *100 )
 	let flipped
 	
-	if (drawFlip === 0) { flipped = 0 }
+	if (drawFlip <= pl.fr) { flipped = 0 }
 	else { flipped = 100 }
 
 	let actionCopy = {
-		index: pl.index,
-		name: pl.name,
+		index: pl.p.index,
+		name: pl.p.name,
 		pallet: {
-			id: pl.pallet.id,
-			c: pl.pallet.c,
-			selected: pl.pallet.selected,
+			id: pl.p.pallet.id,
+			c: pl.p.pallet.c,
+			selected: pl.p.pallet.selected,
 			recovered: flipped,
 		}
 

@@ -49,6 +49,7 @@ export const storeWare = (state) => (next) => (action) => {
 	let zones = state.getState().store.zones
 	let stamp = state.getState().app.stamp
 	let timer = state.getState().app.timer
+	let flipRisk = state.getState().app.flip_risk
 
 	let palCnt = state.getState().store.counter.palletId
 	let palStartCnt = state.getState().app.level_start_pal_count
@@ -66,7 +67,7 @@ export const storeWare = (state) => (next) => (action) => {
 			}
 			if (action.payload.name === "ramp") { 
 				// determine if pallet is flipping
-				state.dispatch( addPalToRamp( isFlipping(action.payload)) ) 
+				state.dispatch( addPalToRamp( isFlipping({p:action.payload, fr:flipRisk})) ) 
 			}
 			if (action.payload.name === "truck") { 
 				state.dispatch( addPalToTruck(action.payload) ) 
@@ -167,7 +168,8 @@ export const storeWare = (state) => (next) => (action) => {
 				if  ( level.wave< levels[ level.current ].waves-1 && !level.run ) {
 					// show msg
 					//
-					state.dispatch( showMsg({ type:"next", text: "Nadjeżdza kolejna grupa kurierów" }) )
+					//                                            Nadjeżdża grupa kurierów
+					state.dispatch( showMsg({ type:"next", text: "" }) )
 					state.dispatch( increaseWave() )
 				}
 				else {

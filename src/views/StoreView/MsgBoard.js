@@ -43,6 +43,7 @@ export function MsgBoard() {
 
 	const levelPoints = useSelector(state => state.app.level_points)
   const currLevelPoints = Math.round( (ppMinute / 60 *levelPalNum) *10) /10
+	// sum of all level points
 	const levelPtsSum = levelPoints.reduce( (a,b) => { return a +b }, 0 )
 
 
@@ -222,20 +223,20 @@ export function MsgBoard() {
 							: '' }
 
 						{ (msgType === 'gratz' && levInx() !== -1) ? 
-								<div>
 							  <div id="bonuz" className={ s.bonus }>
 									 <span className={ s.bonusResult }>
 									 	 { "x"+bonuses[ levInx() ].count } 
 								   </span>
 								</div>
+							: '' }
 
+						{ (msgType === 'gratz' && !trLoading) ?  
 							  <div className={ s.result }>
 								  <span>level pts: {  currLevelPoints } </span>
 								  <span>total pts: {  Math.round( (levelPtsSum + 
 												                           currLevelPoints) *10) /10 } 
 									</span>
 								</div> 
-								</div>
 							: '' }
 
 

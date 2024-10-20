@@ -49,3 +49,33 @@
 	cursor: pointer;
 }
 
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+
+	.tType_s { 
+		background-position-y: -204px;
+		width:50px;
+	}
+
+	.tType_m { 
+		background-position-y: -246px;
+		width:60px;
+	}
+
+	.tType_xl { 
+		background-position-y: -287px;
+		width:80px;
+	}
+
+	.tType_bonus { 
+		background-position-y: -161px;
+		width:50px;
+	}
+
+	.tType_xl, .tType_m, .tType_s, .tType_bonus {
+		padding:0px;
+		margin:0px;
+	}
+
+
+}

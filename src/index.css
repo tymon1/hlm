@@ -8,3 +8,14 @@ body {
 	background: #333333;
 }
 
+#root {
+	max-width: 1300px;
+	margin: 20px auto;
+	overflow: hidden;
+}
+
+@media only screen and (min-width: 100px) and (max-width: 900px) {
+#root {
+	margin: 0px auto;
+}
+}

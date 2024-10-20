@@ -1,5 +1,5 @@
 import s from './css/Pallet.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
 import { palletRecover } from '../../slice/StoreSlice';
@@ -10,7 +10,7 @@ export function Pallet({ pallet }) {
 
 	const dispatch = useDispatch()
 	const oneRef = useRef();
-
+	const recPc = useSelector(state => state.app.recover_step)
 
 	useEffect( () => { 
 		const intId = setInterval( () => { 
@@ -31,7 +31,7 @@ export function Pallet({ pallet }) {
 
 		
 	return (
-		<div draggable={ pallet.recovered === 100 ? true : false } className={ s.pallet }
+		<div draggable={ pallet.recovered >= 100 ? true : false } className={ s.pallet }
 				 id = { pallet.id } style={{ background: pallet.c }}
 				 ref={ oneRef }
 
@@ -43,7 +43,7 @@ export function Pallet({ pallet }) {
 							 dispatch( palletRecover( {
 								 pallet: pallet,
 								 rampIndex: rampIndex,
-								 percent: 20 
+								 percent: recPc 
 							 }) )
 						 }
 				   }
@@ -69,7 +69,14 @@ export function Pallet({ pallet }) {
 
 				 >
        
-			{ pallet.recovered < 100 ? "X" : "" }
+					 { pallet.recovered < 100 ?
+						 <span style={{ height: pallet.recovered +"%" }}
+									 className={ s.recover }> </span>
+										 : ""
+					 }
+
+					 <span className={ s.xrecover }> 
+					 	 { pallet.recovered < 100 ? "X" : "" } </span>
 
 		</div>
 	)

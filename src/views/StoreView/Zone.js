@@ -22,10 +22,10 @@ export function Zone({ zone }) {
 					return color_zone_arr[n].color
 				}
 			}
-			return '#959595'
+			return 'rgb(172, 172, 172)'
 		}
 		else {
-			return '#959595'
+			return 'rgb(172, 172, 172)'
 		}
 	}
 

@@ -8,7 +8,15 @@ const initialState = {
 		howtoPage: 1,
 		stamp: 0,
 		timer: 0,
+		// risk % of pallet flip
+		flip_risk: 20,
+		// % of tumbled pallet recovery
+		recover_step: 30,
+		// how long bonus truck wait
 		bonus_wait: 4,
+		// some parameter for bonus truck draw chances ? 
+		// in .. storeWare line 314
+		//
 		level_times: [],
 		level_points: [],
 		// initial value is 2: store.counter.palletId
@@ -24,43 +32,53 @@ const initialState = {
 			loadTruck: false,
 			preparing: false,
 			run: false,
-			current: 1,
+			current: 12,
 			          // { index, color }
 			color_zone: [],
 			wave: 0 
 		},
 
-		levels: [ { waves:0, truckMax:0, color_zones: { colorize:false } }, 
-						  { waves:1, truckMax:1, color_zones: { colorize:true, count:2 } },
-						  { waves:1, truckMax:2, color_zones: { colorize:true, count:4 } },
-						  { waves:2, truckMax:2, color_zones: { colorize:false } },
-						  { waves:2, truckMax:1, color_zones: { colorize:true, count:3 } },
-						  { waves:1, truckMax:3, color_zones: { colorize:true, count:3 } },
-						  { waves:1, truckMax:4, color_zones: { colorize:false } },
-						  { waves:2, truckMax:3, color_zones: { colorize:true, count:2 } },
-						  { waves:3, truckMax:2, color_zones: { colorize:true, count:4 } },
-						  { waves:2, truckMax:4, color_zones: { colorize:false } },
-						  { waves:1, truckMax:5, color_zones: { colorize:true, count:5 } },
-						  { waves:2, truckMax:5, color_zones: { colorize:true, count:3 } },
-						  { waves:4, truckMax:2, color_zones: { colorize:true, count:2 } },
-						  { waves:3, truckMax:4, color_zones: { colorize:true, count:3 } },
-						  { waves:3, truckMax:5, color_zones: { colorize:true, count:3 } },
-						  { waves:2, truckMax:6, color_zones: { colorize:false } },
-						  { waves:5, truckMax:3, color_zones: { colorize:true, count:5 } },
-						  { waves:3, truckMax:6, color_zones: { colorize:true, count:2 } },
-						  { waves:4, truckMax:5, color_zones: { colorize:true, count:6 } },
-						  { waves:2, truckMax:8, color_zones: { colorize:true, count:4 } },
-						  { waves:3, truckMax:5, color_zones: { colorize:true, count:6 } },
-						  { waves:6, truckMax:2, color_zones: { colorize:true, count:4 } },
-						  { waves:5, truckMax:2, color_zones: { colorize:false } },
-						  { waves:6, truckMax:2, color_zones: { colorize:true, count:4 } },
-						  { waves:5, truckMax:3, color_zones: { colorize:true, count:6 } },
-						  { waves:2, truckMax:8, color_zones: { colorize:true, count:4 } },
-						  { waves:2, truckMax:8, color_zones: { colorize:false } },
-						  { waves:2, truckMax:8, color_zones: { colorize:true, count:6 } },
-						  { waves:2, truckMax:8, color_zones: { colorize:true, count:5 } },
-						  { waves:2, truckMax:8, color_zones: { colorize:true, count:3 } },
-						  { waves:7, truckMax:5, color_zones: { colorize:false } } ],
+		levels: [ { bg:'fugazi', waves:1, truckMax:1, color_zones: { colorize:false } }, 
+							// 1+
+						  { bg:'grey', waves:2, truckMax:1, color_zones: { colorize:true, count:2 } },
+						  { bg:'grey', waves:1, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { bg:'grey', waves:2, truckMax:2, color_zones: { colorize:false } },
+							// 4+
+						  { bg:'rgb(130, 136, 130)', waves:2, truckMax:1, color_zones: { colorize:true, count:3 } },
+						  { bg:'rgb(130, 136, 125)', waves:1, truckMax:3, color_zones: { colorize:true, count:3 } },
+						  { bg:'rgb(130, 136, 120)', waves:1, truckMax:4, color_zones: { colorize:false } },
+							// 7+
+						  { bg:'rgb(123, 115, 114)', waves:2, truckMax:3, color_zones: { colorize:true, count:2 } },
+						  { bg:'rgb(123, 115, 114)', waves:3, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { bg:'rgb(123, 115, 114)', waves:2, truckMax:4, color_zones: { colorize:false } },
+              // 10+
+						  { bg:'rgb(113, 134, 134)', waves:1, truckMax:5, color_zones: { colorize:true, count:5 } },
+						  { bg:'rgb(113, 134, 134)', waves:2, truckMax:5, color_zones: { colorize:true, count:3 } },
+						  { bg:'rgb(113, 134, 134)', waves:4, truckMax:2, color_zones: { colorize:true, count:2 } },
+              // 13+
+						  { bg:'rgb(113, 118, 134)', waves:3, truckMax:4, color_zones: { colorize:true, count:3 } },
+						  { bg:'rgb(113, 118, 134)', waves:3, truckMax:5, color_zones: { colorize:true, count:3 } },
+						  { bg:'rgb(113, 118, 134)', waves:2, truckMax:6, color_zones: { colorize:false } },
+              // 16+
+						  { bg:'rgb(113, 134, 121)', waves:5, truckMax:3, color_zones: { colorize:true, count:5 } },
+						  { bg:'rgb(113, 134, 121)', waves:3, truckMax:6, color_zones: { colorize:true, count:2 } },
+						  { bg:'rgb(113, 134, 121)', waves:4, truckMax:5, color_zones: { colorize:true, count:6 } },
+              // 19+
+						  { bg:'rgb(134, 132, 113)', waves:2, truckMax:8, color_zones: { colorize:true, count:4 } },
+						  { bg:'rgb(134, 132, 113)', waves:3, truckMax:5, color_zones: { colorize:true, count:6 } },
+						  { bg:'rgb(134, 132, 113)', waves:6, truckMax:2, color_zones: { colorize:true, count:4 } },
+              // 22+
+						  { bg:'rgb(162, 156, 142)', waves:5, truckMax:2, color_zones: { colorize:false } },
+						  { bg:'rgb(162, 156, 142)', waves:6, truckMax:2, color_zones: { colorize:true, count:4 } },
+						  { bg:'rgb(162, 156, 142)', waves:5, truckMax:3, color_zones: { colorize:true, count:6 } },
+              // 25+
+						  { bg:'grey', waves:2, truckMax:8, color_zones: { colorize:true, count:4 } },
+						  { bg:'grey', waves:2, truckMax:8, color_zones: { colorize:false } },
+						  { bg:'grey', waves:2, truckMax:8, color_zones: { colorize:true, count:6 } },
+              // 28+
+						  { bg:'grey', waves:2, truckMax:8, color_zones: { colorize:true, count:5 } },
+						  { bg:'grey', waves:2, truckMax:8, color_zones: { colorize:true, count:3 } },
+						  { bg:'grey', waves:7, truckMax:5, color_zones: { colorize:false } } ],
 
 }
 

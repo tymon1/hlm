@@ -136,8 +136,8 @@
 	display: flex;
 	margin: 25px auto 10px;
 	background: #515151;
-	border-top: 5px solid grey;
-	border-bottom: 5px solid grey;
+	/* border-top: 5px solid grey; */
+	/* border-bottom: 5px solid grey; */
 }
 
 .msgWindow {
@@ -146,6 +146,8 @@
 	display: flex;
 	flex-direction: inherit;
 	padding:50px;
+	margin: 0 auto;
+	max-width: 900px;
 }
 
 .stihl {
@@ -244,7 +246,7 @@
 }
 
 .truckArt {
-	width:180px;
+	width:490px;
 	height:180px;
 	background-image: url(i/truckArt.png);
 	margin:0 auto 30px;
@@ -262,7 +264,7 @@
 	color: #333;
 	border-radius:5px;
 	background: #d3dce2;
-  font-size: 30px;
+  font-size: 28px;
 	margin-top: 6px;
 	margin-right: 0px;
 	margin-bottom: 10px;
@@ -281,7 +283,7 @@
 	color: #555;
 	font-weight: bold;
 	text-align: center;
-	margin-top:8px;
+	margin-top:6px;
 	margin-right: 0px;
 	margin-bottom: 10px;
 	margin-left: 10px;
@@ -289,6 +291,7 @@
 	height: 40px;
 	width: 81px;
 	padding: 2px 10px;
+	/* border-bottom: 4px solid #a4a4a4; */
 }
 
 .resEmptyPrim {
@@ -383,8 +386,8 @@
 	display: flex;
 	margin: 15px auto 5px;
 	background: #515151;
-	border-top: 3px solid grey;
-	border-bottom: 3px solid grey;
+	/* border-top: 3px solid grey; */
+	/* border-bottom: 3px solid grey; */
 	padding: 0 15px;
 }
 

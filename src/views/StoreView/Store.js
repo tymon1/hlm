@@ -23,6 +23,9 @@ export function Store() {
 	const lock = useSelector(state => state.app.msg.visible)
 	const level_times = useSelector(state => state.app.level_times)
 
+	const curLevel = useSelector(state => state.app.level.current)
+	const levels = useSelector(state => state.app.levels)
+
 
   return (
     <div>
@@ -34,7 +37,8 @@ export function Store() {
 
 				<RampsExternal/>
 
-				<div id="store" className={s.store}>
+				<div id="store" style={{"backgroundColor": levels[curLevel].bg }} 
+				     className={s.store}>
 					
 					{ lock ? <div className={s.block}></div> : '' }
 
