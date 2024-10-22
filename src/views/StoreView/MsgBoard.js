@@ -16,9 +16,6 @@ import { makeMinutes,
 				 // totalTime,
 	     } from '../../app/helpers';
 
-								  // <span>total pts: {  Math.round( (levelPtsSum + 
-												                           // currLevelPoints) *10) /10 } 
-									// </span>
 
 
 export function MsgBoard() {

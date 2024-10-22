@@ -8,17 +8,26 @@ const initialState = {
 		howtoPage: 1,
 		stamp: 0,
 		timer: 0,
+
 		// risk % of pallet flip
 		flip_risk: 35,
 		// % of tumbled pallet recovery
 		recover_step: 20,
+
+		reduce_flip_costs: [20, 40, 60, 100],
+		reduce_flip_upgrade: 0,
+
+		recover_step_costs: [10, 20, 30],
+		recover_step_upgrade: 0,
+		
 		// how long bonus truck wait
 		bonus_wait: 4,
 		// some parameter for bonus truck draw chances ? 
 		// in .. storeWare line 314
 		//
 		level_times: [],
-		level_points: [],
+		level_points: [30],
+		level_upgrades: [],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [2],
 		level_bonuses: [],
@@ -102,10 +111,22 @@ export const appSlice = createSlice({
 			if (state.howtoPage > 1) { state.howtoPage-- }
 		},
 
-		reduceFlipRisk: state => {
+		reduceFlipRisk: (state,payload) => {
+			// pay
+			state.level_upgrades.push( payload.payload.payload )
+			// set
+			state.reduce_flip_upgrade += 1
+			// get
+			state.flip_risk -= 8 
 		},
 
-		increaseRecover: state => {
+		increaseRecover: (state,payload) => {
+			// pay
+			state.level_upgrades.push( payload.payload.payload )
+			// set
+			state.recover_step_upgrade += 1
+			// get
+			state.recover_step += 10
 		},
 
 		markLevelPalCount: (state, payload) => {
