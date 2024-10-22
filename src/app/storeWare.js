@@ -351,14 +351,14 @@ export const storeWare = (state) => (next) => (action) => {
 	}
 
 	// 4 hard debug purpose:
-	if (action.type === 'app/setTimer' ||
-			action.type === 'store/remPal' ||
-			action.type === 'store/addPal' ||
-			action.type === 'app/drag' ||
-			action.type === 'app/pick' ||
-			action.type === 'app/source' 
-			)  {}
-	else { console.log(action) }
+	// if (action.type === 'app/setTimer' ||
+	// 		action.type === 'store/remPal' ||
+	// 		action.type === 'store/addPal' ||
+	// 		action.type === 'app/drag' ||
+	// 		action.type === 'app/pick' ||
+	// 		action.type === 'app/source' 
+	// 		)  {}
+	// else { console.log(action) }
 
 	next(action)
 }

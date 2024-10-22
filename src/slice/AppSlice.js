@@ -9,9 +9,9 @@ const initialState = {
 		stamp: 0,
 		timer: 0,
 		// risk % of pallet flip
-		flip_risk: 20,
+		flip_risk: 35,
 		// % of tumbled pallet recovery
-		recover_step: 30,
+		recover_step: 20,
 		// how long bonus truck wait
 		bonus_wait: 4,
 		// some parameter for bonus truck draw chances ? 
@@ -100,6 +100,12 @@ export const appSlice = createSlice({
 
 		decHowto: state => {
 			if (state.howtoPage > 1) { state.howtoPage-- }
+		},
+
+		reduceFlipRisk: state => {
+		},
+
+		increaseRecover: state => {
 		},
 
 		markLevelPalCount: (state, payload) => {
@@ -229,6 +235,8 @@ export const { runLevel, increaseWave, resetWave,
 							 popTimeSum,
 							 incHowto, decHowto,
 							 loadTruck,
+							 increaseRecover,
+							 reduceFlipRisk,
 							 pushPoints,
 							 hardReset,
 							 setBonusCounter,

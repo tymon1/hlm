@@ -39,7 +39,6 @@ export function Pallet({ pallet }) {
 					   if ( pallet.recovered < 100 ) {
 							 let pElem = oneRef.current
 							 let rampIndex = pElem.parentElement.id.split("-")[1]
-							 console.log("mess",pallet.id, rampIndex )
 							 dispatch( palletRecover( {
 								 pallet: pallet,
 								 rampIndex: rampIndex,
