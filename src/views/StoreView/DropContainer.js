@@ -28,8 +28,10 @@ export function DropContainer({ elementId }) {
 
 	let dropped = e => {
 		e.preventDefault()
-		let toName = document.getElementById( e.target.id ).parentElement.id.split("-")[0]
-		let toIndex = document.getElementById( e.target.id ).parentElement.id.split("-")[1]
+		// let toName = document.getElementById( e.target.id ).parentElement.id.split("-")[0]
+		let toName = document.querySelector( '#' + e.target.id ).parentElement.id.split("-")[0]
+		// let toIndex = document.getElementById( e.target.id ).parentElement.id.split("-")[1]
+		let toIndex = document.querySelector( '#' + e.target.id ).parentElement.id.split("-")[1]
 
 		dispatch( remPal({ name: app.source.name, 
 											 index: app.source.index, 

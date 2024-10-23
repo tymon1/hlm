@@ -9,11 +9,10 @@ import { BottomBar } from './BottomBar';
 import { ResultsBar } from './ResultsBar';
 // import { Timer } from './Timer';
 import { Admin } from './Admin';
-import { makeMinutes, 
-				 totalTime, 
-				 } from '../../app/helpers.js';
+// import { makeMinutes, 
+// 				 totalTime, 
+// 				 } from '../../app/helpers.js';
 
-//import { useEffect } from 'react';
 
 	// <Admin />
 
@@ -22,7 +21,7 @@ export function Store() {
 	const zones = useSelector(state => state.store.zones)
 	const ramps_internal = useSelector(state => state.store.ramps)
 	const lock = useSelector(state => state.app.msg.visible)
-	const level_times = useSelector(state => state.app.level_times)
+	// const level_times = useSelector(state => state.app.level_times)
 
 	const curLevel = useSelector(state => state.app.level.current)
 	const levels = useSelector(state => state.app.levels)

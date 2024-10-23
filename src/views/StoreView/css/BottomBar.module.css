@@ -4,7 +4,6 @@
 	height: 100px;
 	top:0;
 	padding-top:15px;
-	border-bottom: 5px solid #ccc;
 	position: relative;
 }
 
@@ -83,11 +82,20 @@
 	background-position-x: -365px;
 	background-position-y: -25px;
 	background-repeat: no-repeat;
+	margin: 5px auto 5px;
 }
+
 .innerPts {
 	font-size: 20px;
 	font-weight: normal;
 	margin: 3px auto;
 }
+
+.bonusMod {
+	position:absolute;
+	right:80px;
+	top:10px;
+}
+
 
 }

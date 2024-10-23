@@ -3,16 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import { 
 	dump as state_dump, 
-	setMess,
 	} from '../../slice/StoreSlice';
 
-import { hideMsg } from '../../slice/AppSlice';
-import { colorStoreMess } from '../../app/helpers';
 
 import { dump as app_dump, 
-				 showMsg as shMsg,
 				 hardReset,
-	       runLevel } from '../../slice/AppSlice';
+	     } from '../../slice/AppSlice';
 
 
 
@@ -24,15 +20,6 @@ export function Admin({ ramp }) {
 	let dump = () => { dispatch( state_dump() ) }
 	let dump_app = () => { dispatch( app_dump() ) }
 
-	// useEffect(() => {
-		//const loopVar = setInterval( updTimer ,1000 )
-	// }, [])
-
-	let hide = () => {
-	}
-
-	let show = () => {
-	}
 
 	let hReset = () => {
 		dispatch( hardReset() )

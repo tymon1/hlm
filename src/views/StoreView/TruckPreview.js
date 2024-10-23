@@ -25,7 +25,8 @@ export function TruckPreview( props ) {
 				
 				countInt.current = setInterval( () => { 
 					if (timr >= 0 ) {
-						if (myRef.current !== null) { myRef.current.innerHTML = timr-- }
+						let myElem = myRef.current
+						if (myElem !== null) { myElem.innerHTML = timr-- }
 					}
 					else { 
 						clearFn() 

@@ -17,6 +17,7 @@ import { makeMinutes,
 	     } from '../../app/helpers';
 
 
+// mess..
 
 export function MsgBoard() {
 
@@ -41,10 +42,8 @@ export function MsgBoard() {
 
 	const ppMinute = ((levelPalNum/levelTimes[levelTimes.length -1]) *60).toFixed(1)
 
-	const levelPoints = useSelector(state => state.app.level_points)
+	// const levelPoints = useSelector(state => state.app.level_points)
   const currLevelPoints = Math.round( (ppMinute / 60 *levelPalNum) *10) /10
-	// sum of all level points
-	const levelPtsSum = levelPoints.reduce( (a,b) => { return a +b }, 0 )
 
 
 	useEffect(() => { 

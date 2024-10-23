@@ -14,6 +14,7 @@
 }
 
 .pallet:hover, .selected {
+	background-color: #fff !important;
 	filter: brightness(1.8) saturate(1.6);
 }
 

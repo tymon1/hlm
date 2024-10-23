@@ -1,4 +1,5 @@
 import s from './css/BottomBar.module.css';
+import r from './css/ResultsBar.module.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -30,6 +31,9 @@ export function BottomBar() {
 	const levelUpgrades = useSelector(state => state.app.level_upgrades)
 	const levelUpgSum = levelUpgrades.reduce( (a,b) => { return a +b }, 0 )
 
+	const levelBonuses = useSelector(state => state.app.level_bonuses)
+	const bonusTotal = levelBonuses.reduce( (a,s) => { return a + s.count }, 0 )
+
 
 	let upgDisplay = cost => {
 		if ( cost <= levelPtsSum - levelUpgSum ) {
@@ -59,6 +63,12 @@ export function BottomBar() {
 						 } } >
 					<div className={ s.innerCost }> { recStepCost } </div> 
 				</div>
+
+				<div className={r.bonuses+" "+s.bonusMod}>
+					<span className={r.bonusInner}>
+						{ bonusTotal }
+					</span>
+				</div> 
 
 			  <div className={ s.totalPts }>
 					<div className={ s.innerPts }>{  
