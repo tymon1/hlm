@@ -194,6 +194,14 @@ export const storeSlice = createSlice({
 			state.zones[l.index].pallets.push( l.pallet ) 
 		},
 
+		// add multiple pallets to ramp at once
+		dumpPalToRamp: (state, payload) => {
+			let no = payload.payload.payload
+			let pallets = payload.payload.rampPallets.concat(payload.payload.pallets)
+			state.docks[no].truck.pallets = []
+			state.ramps[no].pallets = pallets
+		},
+		
 		addPalToRamp: (state, payload) => {
 			// tutaj losować możliwość przewrócenia??
 			let l= payload.payload
@@ -253,7 +261,7 @@ export const storeSlice = createSlice({
 		},
 
     dump: state => {
-			console.log("ALL", JSON.stringify(state, null, 2) )
+			console.log("STORE", JSON.stringify(state, null, 2) )
 		},
 
   },
@@ -272,6 +280,7 @@ export const { addQueueTruck, remQueueTruck,
 							 truckOnDockReady,
 							 setSorting,
 							 resetZones,
+							 dumpPalToRamp,
 							 selectPallette,
 							 unSelectPal,
 							 storeReset,

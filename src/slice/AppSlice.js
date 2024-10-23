@@ -26,11 +26,12 @@ const initialState = {
 		// in .. storeWare line 314
 		//
 		level_times: [],
-		level_points: [30],
+		level_points: [ 30 ],
 		level_upgrades: [],
 		// initial value is 2: store.counter.palletId
-		level_start_pal_count: [2],
-		level_bonuses: [],
+		level_start_pal_count: [ 2 ],
+		level_bonuses: [ { level: 0, count: 6 } ],
+		bonus_used: [ 0 ],
 		wave_times: [],
 
 		drag: false,
@@ -49,7 +50,7 @@ const initialState = {
 
 		levels: [ { bg:'fugazi', waves:1, truckMax:1, color_zones: { colorize:false } }, 
 							// 1+
-						  { bg:'grey', waves:2, truckMax:1, color_zones: { colorize:true, count:2 } },
+						  { bg:'grey', waves:2, truckMax:2, color_zones: { colorize:true, count:2 } },
 						  { bg:'grey', waves:1, truckMax:2, color_zones: { colorize:true, count:4 } },
 						  { bg:'grey', waves:2, truckMax:2, color_zones: { colorize:false } },
 							// 4+
@@ -109,6 +110,11 @@ export const appSlice = createSlice({
 
 		decHowto: state => {
 			if (state.howtoPage > 1) { state.howtoPage-- }
+		},
+
+		reduceBonus: (state,payload) => {
+			let bonusCut = payload.payload.payload
+			state.bonus_used.push(bonusCut)
 		},
 
 		reduceFlipRisk: (state,payload) => {
@@ -258,6 +264,7 @@ export const { runLevel, increaseWave, resetWave,
 							 loadTruck,
 							 increaseRecover,
 							 reduceFlipRisk,
+							 reduceBonus,
 							 pushPoints,
 							 hardReset,
 							 setBonusCounter,

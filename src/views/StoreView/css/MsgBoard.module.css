@@ -234,12 +234,12 @@
 }
 
 .timeResult {
-	font-size:34px;
+	font-size:32px;
 	color:#313131;
 	font-weight:bold;
 	position:relative;
-	top:82px;
-	left:44px;
+	top:80px;
+	left:46px;
 }
 
 .bonus {
@@ -413,10 +413,10 @@
 }
 
 .timeResult {
-	font-size:0.8em;
+	font-size:18px;
 	font-weight:normal;
-	top:39px;
-	left:25px;
+	top:37px;
+	left:26px;
 }
 
 .iconCnt {

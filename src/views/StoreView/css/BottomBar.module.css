@@ -68,6 +68,20 @@
 	text-align:center;
 }
 
+.bonusClickable {
+	position:absolute;
+	right:140px;
+	top:25px;
+}
+
+.bonusClickable:hover {
+	user-select: none;
+	cursor:pointer;
+	filter: brightness(1.8) saturate(1.6);
+}
+
+
+
 @media only screen and (min-width: 100px) and (max-width: 900px) {
 
 .bottombar {
@@ -76,10 +90,10 @@
 }
 
 .totalPts {
-	width:60px;
+	width:48px;
 	height:40px;
 	background-image: url(i/sprite1mob.png);
-	background-position-x: -365px;
+	background-position-x: -375px;
 	background-position-y: -25px;
 	background-repeat: no-repeat;
 	margin: 5px auto 5px;
@@ -91,7 +105,10 @@
 	margin: 3px auto;
 }
 
-.bonusMod {
+
+/* bonus is now clickable element */
+
+.bonusClickable {
 	position:absolute;
 	right:80px;
 	top:10px;

@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { increaseRecover,
 				 reduceFlipRisk,
+				 reduceBonus,
 	     } from '../../slice/AppSlice';
 
-// import { RampsQueue } from './Queue';
-// import { MsgBoard } from './MsgBoard';
+import { dumpPalToRamp } from '../../slice/StoreSlice';
+
 
 
 
@@ -32,8 +33,15 @@ export function BottomBar() {
 	const levelUpgSum = levelUpgrades.reduce( (a,b) => { return a +b }, 0 )
 
 	const levelBonuses = useSelector(state => state.app.level_bonuses)
-	const bonusTotal = levelBonuses.reduce( (a,s) => { return a + s.count }, 0 )
+	const bonusEarned = levelBonuses.reduce( (a,s) => { return a + s.count }, 0 )
+	const bonusesUsed = useSelector(state => state.app.bonus_used)
+	const bonusUsed = bonusesUsed.reduce( (a,b) => { return a +b }, 0 )
 
+	const docks = useSelector(state => state.store.docks)
+	const ramps = useSelector(state => state.store.ramps)
+
+
+	const bonusTotal = bonusEarned - bonusUsed
 
 	let upgDisplay = cost => {
 		if ( cost <= levelPtsSum - levelUpgSum ) {
@@ -44,6 +52,18 @@ export function BottomBar() {
 		}
 	}
 
+	let bonusDump = () => {
+		let truckFill = docks.map( d => {
+			return d.truck.id > 0 
+				? { "no":d.no,"len":d.truck.pallets.length, type:d.truck.type } 
+			  : {"no":d.no,"len":0, type:""};
+		})
+		//  dock  with  max  pallets { no, lenMax }
+		let truckMax = truckFill.reduce( (dPrev, dCurr) => { 
+			return dCurr.len > dPrev.len ? dCurr : dPrev
+		})
+		return truckMax
+	}
 
 	return (
 			<div className={ s.bottombar }>
@@ -64,10 +84,25 @@ export function BottomBar() {
 					<div className={ s.innerCost }> { recStepCost } </div> 
 				</div>
 
-				<div className={r.bonuses+" "+s.bonusMod}>
-					<span className={r.bonusInner}>
+				<div className={ r.bonuses + " " + s.bonusClickable }
+				     style={{ "opacity": (bonusTotal>=3) ? 1 : 0.4 }}
+				     onClick={ () => { 
+							 let docksDump = bonusDump() 
+							 if ( docksDump.len !== 0 && 
+									  bonusTotal >= 3 &&
+									  docksDump.type !== ('bonus' || 'full') ) {
+								 dispatch( reduceBonus({ payload: 3 }) )
+								 dispatch( dumpPalToRamp({ 
+									 payload:docksDump.no, 
+									 pallets:docks[docksDump.no].truck.pallets,
+								   rampPallets:ramps[docksDump.no].pallets }) )
+							 }
+						 }}>
+
+					<span className={ r.bonusInner }>
 						{ bonusTotal }
 					</span>
+
 				</div> 
 
 			  <div className={ s.totalPts }>
