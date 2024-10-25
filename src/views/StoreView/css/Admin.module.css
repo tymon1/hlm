@@ -1,9 +1,12 @@
+#adm { display: none; }
+
 .admin {
 	background:#979797;
 	color:#fff;
 	width:100%;
-	display:flex;
-	flex-direction:row;
+	display: none;
+	/* display:flex; */
+	/* flex-direction:row; */
 	border-bottom: 4px dotted #555;
 }
 
@@ -26,3 +29,13 @@
 .btnG { background: green;}
 .btnB { background: royalBlue;}
 
+.adminBtn {
+	font-size:24px;
+	position:absolute;
+	bottom:2px;
+	right: 2%;
+	color: #fff;
+	background: brown;
+	z-index:100000;
+	padding: 0 15px;
+}

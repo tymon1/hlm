@@ -17,10 +17,10 @@ const truck_types = ['s','m','xl']
 
 											  // 'saddleBrown',
 												
-const pallets_colors = ['blue',
+const pallets_colors = ['rgb(54,119,78)',
 											  'peru',
 											  'purple',
-												'slateblue',
+												'blue',
 											  'yellow',
 											  'white',
 											  'pink',

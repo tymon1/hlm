@@ -6,37 +6,37 @@ import { Howl } from 'howler';
 
 export const beep = new Howl({
 	src: ['s/beep.mp3'],
-	volume: 0.05,
+	volume: 0.04,
 })
 
 export const error = new Howl({
 	src: ['s/error.mp3'],
-	volume: 0.4,
+	volume: 0.9,
 })
 
 export const reverse_l = new Howl({
 	src: ['s/truck_l_reverse.mp3'],
-	volume: 0.9,
+	volume: 0.7,
 })
 
 export const reverse_xxl = new Howl({
 	src: ['s/truck_xxl_reverse.mp3'],
-	volume: 0.7,
+	volume: 0.6,
 })
 
 export const reverse_s = new Howl({
 	src: ['s/truck_s_reverse.mp3'],
-	volume: 0.9,
+	volume: 0.3,
 })
 
 export const newQ = new Howl({
 	src: ['s/newQ.mp3'],
-	volume: 0.2,
+	volume: 0.15,
 })
 
 export const stomp = new Howl({
 	src: ['s/thump.mp3'],
-	volume: 0.9,
+	volume: 1.2,
 })
 
 export const rush_m = new Howl({

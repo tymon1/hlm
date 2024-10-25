@@ -69,13 +69,19 @@
 
 	.tType_bonus { 
 		background-position-y: -161px;
-		width:50px;
+		background-position-x: -12px;
+		width:40px;
 	}
 
-	.tType_xl, .tType_m, .tType_s, .tType_bonus {
+	.tType_xl, .tType_m, .tType_s {
 		padding:0px;
 		margin:0px;
 	}
 
+	.tType_bonus {
+		font-size: 20px;
+		margin:0px;
+		padding:0px 0px 0px 8px;
+	}
 
 }

@@ -84,13 +84,14 @@ export function BottomBar() {
 					<div className={ s.innerCost }> { recStepCost } </div> 
 				</div>
 
-				<div className={ r.bonuses + " " + s.bonusClickable }
-				     style={{ "opacity": (bonusTotal>=3) ? 1 : 0.4 }}
+			  <div className={ s.dump }
+				     style={{ "display": (bonusTotal>=3) ? "block" : "none" }}
 				     onClick={ () => { 
 							 let docksDump = bonusDump() 
 							 if ( docksDump.len !== 0 && 
 									  bonusTotal >= 3 &&
-									  docksDump.type !== ('bonus' || 'full') ) {
+									  docksDump.type !== 'bonus' &&  
+										docksDump.type !== 'full' ) {
 								 dispatch( reduceBonus({ payload: 3 }) )
 								 dispatch( dumpPalToRamp({ 
 									 payload:docksDump.no, 
@@ -98,6 +99,10 @@ export function BottomBar() {
 								   rampPallets:ramps[docksDump.no].pallets }) )
 							 }
 						 }}>
+					<div className={ s.innerBonus }> 3 </div> 
+				</div>
+
+				<div className={ r.bonuses + " " + s.bonusBot }>
 
 					<span className={ r.bonusInner }>
 						{ bonusTotal }

@@ -48,6 +48,8 @@
 	width:272px;
 	height:70px;
 	background-image: url(i/hlm.png);
+	background-position-y: -228px;
+	background-position-x: 0px;
 }
 
 .howtoBox {
@@ -147,7 +149,7 @@
 }
 
 .msgWindow {
-	overflow:scroll;
+	overflow:hidden;
 	background:#515151;
 	display: flex;
 	flex-direction: inherit;
@@ -169,9 +171,9 @@
 .startIco {
 	width:160px;
 	height:180px;
-	background-image: url(i/start.png);
-	background-position-y: 6px;
-	background-position-x: -27px;
+	background-image: url(i/hlm.png);
+	background-position-y: -114px;
+	background-position-x: -275px;
 	margin-bottom:10px;
 }
 
@@ -276,10 +278,10 @@
 
 .truckArt {
 	width:490px;
-	height:180px;
+	height:120px;
 	background-image: url(i/truckArt.png);
 	margin:0 auto 30px;
-	background-position-y: 6px;
+	background-position-y: -35px;
 	background-position-x: -10px;
 	background-repeat: no-repeat;
 	margin-top: 15px;
@@ -382,6 +384,11 @@
 
 @media only screen and (min-width: 100px) and (max-width: 900px) {
 
+.msgWindow {
+	padding:10px;
+	overflow:scroll;
+}
+
 .stihl {
 	position:relative;
 	width:100px;
@@ -469,10 +476,6 @@
 	top:39px;
 }
 
-.msgWindow {
-	padding:10px;
-}
-
 .calHdr {
 	position:relative;
 	width:40px;
@@ -483,13 +486,6 @@
 	background-position-x: 201px;
 }
 
-/* .gratzTruck { */
-/* 	background-image: url(i/sprite1mob.png); */
-/* 	width:98px; */
-/* 	height:50px; */
-/* 	background-position-y: -22px; */
-/* 	background-position-x: 132px; */
-/* } */
 
 .levNrHdr {
 	top:13px;
@@ -614,6 +610,20 @@
 .gepart {
 	background-position-y: -216px;
 	background-position-x: 91px;
+}
+
+.hellmutt {
+	width:150px;
+	height:40px;
+	background-position-y: -110px;
+	background-position-x: -60px;
+}
+
+.startIco {
+	width:100px;
+	height:100px;
+	background-position-y: -304px;
+	background-position-x: -275px;
 }
 
 }

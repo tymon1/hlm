@@ -14,8 +14,9 @@
 }
 
 .pallet:hover, .selected {
-	background-color: #fff !important;
-	filter: brightness(1.8) saturate(1.6);
+	/* background-color: #fff !important; */
+	filter: brightness(1.7) saturate(1.3);
+	border-color: #fff;
 }
 
 .recover {
