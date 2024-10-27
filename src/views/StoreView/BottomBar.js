@@ -2,14 +2,17 @@ import s from './css/BottomBar.module.css';
 import r from './css/ResultsBar.module.css';
 
 import { useSelector, useDispatch } from 'react-redux';
+// import { useRef } from 'react';
 
 import { increaseRecover,
 				 reduceFlipRisk,
 				 reduceBonus,
+				 buyNinja,
 	     } from '../../slice/AppSlice';
 
 import { dumpPalToRamp } from '../../slice/StoreSlice';
 
+import { drag, source } from '../../slice/AppSlice';
 
 
 
@@ -25,6 +28,9 @@ export function BottomBar() {
 	const recStepCosts = useSelector(state => state.app.recover_step_costs)
 	const recStepUpg = useSelector(state => state.app.recover_step_upgrade)
 	const recStepCost = recStepCosts[ recStepUpg ]
+
+	const ninja = useSelector(state => state.app.ninja)
+	const ninjaCost = 10
 
 	const levelPoints = useSelector(state => state.app.level_points)
 	const levelPtsSum = levelPoints.reduce( (a,b) => { return a +b }, 0 )
@@ -43,14 +49,38 @@ export function BottomBar() {
 
 	const bonusTotal = bonusEarned - bonusUsed
 
+
+
 	let upgDisplay = cost => {
-		if ( cost <= levelPtsSum - levelUpgSum ) {
+		if ( cost <= levelPtsSum - levelUpgSum ) { return "block"; }
+		else { return "none"; }
+	}
+
+
+	// little bit complex but effective
+	// ( draggable element is 'cost === undefined' )
+	let upgNinjaDisplay = cost => {
+		if (ninja && cost === undefined) {
+			// if ninja not present on ramps :)
+			for (let i=0; i<ramps.length; i++) {
+				if (ramps[i].ninja === true) {
+					return "none";
+				}
+			}
 			return "block";
 		}
-		else { 
-			return "none"; 
+		if (ninja && cost !== undefined) {
+			return "none";
+		}
+		if (!ninja && cost !== undefined) {
+			if ( cost <= levelPtsSum - levelUpgSum ) { return "block"; }
+			else { return "none"; }
+		}
+		if (!ninja && cost === undefined) {
+			return "none";
 		}
 	}
+
 
 	let bonusDump = () => {
 		let truckFill = docks.map( d => {
@@ -65,8 +95,10 @@ export function BottomBar() {
 		return truckMax
 	}
 
+
 	return (
 			<div className={ s.bottombar }>
+
 
 			  <div className={ s.brain }
 				     style={{ "display": upgDisplay( redFlipCost ) }}
@@ -76,12 +108,37 @@ export function BottomBar() {
 					<div className={ s.innerCost }> { redFlipCost } </div> 
 				</div>
 
+
 			  <div className={ s.muscle }
 				     style={{ "display": upgDisplay( recStepCost ) }}
 				     onClick={ () => { 
 							 dispatch( increaseRecover({ payload:recStepCost }) ) 
 						 } } >
 					<div className={ s.innerCost }> { recStepCost } </div> 
+				</div>
+
+				{/* to buy */}
+			  <div className={ s.ninja }
+				     style={{ "display": upgNinjaDisplay( ninjaCost ) }}
+				     onClick={ () => { 
+							 dispatch( buyNinja({ payload: ninjaCost }) ) 
+						 } } >
+					<div className={ s.innerCost }> { ninjaCost } </div> 
+				</div>
+
+				{/* to drag */}
+			  <div className={ s.ninja }
+					   draggable={ true }
+				     style={{ "display": upgNinjaDisplay() }}
+
+						 onDragStart = { () => {
+							 dispatch( drag( true ) )
+							 dispatch( source({ name: "ninja" }) )
+						 }}
+
+						 onDragEnd = { () => {
+							 dispatch( drag( false ) )
+						 }} >
 				</div>
 
 			  <div className={ s.dump }

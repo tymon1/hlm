@@ -9,6 +9,8 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 setTruckCounter, setPalletsCounter,
 				 selectPallette,
 				 unSelectPal,
+				 checkTrucks,
+				 resetNinjas,
 				 truckOnDockReady, } from '../slice/StoreSlice';
 
 import { saveTimer, setStamp, 
@@ -168,7 +170,6 @@ export const storeWare = (state) => (next) => (action) => {
 				if  ( level.wave< levels[ level.current ].waves-1 && !level.run ) {
 					// show msg
 					//
-					//                                            Nadjeżdża grupa kurierów
 					state.dispatch( showMsg({ type:"next", text: "" }) )
 					state.dispatch( increaseWave() )
 				}
@@ -196,7 +197,6 @@ export const storeWare = (state) => (next) => (action) => {
 
 					} else {
 
-						// let gratz = "Gratulacje, ukończyłeś poziom " + 
 												 // level.current + ", w  czasie " +
 												 // makeMinutes( Number(totalTime( state.getState().app.wave_times )) ) + "s."
 						let gratz 
@@ -246,6 +246,7 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( colorZonesReset() ) 
 				state.dispatch( resetZones() )
 				state.dispatch( resetWave() )
+				state.dispatch( resetNinjas() )
 
 				let pCnt = palCnt-palStartCnt[palStartCnt.length -1]
 				let lTime = levelTimes[level.current-1]
@@ -337,6 +338,13 @@ export const storeWare = (state) => (next) => (action) => {
 			}
 			break
 
+		// removed this action from DropContainer element
+		case 'app/drag':
+			if ( action.payload === false && 
+					 state.getState().app.source.name !== "ninja"	) {
+				state.dispatch( checkTrucks() ) 
+			}
+			break
 
 		// start timer when you drop first truck on the free dock
 		case 'store/parkTruck':
@@ -346,19 +354,36 @@ export const storeWare = (state) => (next) => (action) => {
 			}
 			break
 
+
+
+		////////////
+		//
+		//   NINJA HERE
+		//
+
+		case 'store/rmNinja':
+			
+			break
+
+		case 'store/addNinja':
+			// const ninjaCode = setInterval( ()=>{console.log("int ninja")}, 1000)
+			// return clearInterval( ninjaCode)
+			break
+
+
 		default:
 
 	}
 
 	// 4 hard debug purpose:
-	// if (action.type === 'app/setTimer' ||
-	// 		action.type === 'store/remPal' ||
-	// 		action.type === 'store/addPal' ||
-	// 		action.type === 'app/drag' ||
-	// 		action.type === 'app/pick' ||
-	// 		action.type === 'app/source' 
-	// 		)  {}
-	// else { console.log(action) }
+	if (action.type === 'app/setTimer' ||
+			action.type === 'store/remPal' ||
+			action.type === 'store/addPal' ||
+			action.type === 'app/source' 
+			// action.type === 'app/drag' ||
+			// action.type === 'app/pick' ||
+			)  {}
+	else { console.log(action) }
 
 	next(action)
 }

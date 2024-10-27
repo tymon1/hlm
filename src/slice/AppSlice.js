@@ -19,6 +19,9 @@ const initialState = {
 
 		recover_step_costs: [10, 20, 30],
 		recover_step_upgrade: 0,
+
+		ninja: false,
+		ninja_speed: 500,
 		
 		// how long bonus truck wait
 		bonus_wait: 4,
@@ -26,11 +29,15 @@ const initialState = {
 		// in .. storeWare line 314
 		//
 		level_times: [],
+		// initial cebulions 
 		level_points: [ 30 ],
+		// cebulions spent..
 		level_upgrades: [],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [ 2 ],
+		// initial bonuses
 		level_bonuses: [ { level: 0, count: 6 } ],
+		// spent bonuses
 		bonus_used: [ 0 ],
 		wave_times: [],
 
@@ -48,7 +55,7 @@ const initialState = {
 			wave: 0 
 		},
 
-		levels: [ { bg:'fugazi', waves:1, truckMax:1, color_zones: { colorize:false } }, 
+		levels: [ { bg:'fugazi', waves:0, truckMax:0, color_zones: { colorize:false } }, 
 							// 1+
 						  { bg:'grey', waves:2, truckMax:2, color_zones: { colorize:true, count:2 } },
 						  { bg:'grey', waves:1, truckMax:2, color_zones: { colorize:true, count:4 } },
@@ -133,6 +140,13 @@ export const appSlice = createSlice({
 			state.recover_step_upgrade += 1
 			// get
 			state.recover_step += 10
+		},
+
+		buyNinja: (state, payload) => {
+			// pay
+			state.level_upgrades.push( payload.payload.payload )
+			// set
+			state.ninja = true
 		},
 
 		markLevelPalCount: (state, payload) => {
@@ -265,6 +279,7 @@ export const { runLevel, increaseWave, resetWave,
 							 increaseRecover,
 							 reduceFlipRisk,
 							 reduceBonus,
+							 buyNinja,
 							 pushPoints,
 							 hardReset,
 							 setBonusCounter,

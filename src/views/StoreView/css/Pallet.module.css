@@ -36,8 +36,8 @@
 
 @media only screen and (min-width: 100px) and (max-width: 900px) {
 	.pallet {
-		width: 14px;
-		height: 17px;
+		width: 17px;
+		height: 18px;
 		font-size: 20px;
 	}
 }

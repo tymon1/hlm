@@ -18,9 +18,9 @@ const initialState = {
 		],
 
 		ramps: [
-			{ no: 0, pallets: [] }, 
-			{ no: 1, pallets: [] }, 
-			{ no: 2, pallets: [] }
+			{ no: 0, ninja:false, pallets: [] }, 
+			{ no: 1, ninja:false, pallets: [] }, 
+			{ no: 2, ninja:false, pallets: [] }
 		],
 
 		// mess means that palletts are mixed
@@ -96,6 +96,22 @@ export const storeSlice = createSlice({
 			let id = Number(payload.payload.id)
 			let rReady = state.docks.findIndex( d => d.truck.id === id )
 			if (rReady >= 0) { state.docks[rReady].truck = {} }
+		},
+
+    rmNinja: (state, payload) => {
+			let rampNo = Number(payload.payload.rampInx)
+			state.ramps[rampNo].ninja = false
+		},
+
+    addNinja: (state, payload) => {
+			let rampNo = Number(payload.payload.rampNo)
+			state.ramps[rampNo].ninja = true
+		},
+
+		resetNinjas: state => {
+			state.ramps.forEach( ramp => {
+				ramp.ninja = false
+			})
 		},
 
     incAmountPalletId: (state, payload) => {
@@ -284,6 +300,9 @@ export const { addQueueTruck, remQueueTruck,
 							 selectPallette,
 							 unSelectPal,
 							 storeReset,
+							 addNinja,
+							 rmNinja,
+							 resetNinjas,
 							 palletRecover,
 							 setTruckCover,
 							 setPalletsCounter, setTruckCounter,

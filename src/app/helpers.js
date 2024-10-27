@@ -72,7 +72,6 @@ export const genTruck = (tid, pid, target) => {
 					 target: target,
 					 ready: false, 
 					 pallets: drawPallets( pid, randMax(max) )
-					 // pallets: drawPallets( pid, randMax(6) )
 				 } 
 }
 

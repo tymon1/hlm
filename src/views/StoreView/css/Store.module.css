@@ -78,6 +78,8 @@
 	border-left: 5px dashed orange;
 }
 .ramp { width: 95px; }
-.zonesRow { padding-bottom: 10px; }
+.zonesRow { 
+	border-left: 4px dashed rgba(255,255,255,0.3);
+	padding-bottom: 10px; }
 
 }

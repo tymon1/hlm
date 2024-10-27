@@ -28,11 +28,11 @@
 	text-align: center;
 }
 
-.brain:hover, .muscle:hover, .dump:hover {
+.brain:hover, .muscle:hover, .dump:hover, .ninja:hover {
 	filter: brightness(1.4) saturate(1);
 }
 
-.brain, .muscle, .dump {
+.brain, .muscle, .dump, .ninja {
 	width:76px;
 	height:76px;
 	background-color:#d2d2d2;
@@ -48,11 +48,9 @@
 .brain { background-position-x: -38px; }
 .muscle { background-position-x: -148px; }
 .dump { background-position-x: -357px; }
+.ninja { background-position-x: -444px; }
 	
 .innerCost {
-	/* background-image: url(i/sprite3.png); */
-	/* background-position-y: -20px; */
-	/* background-position-x: -251px; */
 	background: #627d6c;
 	margin-left:3px;
 	margin-top:3px;
@@ -136,7 +134,7 @@
 	top:10px;
 }
 
-.brain, .muscle, .dump {
+.brain, .muscle, .dump, .ninja {
 	width:42px;
 	height:42px;
 	background-color:#d2d2d2;
@@ -152,6 +150,7 @@
 .brain { background-position-x: -38px; }
 .muscle { background-position-x: -93px; }
 .dump { background-position-x: -150px; }
+.ninja { background-position-x: -210px; }
 
 
 }

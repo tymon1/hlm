@@ -35,6 +35,7 @@ export function Pallet({ pallet }) {
 				 id = { pallet.id } style={{ background: pallet.c }}
 				 ref={ oneRef }
 
+				 // recovery of flipped pallets 
 				 onClick = { () => {
 					   if ( pallet.recovered < 100 ) {
 							 let pElem = oneRef.current

@@ -35,7 +35,9 @@ export function Zone({ zone }) {
 			     className={ s.zone } 
 					 id={ elementId } >
 			{ 
-				dragging && (src !== "queueTruck") && (src !== "truck") ? 
+				dragging && (src !== "queueTruck") 
+					       && (src !== "truck") 
+								 && (src !== "ninja") ? 
 					<DropContainer elementId = { elementId } /> : '' 
 			}
 			{
