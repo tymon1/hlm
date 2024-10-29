@@ -259,6 +259,53 @@ export const loadingDone = par => {
 }
 
 
+//
+// Ninja helpers
+
+export const colorMatch = param => {
+
+	let cfields = param.color_fields
+	for (let field of cfields) {
+		if (param.pallet.c === field.color) {
+			return field.index;
+			break;
+		}
+	}
+	return false
+}
+//
+//
+const matchColorIndex = param => {
+	for (let cfield of param.color_fields) {
+		if (cfield.index === param.field.no) {
+			return cfield.color
+		}
+	}
+	return false
+}
+//
+export const fieldMatch = param => {
+
+	for (let field of param.fields) {
+		if (field.pallets.length > 0 && 
+				field.pallets[0].c === param.pallet.c) {
+			return field.no
+		}
+		let retColor = matchColorIndex({"field":field, 
+																		"color_fields":param.color_fields})
+		if (field.pallets.length === 0 && !retColor) {
+				// retColor === param.pallet.c) {
+			return field.no
+		}
+		// else {
+			// console.log("field empty?",field.index)
+			// return field.no
+		// }
+	}
+	return false
+}
+
+
 //////////////////////////////
 //
 //  zones - all store zones

@@ -162,6 +162,7 @@ export const storeWare = (state) => (next) => (action) => {
 
 					 state.getState().store.queue.length === 0 ) {
 
+				state.dispatch( resetNinjas() )
 				state.dispatch( runLevel(false) )
 
 				let level = state.getState().app.level
@@ -346,6 +347,10 @@ export const storeWare = (state) => (next) => (action) => {
 			}
 			break
 
+		// case 'store/remPalFrRamp':
+			// state.dispatch( checkTrucks() ) 
+			// break
+
 		// start timer when you drop first truck on the free dock
 		case 'store/parkTruck':
 			// dont start timer when full truck load
@@ -361,14 +366,14 @@ export const storeWare = (state) => (next) => (action) => {
 		//   NINJA HERE
 		//
 
-		case 'store/rmNinja':
+		// case 'store/rmNinja':
 			
-			break
+			// break
 
-		case 'store/addNinja':
+		// case 'store/addNinja':
 			// const ninjaCode = setInterval( ()=>{console.log("int ninja")}, 1000)
 			// return clearInterval( ninjaCode)
-			break
+			// break
 
 
 		default:

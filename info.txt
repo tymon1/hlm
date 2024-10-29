@@ -3,10 +3,4 @@ npx:
 npx create-react-app hellmutt --template redux
 
 
-"pogoda/pora dnia" czyli zmiana kolorków w levelach
-class rampsExternal i store
 
-
-POMYSŁY:
-1. przyjezdza ciezarowka zabierajaca wybrana palete oznaczona jakas literka
-2. po pieciu levelach koniec tygodnia i podsumowanie

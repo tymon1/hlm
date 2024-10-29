@@ -14,14 +14,14 @@ const initialState = {
 		// % of tumbled pallet recovery
 		recover_step: 20,
 
-		reduce_flip_costs: [20, 40, 60, 100],
+		reduce_flip_costs: [20, 40, 80, 120],
 		reduce_flip_upgrade: 0,
 
-		recover_step_costs: [10, 20, 30],
+		recover_step_costs: [10, 20, 60],
 		recover_step_upgrade: 0,
 
 		ninja: false,
-		ninja_speed: 500,
+		ninja_speed: 900,
 		
 		// how long bonus truck wait
 		bonus_wait: 4,
