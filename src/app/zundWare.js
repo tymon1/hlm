@@ -2,6 +2,8 @@ import { reverse_l,
          reverse_s,
          reverse_xxl,
          wave,
+         katana,
+         kabuki,
          error,
 				 complete,
          newQ,
@@ -26,10 +28,30 @@ export const zundWare = (state) => (next) => (action) => {
 			break
 
 
+		case 'app/buyNinja':
+			if (action.payload.payload === 50) { kabuki.play() } 
+			if (action.payload.payload === 100) { katana.play() } 
+			break
+
 		case 'store/addPal':
 			if (action.payload.name === "ramp") { beep.play() } 
 			else { stomp.play() }
 			break
+
+
+		case 'store/addPalToZone':
+			let ramps = state.getState().store.ramps
+			let ninja = ramps.map(ramp => {
+				let retV = false
+				if ( ramp.ninja === true ) {
+					retV = true
+					return retV
+				}
+				return retV
+			})
+			if (ninja) { stomp.play() } 
+			break
+
 
 		case 'store/addPalToRamp':
 			if (action.payload.pallet.recovered === 0) { error.play() } 
@@ -49,7 +71,7 @@ export const zundWare = (state) => (next) => (action) => {
 					reverse_xxl.play()
 					break
 				default:
-					reverse_l.play()
+					// reverse_l.play()
 			}
 			break
 
@@ -67,7 +89,7 @@ export const zundWare = (state) => (next) => (action) => {
 					rush_xxl.play()
 					break
 				default:
-					reverse_l.play()
+					// reverse_l.play()
 			}
 			break
 

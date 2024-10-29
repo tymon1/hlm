@@ -9,6 +9,16 @@ export const beep = new Howl({
 	volume: 0.04,
 })
 
+export const katana = new Howl({
+	src: ['s/katana.mp3'],
+	volume: 0.7,
+})
+
+export const kabuki = new Howl({
+	src: ['s/kabuki.mp3'],
+	volume: 0.7,
+})
+
 export const error = new Howl({
 	src: ['s/error.mp3'],
 	volume: 0.9,

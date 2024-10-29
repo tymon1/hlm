@@ -48,7 +48,6 @@ export function BottomBar() {
 	const docks = useSelector(state => state.store.docks)
 	const ramps = useSelector(state => state.store.ramps)
 
-
 	const bonusTotal = bonusEarned - bonusUsed
 
 
@@ -103,8 +102,8 @@ export function BottomBar() {
 	let bonusDump = () => {
 		let truckFill = docks.map( d => {
 			return d.truck.id > 0 
-				? { "no":d.no,"len":d.truck.pallets.length, type:d.truck.type } 
-			  : {"no":d.no,"len":0, type:""};
+				? { "no":d.no, "len":d.truck.pallets.length, type:d.truck.type } 
+			  : { "no":d.no, "len":0, type:"" };
 		})
 		//  dock  with  max  pallets { no, lenMax }
 		let truckMax = truckFill.reduce( (dPrev, dCurr) => { 

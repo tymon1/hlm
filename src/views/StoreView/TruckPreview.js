@@ -24,15 +24,15 @@ export function TruckPreview( props ) {
 				let timr = bonusWait
 				
 				countInt.current = setInterval( () => { 
-					if (timr >= 0 ) {
+					if (timr > 0 ) {
 						let myElem = myRef.current
-						if (myElem !== null) { myElem.innerHTML = timr-- }
+						if (myElem !== null) { myElem.innerHTML = (timr--/100) }
 					}
 					else { 
 						clearFn() 
 						props.remTruck( truck.id ) 
 					}
-				}, 1000)
+				}, 10)
 			}
 		}
 	}, [])
