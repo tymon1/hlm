@@ -21,16 +21,18 @@ const initialState = {
 		recover_step_upgrade: 0,
 
 		ninja: false,
-		ninja_speed: 900,
+		ninja_speed: [2900, 900, 700, 500, 200, 300],
+		ninja_cost: [50, 100, 150, 200, 1000000],
+		ninja_level: 0,
 		
 		// how long bonus truck wait
 		bonus_wait: 4,
 		// some parameter for bonus truck draw chances ? 
 		// in .. storeWare line 314
 		//
-		level_times: [],
+		level_times: [ ],
 		// initial cebulions 
-		level_points: [ 30 ],
+		level_points: [ 560 ],
 		// cebulions spent..
 		level_upgrades: [],
 		// initial value is 2: store.counter.palletId
@@ -146,6 +148,8 @@ export const appSlice = createSlice({
 			// pay
 			state.level_upgrades.push( payload.payload.payload )
 			// set
+			state.ninja_level += 1
+			// get
 			state.ninja = true
 		},
 

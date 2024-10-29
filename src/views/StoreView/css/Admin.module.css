@@ -1,6 +1,8 @@
 #adm { display: none; }
 
 .admin {
+	z-index:10010;
+	position:relative;
 	background:#979797;
 	color:#fff;
 	width:100%;

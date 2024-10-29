@@ -25,7 +25,11 @@ export function Ninja({ ramp }) {
 	const picked = useSelector(state => state.app.picked)
 	const dragged = useSelector(state => state.app.drag)
 	const recPc = useSelector(state => state.app.recover_step)
-	const speed = useSelector(state => state.app.ninja_speed)
+
+	const ninja_level = useSelector(state => state.app.ninja_level)
+	const ninja_speed = useSelector(state => state.app.ninja_speed)
+	const speed = ninja_speed[ ninja_level ]
+
 
 	useEffect( () => { 
 		const intIdx = setInterval( () => { 
@@ -74,10 +78,22 @@ export function Ninja({ ramp }) {
 		}
 	})
 
+	let ninjaPreLook = level => {
+		switch (level) {
+			case 0:
+				return s.ninjaLogo
+			case 1:
+				return s.ninjaLogo_p
+			case 2:
+				return s.ninjaLogo_pp
+			case 3:
+				return s.ninjaLogo_ppp
+		}
+	}
 
 	return (
 
-		<div className={ s.ninjaLogo }
+		<div className={ ninjaPreLook( ninja_level -1 ) }
 				draggable = { true }
 
 				onDragStart = { () => {

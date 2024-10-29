@@ -16,7 +16,7 @@ export function Timer() {
 	const msgVisible = useSelector(state => state.app.msg.visible)
 
 	useEffect(() => {
-		const timerInt = setInterval( () => { updTimer() } ,1000 )
+		const timerInt = setInterval( () => { updTimer() } ,200 )
 		return () => { clearInterval(timerInt) }
 	})
 

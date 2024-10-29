@@ -32,7 +32,7 @@
 	filter: brightness(1.4) saturate(1);
 }
 
-.brain, .muscle, .dump, .ninja {
+.brain, .muscle, .dump, .ninja, .ninja_p, .ninja_pp, .ninja_ppp {
 	width:76px;
 	height:76px;
 	background-color:#d2d2d2;
@@ -49,6 +49,9 @@
 .muscle { background-position-x: -148px; }
 .dump { background-position-x: -357px; }
 .ninja { background-position-x: -444px; }
+.ninja_p { background-position-x: -517px; }
+.ninja_pp { background-position-x: -598px; }
+.ninja_ppp { background-position-x: -676px; }
 	
 .innerCost {
 	background: #627d6c;

@@ -30,7 +30,9 @@ export function BottomBar() {
 	const recStepCost = recStepCosts[ recStepUpg ]
 
 	const ninja = useSelector(state => state.app.ninja)
-	const ninjaCost = 10
+	const ninja_cost = useSelector(state => state.app.ninja_cost)
+	const ninja_level = useSelector(state => state.app.ninja_level)
+	const ninjaCost = ninja_cost[ ninja_level ]
 
 	const levelPoints = useSelector(state => state.app.level_points)
 	const levelPtsSum = levelPoints.reduce( (a,b) => { return a +b }, 0 )
@@ -60,27 +62,43 @@ export function BottomBar() {
 	// little bit complex but effective
 	// ( draggable element is 'cost === undefined' )
 	let upgNinjaDisplay = cost => {
-		if (ninja && cost === undefined) {
-			// if ninja not present on ramps :)
+
+		if ( ninja && cost === undefined) {
+			// if ninja is present on ramps :)
 			for (let i=0; i<ramps.length; i++) {
 				if (ramps[i].ninja === true) {
+					// he is not present on bottombar..
 					return "none";
 				}
 			}
 			return "block";
 		}
-		if (ninja && cost !== undefined) {
-			return "none";
-		}
-		if (!ninja && cost !== undefined) {
-			if ( cost <= levelPtsSum - levelUpgSum ) { return "block"; }
-			else { return "none"; }
-		}
 		if (!ninja && cost === undefined) {
 			return "none";
 		}
+		// upgrade ninja button 
+		// if (ninja && cost !== undefined) {
+			// return "none";
+		// }
+		if (ninja && cost !== undefined) {
+			if ( cost <= levelPtsSum - levelUpgSum ) { return "block"; }
+			else { return "none"; }
+		}
 	}
 
+	
+	let ninjaLook = level => {
+		switch (level) {
+			case 0:
+				return s.ninja
+			case 1:
+				return s.ninja_p
+			case 2:
+				return s.ninja_pp
+			case 3:
+				return s.ninja_ppp
+		}
+	}
 
 	let bonusDump = () => {
 		let truckFill = docks.map( d => {
@@ -118,7 +136,7 @@ export function BottomBar() {
 				</div>
 
 				{/* to buy */}
-			  <div className={ s.ninja }
+			  <div className={ ninjaLook( ninja_level ) }
 				     style={{ "display": upgNinjaDisplay( ninjaCost ) }}
 				     onClick={ () => { 
 							 dispatch( buyNinja({ payload: ninjaCost }) ) 
@@ -127,7 +145,7 @@ export function BottomBar() {
 				</div>
 
 				{/* to drag */}
-			  <div className={ s.ninja }
+			  <div className={ ninjaLook( ninja_level-1 ) }
 					   draggable={ true }
 				     style={{ "display": upgNinjaDisplay() }}
 

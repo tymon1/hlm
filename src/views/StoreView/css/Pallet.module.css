@@ -7,6 +7,10 @@
 	font-weight: bold;
 	display: block;
 	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
 	border-bottom: 11px solid #888;
 	border-left: 5px dashed brown;
 	cursor:pointer;
