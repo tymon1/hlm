@@ -41,12 +41,28 @@
 	transition: margin-left 1s ease-in-out, opacity 0.6s ease-in-out;
 	touch-action: none;
 	background-image: url(i/topb.png);
+	position:relative;
 
 }
 
 .tType_xl:hover, .tType_m:hover, .tType_s:hover, .tType_bonus:hover {
 	filter: brightness(1.4) saturate(1.4);
 	cursor: pointer;
+}
+
+.counter {
+	z-index:5000;
+	position: absolute;
+	left: 30px;
+}
+
+.counterOverlay {
+	z-index:6000;
+	position: absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
 }
 
 

@@ -11,8 +11,8 @@ export function TruckPreview( props ) {
 
 	const dispatch = useDispatch()
 	const bonusWait = useSelector(state => state.app.bonus_wait)
-	const myRef = useRef();
 	const truck = props.truck
+	const myRef = useRef();
 	const countInt = useRef()
 
 	useEffect( () => { 
@@ -25,8 +25,8 @@ export function TruckPreview( props ) {
 				
 				countInt.current = setInterval( () => { 
 					if (timr > 0 ) {
-						let myElem = myRef.current
-						if (myElem !== null) { myElem.innerHTML = (timr--/100) }
+						const myElem = myRef.current
+						if (myElem !== null) { myElem.childNodes[0].innerHTML = (timr--/100) }
 					}
 					else { 
 						clearFn() 
@@ -87,6 +87,9 @@ export function TruckPreview( props ) {
 					 onDragEnd = { () => { 
 						 dispatch( drag( false ) ) }}
 					 > 
+
+						 <div className={ s.counter }></div>
+						 <div className={ s.counterOverlay }></div>
 
 			</div> 
 	)

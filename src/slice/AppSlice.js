@@ -21,8 +21,8 @@ const initialState = {
 		recover_step_upgrade: 0,
 
 		ninja: false,
-		ninja_speed: [2900, 900, 700, 500, 200, 300],
-		ninja_cost: [50, 100, 120, 180, 1000000],
+		ninja_speed: [2900, 800, 500, 250, 120, 300],
+		ninja_cost: [40, 60, 80, 180, 1000000],
 		ninja_level: 0,
 		
 		// how long bonus truck wait
