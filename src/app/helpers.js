@@ -24,7 +24,7 @@ const pallets_colors = ['rgb(54,119,78)',
 											  'yellow',
 											  'white',
 											  'pink',
-											  'black',
+											  'CadetBlue',
 											  'red']
 
 
@@ -132,10 +132,15 @@ let drawPallets = (idf_, len_) => {
 }
 
 
-//////////////////////////////
+///////////////////////////////////////
 //
-//  determine if pallet is 
-//  flipping ..
+//  determine if pallet is flipping ..
+//
+//  if you pass 0 as flip risk you can
+//  get recovered palette :)
+//
+//  fr - flip risk
+//  p - palette
 //
 
 export const isFlipping = (pl) => {
@@ -268,7 +273,7 @@ export const colorMatch = param => {
 	for (let field of cfields) {
 		if (param.pallet.c === field.color) {
 			return field.index;
-			break;
+			// break;
 		}
 	}
 	return false
@@ -294,13 +299,8 @@ export const fieldMatch = param => {
 		let retColor = matchColorIndex({"field":field, 
 																		"color_fields":param.color_fields})
 		if (field.pallets.length === 0 && !retColor) {
-				// retColor === param.pallet.c) {
 			return field.no
 		}
-		// else {
-			// console.log("field empty?",field.index)
-			// return field.no
-		// }
 	}
 	return false
 }
@@ -383,6 +383,19 @@ export const colorStoreMess = p => {
 	return retVal.includes(false)
 }
 
+
+// returns array of 
+// unoccupied docks indexes
+//
+export const countEmptyDocks = (docks) => {
+	let retV = [] 
+	docks.forEach( dock => {
+		if (dock.truck.id === undefined) {
+			retV.push(dock.no)
+		}
+	})
+	return retV;
+}
 
 
 //////////////////////////////

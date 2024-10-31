@@ -22,8 +22,6 @@ export function Ninja({ ramp }) {
 	const zones = useSelector(state => state.store.zones)
 	const ramps = useSelector(state => state.store.ramps)
 	const levelColorZones = useSelector(state => state.app.level.color_zone)
-	const picked = useSelector(state => state.app.picked)
-	const dragged = useSelector(state => state.app.drag)
 	const recPc = useSelector(state => state.app.recover_step)
 
 	const ninja_level = useSelector(state => state.app.ninja_level)
@@ -88,6 +86,8 @@ export function Ninja({ ramp }) {
 				return s.ninjaLogo_pp
 			case 3:
 				return s.ninjaLogo_ppp
+			default:
+				return ""
 		}
 	}
 

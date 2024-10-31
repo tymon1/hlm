@@ -23,6 +23,9 @@ export function Truck({ truck }) {
 
 	// covering up 
 	useEffect(() => {
+		if (!truck.cover) {
+			offCover()
+		}
 		if (truck.ready) { 
 			putCover() 
 		}

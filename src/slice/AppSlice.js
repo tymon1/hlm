@@ -14,15 +14,15 @@ const initialState = {
 		// % of tumbled pallet recovery
 		recover_step: 20,
 
-		reduce_flip_costs: [20, 40, 80, 120],
+		reduce_flip_costs: [30, 50, 80, 120],
 		reduce_flip_upgrade: 0,
 
-		recover_step_costs: [10, 20, 60],
+		recover_step_costs: [20, 40, 70],
 		recover_step_upgrade: 0,
 
 		ninja: false,
-		ninja_speed: [2900, 800, 500, 250, 120, 300],
-		ninja_cost: [40, 60, 80, 180, 1000000],
+		ninja_speed: [2900, 800, 500, 350, 200, 300],
+		ninja_cost: [40, 60, 90, 180, 1000000],
 		ninja_level: 0,
 		
 		// how long bonus truck wait
@@ -31,10 +31,10 @@ const initialState = {
 		// in .. storeWare line 314
 		//
 		level_times: [ ],
-		// initial cebulions 
-		level_points: [ 50 ],
+		// initial cebulions :35
+		level_points: [ 35 ],
 		// cebulions spent..
-		level_upgrades: [],
+		level_upgrades: [ 0 ],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [ 2 ],
 		// initial bonuses

@@ -29,8 +29,8 @@ export const zundWare = (state) => (next) => (action) => {
 
 
 		case 'app/buyNinja':
-			if (action.payload.payload === 50) { kabuki.play() } 
-			if (action.payload.payload === 100) { katana.play() } 
+			if (action.payload.payload === 40 || 60) { kabuki.play() } 
+			if (action.payload.payload === 80) { katana.play() } 
 			break
 
 		case 'store/addPal':

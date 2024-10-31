@@ -4,13 +4,20 @@ import r from './css/ResultsBar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useRef } from 'react';
 
+import { countEmptyDocks,
+	     } from '../../app/helpers.js';
+
 import { increaseRecover,
 				 reduceFlipRisk,
 				 reduceBonus,
 				 buyNinja,
 	     } from '../../slice/AppSlice';
 
-import { dumpPalToRamp } from '../../slice/StoreSlice';
+import { dumpPalToRamp,
+	       remQueueTruck,
+	       setTruckCover,
+	       palletRecover,
+         parkTruck } from '../../slice/StoreSlice';
 
 import { drag, source } from '../../slice/AppSlice';
 
@@ -47,6 +54,7 @@ export function BottomBar() {
 
 	const docks = useSelector(state => state.store.docks)
 	const ramps = useSelector(state => state.store.ramps)
+	const queue = useSelector(state => state.store.queue)
 
 	const bonusTotal = bonusEarned - bonusUsed
 
@@ -79,7 +87,7 @@ export function BottomBar() {
 		// if (ninja && cost !== undefined) {
 			// return "none";
 		// }
-		if (ninja && cost !== undefined) {
+		if (cost !== undefined) {
 			if ( cost <= levelPtsSum - levelUpgSum ) { return "block"; }
 			else { return "none"; }
 		}
@@ -96,6 +104,8 @@ export function BottomBar() {
 				return s.ninja_pp
 			case 3:
 				return s.ninja_ppp
+			default:
+				return ""
 		}
 	}
 
@@ -176,12 +186,50 @@ export function BottomBar() {
 					<div className={ s.innerBonus }> 3 </div> 
 				</div>
 
-				<div className={ r.bonuses + " " + s.bonusBot }>
+				{/* shout - red ninja action */}
+			  <div className={ s.shout }
+				     style={{ "display": (bonusTotal>=1 && ninja_level>=2) ? "block" : "none" }}
+				     onClick={ () => { 
+							 let emptyDocksC = countEmptyDocks( docks )
+							 if ( emptyDocksC.length >= 1 && queue.length >= 1 ) {
+								 for (let j=0; j< queue.length; j++) {
+									 if (j >= emptyDocksC.length)
+										 break;
+										 dispatch( parkTruck({ truck:queue[j],
+											                     index: emptyDocksC[j] }) )
+										 dispatch( remQueueTruck({ id: queue[j].id }) )
+										 dispatch( setTruckCover({ id: queue[j].id, cover:false }) )
+								 }
+							 }
+						 }} >
+				</div>
 
+				{/* stomp / fist - knight action */}
+			  <div className={ s.stomp }
+				     style={{ "display": (bonusTotal>=1 && ninja_level>=3) ? "block" : "none" }}
+				     onClick={ () => { 
+							 for (let j=0; j< ramps.length; j++) {
+								 if (ramps[j].pallets) {
+									 ramps[j].pallets.forEach( pal => {
+										 let recPcent = 100
+										 if (pal.recovered < 100) {
+											 dispatch( palletRecover( {
+												 pallet: pal,
+												 rampIndex: j,
+												 percent: recPcent
+											 }) )
+										 }
+									 } )
+								 }
+							 }
+						 }} >
+				</div>
+
+
+				<div className={ r.bonuses + " " + s.bonusBot }>
 					<span className={ r.bonusInner }>
 						{ bonusTotal }
 					</span>
-
 				</div> 
 
 			  <div className={ s.totalPts }>

@@ -28,11 +28,15 @@
 	text-align: center;
 }
 
-.brain:hover, .muscle:hover, .dump:hover, .ninja:hover {
-	filter: brightness(1.4) saturate(1);
+.brain:hover, .muscle:hover, .dump:hover, 
+.ninja_p:hover, .ninja_pp:hover, 
+.ninja:hover, .shout:hover, .stomp:hover {
+	filter: brightness(1.3) saturate(1);
 }
 
-.brain, .muscle, .dump, .ninja, .ninja_p, .ninja_pp, .ninja_ppp {
+.brain, .muscle, .dump, 
+.ninja, .ninja_p, .ninja_pp, 
+.ninja_ppp, .shout, .stomp {
 	width:76px;
 	height:76px;
 	background-color:#d2d2d2;
@@ -52,6 +56,8 @@
 .ninja_p { background-position-x: -517px; }
 .ninja_pp { background-position-x: -598px; }
 .ninja_ppp { background-position-x: -676px; }
+.shout { background-position-x: -975px; }
+.stomp { background-position-x: -890px; }
 	
 .innerCost {
 	background: #627d6c;
