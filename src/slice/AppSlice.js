@@ -20,8 +20,8 @@ const initialState = {
 		recover_step_costs: [20, 40, 70],
 		recover_step_upgrade: 0,
 
-		ninja: false,
-		ninja_speed: [2900, 800, 500, 350, 200, 300],
+		ninja: true,
+		ninja_speed: [2900, 800, 500, 400, 300, 300],
 		ninja_cost: [40, 60, 90, 180, 1000000],
 		ninja_level: 0,
 		
@@ -113,6 +113,9 @@ export const appSlice = createSlice({
 
 		hardReset: () => initialState,
 
+		fist: state =>  { return state },
+		thunder: state =>  { return state },
+
 		incHowto: state => {
 			if (state.howtoPage < 3) { state.howtoPage++ }
 		},
@@ -151,6 +154,12 @@ export const appSlice = createSlice({
 			state.ninja_level += 1
 			// get
 			state.ninja = true
+		},
+
+		bonusPay: (state, payload) => {
+			let amount = payload.payload.amount
+				console.log("amount",amount)
+			state.bonus_used.push( amount )
 		},
 
 		markLevelPalCount: (state, payload) => {
@@ -284,6 +293,9 @@ export const { runLevel, increaseWave, resetWave,
 							 reduceFlipRisk,
 							 reduceBonus,
 							 buyNinja,
+							 thunder,
+							 fist,
+							 bonusPay,
 							 pushPoints,
 							 hardReset,
 							 setBonusCounter,

@@ -11,12 +11,17 @@ import { increaseRecover,
 				 reduceFlipRisk,
 				 reduceBonus,
 				 buyNinja,
+				 bonusPay,
+				 thunder,
+				 fist,
 	     } from '../../slice/AppSlice';
 
 import { dumpPalToRamp,
 	       remQueueTruck,
 	       setTruckCover,
 	       palletRecover,
+				 addPal,
+				 remPal,
          parkTruck } from '../../slice/StoreSlice';
 
 import { drag, source } from '../../slice/AppSlice';
@@ -83,10 +88,6 @@ export function BottomBar() {
 		if (!ninja && cost === undefined) {
 			return "none";
 		}
-		// upgrade ninja button 
-		// if (ninja && cost !== undefined) {
-			// return "none";
-		// }
 		if (cost !== undefined) {
 			if ( cost <= levelPtsSum - levelUpgSum ) { return "block"; }
 			else { return "none"; }
@@ -109,11 +110,12 @@ export function BottomBar() {
 		}
 	}
 
-	let bonusDump = () => {
+
+	let maxDump = () => {
 		let truckFill = docks.map( d => {
 			return d.truck.id > 0 
-				? { "no":d.no, "len":d.truck.pallets.length, type:d.truck.type } 
-			  : { "no":d.no, "len":0, type:"" };
+				? { no: d.no, len: d.truck.pallets.length, type: d.truck.type } 
+			  : { no: d.no, len: 0, type: "" };
 		})
 		//  dock  with  max  pallets { no, lenMax }
 		let truckMax = truckFill.reduce( (dPrev, dCurr) => { 
@@ -171,16 +173,16 @@ export function BottomBar() {
 			  <div className={ s.dump }
 				     style={{ "display": (bonusTotal>=3) ? "block" : "none" }}
 				     onClick={ () => { 
-							 let docksDump = bonusDump() 
-							 if ( docksDump.len !== 0 && 
+							 let docksMaxDump = maxDump() 
+							 if ( docksMaxDump.len !== 0 && 
 									  bonusTotal >= 3 &&
-									  docksDump.type !== 'bonus' &&  
-										docksDump.type !== 'full' ) {
+									  docksMaxDump.type !== 'bonus' &&  
+										docksMaxDump.type !== 'full' ) {
 								 dispatch( reduceBonus({ payload: 3 }) )
 								 dispatch( dumpPalToRamp({ 
-									 payload:docksDump.no, 
-									 pallets:docks[docksDump.no].truck.pallets,
-								   rampPallets:ramps[docksDump.no].pallets }) )
+									 payload: docksMaxDump.no, 
+									 pallets: docks[ docksMaxDump.no ].truck.pallets,
+								   rampPallets: ramps[ docksMaxDump.no ].pallets }) )
 							 }
 						 }}>
 					<div className={ s.innerBonus }> 3 </div> 
@@ -188,7 +190,7 @@ export function BottomBar() {
 
 				{/* shout - red ninja action */}
 			  <div className={ s.shout }
-				     style={{ "display": (bonusTotal>=1 && ninja_level>=2) ? "block" : "none" }}
+				     style={{ "display": (ninja_level>=2) ? "block" : "none" }}
 				     onClick={ () => { 
 							 let emptyDocksC = countEmptyDocks( docks )
 							 if ( emptyDocksC.length >= 1 && queue.length >= 1 ) {
@@ -208,8 +210,15 @@ export function BottomBar() {
 			  <div className={ s.stomp }
 				     style={{ "display": (bonusTotal>=1 && ninja_level>=3) ? "block" : "none" }}
 				     onClick={ () => { 
+							 // visual & sfx 
+							 dispatch( fist() )
+							 let store = document.querySelector('#store')
+							 store.classList.add(s.shake)
+							 setTimeout( () => { store.classList.remove(s.shake) } ,600)
+							 // js action
+							 dispatch( bonusPay({ amount: 1 }) )
 							 for (let j=0; j< ramps.length; j++) {
-								 if (ramps[j].pallets) {
+								 if (ramps[j].pallets) 
 									 ramps[j].pallets.forEach( pal => {
 										 let recPcent = 100
 										 if (pal.recovered < 100) {
@@ -220,9 +229,37 @@ export function BottomBar() {
 											 }) )
 										 }
 									 } )
-								 }
 							 }
 						 }} >
+					<div className={ s.innerBonus }> 1 </div> 
+				</div>
+
+				{/* thunder - raiden action */}
+			  <div className={ s.thunder }
+				     style={{ "display": (bonusTotal>=2 && ninja_level>=4) ? "block" : "none" }}
+				     onClick={ () => { 
+							 // visual & sfx
+							 dispatch( thunder() )
+							 let storeId = document.querySelector('#store')
+							 let docksId = document.querySelector('#docks')
+							 storeId.classList.add(s.lightning)
+							 docksId.classList.add(s.lightning)
+							 setTimeout( () => { storeId.classList.remove(s.lightning) } ,100)
+							 setTimeout( () => { docksId.classList.remove(s.lightning) } ,130)
+							 // model action
+							 dispatch( bonusPay({ amount: 2 }) )
+							 docks.map( dock => {
+								 if (dock.truck.id > 0 && dock.truck.type !== "bonus") {
+									 dock.truck.pallets.forEach( pal => {
+										 dispatch( addPal({ index: dock.no, pallet: pal, name: "ramp", }) ) 
+										 dispatch( remPal({ index: dock.truck.id, pallet: pal, name: "truck", }) ) 
+									 }) 
+								 }
+								 return true
+							 })
+
+						 }} >
+					<div className={ s.innerBonus }> 2 </div> 
 				</div>
 
 

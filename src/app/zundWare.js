@@ -4,6 +4,8 @@ import { reverse_l,
          wave,
          katana,
          kabuki,
+         fist,
+         thunder,
          error,
 				 complete,
          newQ,
@@ -23,14 +25,36 @@ export const zundWare = (state) => (next) => (action) => {
 
 	switch (action.type) {
 
+		case 'app/fist':
+			fist.play()
+			break
+
+		case 'app/thunder':
+			thunder.play()
+			break
+
 		case 'store/addQueueTruck':
 			setTimeout( () => { newQ.play() }, 800)
 			break
 
 
 		case 'app/buyNinja':
-			if (action.payload.payload === 40 || 60) { kabuki.play() } 
-			if (action.payload.payload === 80) { katana.play() } 
+			switch (action.payload.payload) {
+				case 40:
+					kabuki.play()
+					break
+				case 60:
+					kabuki.play()
+					break
+				case 90:
+					katana.play()
+					break
+				case 180:
+					katana.play()
+					break;
+				default:
+					//
+			}
 			break
 
 		case 'store/addPal':

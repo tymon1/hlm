@@ -14,6 +14,16 @@ export const katana = new Howl({
 	volume: 0.7,
 })
 
+export const thunder = new Howl({
+	src: ['s/thunder1.mp3'],
+	volume: 0.9,
+})
+
+export const fist = new Howl({
+	src: ['s/stomp1.mp3'],
+	volume: 0.9,
+})
+
 export const kabuki = new Howl({
 	src: ['s/kabuki.mp3'],
 	volume: 0.7,

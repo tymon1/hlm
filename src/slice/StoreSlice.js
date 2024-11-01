@@ -213,7 +213,7 @@ export const storeSlice = createSlice({
 		// add multiple pallets to ramp at once
 		dumpPalToRamp: (state, payload) => {
 			let no = payload.payload.payload
-			let pallets = payload.payload.rampPallets.concat(payload.payload.pallets)
+			let pallets = payload.payload.rampPallets.concat( payload.payload.pallets )
 			state.docks[no].truck.pallets = []
 			state.ramps[no].pallets = pallets
 		},
