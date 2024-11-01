@@ -32,7 +32,7 @@ const initialState = {
 		//
 		level_times: [ ],
 		// initial cebulions :35
-		level_points: [ 35 ],
+		level_points: [ 535 ],
 		// cebulions spent..
 		level_upgrades: [ 0 ],
 		// initial value is 2: store.counter.palletId
