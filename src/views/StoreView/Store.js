@@ -60,7 +60,7 @@ export function Store() {
       </div>
 
 	<BottomBar />
-	// <Admin />
+	{/* <Admin /> */}
 
     </div>
   );
