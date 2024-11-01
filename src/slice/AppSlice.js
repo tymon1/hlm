@@ -26,13 +26,13 @@ const initialState = {
 		ninja_level: 0,
 		
 		// how long bonus truck wait
-		bonus_wait: 400,
+		bonus_wait: 200,
 		// some parameter for bonus truck draw chances ? 
 		// in .. storeWare line 314
 		//
 		level_times: [ ],
 		// initial cebulions :35
-		level_points: [ 535 ],
+		level_points: [ 35 ],
 		// cebulions spent..
 		level_upgrades: [ 0 ],
 		// initial value is 2: store.counter.palletId

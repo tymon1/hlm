@@ -100,4 +100,9 @@
 		padding:0px 0px 0px 8px;
 	}
 
+	.counter {
+		left: 10px;
+		top: 3px;
+	}
+
 }

@@ -7,21 +7,15 @@ import { Ramp } from './Ramp';
 import { TopBar } from './TopBar';
 import { BottomBar } from './BottomBar';
 import { ResultsBar } from './ResultsBar';
-// import { Timer } from './Timer';
 import { Admin } from './Admin';
-// import { makeMinutes, 
-// 				 totalTime, 
-// 				 } from '../../app/helpers.js';
 
 
-	// <Admin />
 
 export function Store() {
 
 	const zones = useSelector(state => state.store.zones)
 	const ramps_internal = useSelector(state => state.store.ramps)
 	const lock = useSelector(state => state.app.msg.visible)
-	// const level_times = useSelector(state => state.app.level_times)
 
 	const curLevel = useSelector(state => state.app.level.current)
 	const levels = useSelector(state => state.app.levels)
@@ -66,21 +60,8 @@ export function Store() {
       </div>
 
 	<BottomBar />
-	<Admin />
+	// <Admin />
 
     </div>
   );
 }
-
-
-
-			// <div className={ s.levelTimes }>
-			//   {
-			// 		level_times.map( (t,index) => { 
-			// 			return ( 
-			// 					<span key={ index } className={ s.levelTime }>{t}</span>
-			// 			)
-			// 		} )
-			// 	}	
-			// </div>
-			// <span className={ s.levelTime }> total: { makeMinutes( Number(totalTime( level_times )) ) }</span>
