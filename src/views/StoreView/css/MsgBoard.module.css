@@ -358,7 +358,7 @@
 }
 
 .slime,.turtle,.hare,.gepart {
-	background-image: url(i/speedA.png);
+	background-image: url(i/speedB.png);
 	width:120px;
 	height:80px;
 	margin-left:10px;
@@ -378,6 +378,10 @@
 }
 .gepart {
 	background-position-y: -252px;
+	background-position-x: -1px;
+}
+.rocket {
+	background-position-y: -292px;
 	background-position-x: -1px;
 }
 
@@ -609,6 +613,10 @@
 }
 .gepart {
 	background-position-y: -216px;
+	background-position-x: 91px;
+}
+.gepart {
+	background-position-y: -246px;
 	background-position-x: 91px;
 }
 

@@ -208,7 +208,7 @@ export function BottomBar() {
 
 				{/* stomp / fist - knight action */}
 			  <div className={ s.stomp }
-				     style={{ "display": (bonusTotal>=1 && ninja_level>=3) ? "block" : "none" }}
+				     style={{ "display": (ninja_level>=3) ? "block" : "none" }}
 				     onClick={ () => { 
 							 // visual & sfx 
 							 dispatch( fist() )
@@ -216,7 +216,6 @@ export function BottomBar() {
 							 store.classList.add(s.shake)
 							 setTimeout( () => { store.classList.remove(s.shake) } ,600)
 							 // js action
-							 dispatch( bonusPay({ amount: 1 }) )
 							 for (let j=0; j< ramps.length; j++) {
 								 if (ramps[j].pallets) 
 									 ramps[j].pallets.forEach( pal => {

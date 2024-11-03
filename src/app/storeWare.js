@@ -381,14 +381,14 @@ export const storeWare = (state) => (next) => (action) => {
 	}
 
 	// 4 hard debug purpose:
-	if (action.type === 'app/setTimer' ||
-			action.type === 'store/remPal' ||
-			action.type === 'store/addPal' ||
-			action.type === 'app/source' 
+	// if (action.type === 'app/setTimer' ||
+			// action.type === 'store/remPal' ||
+			// action.type === 'store/addPal' ||
+			// action.type === 'app/source' 
 			// action.type === 'app/drag' ||
 			// action.type === 'app/pick' ||
-			)  {}
-	else { console.log(action) }
+			// )  {}
+	// else { console.log(action) }
 
 	next(action)
 }
