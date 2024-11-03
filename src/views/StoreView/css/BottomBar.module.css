@@ -61,7 +61,8 @@
 .stomp { background-position-x: -906px; }
 .thunder { background-position-x: -827px; }
 	
-.shake { animation: shaker 0.3s; }
+.shake { animation: shaker 0.3s; 
+         animation-delay: 0.2s}
 .lightning {
 	background-color: #fff !important;
 	z-index:10000;
