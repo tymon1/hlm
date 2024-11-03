@@ -13,7 +13,6 @@ import { hideMsg,
 
 
 import { makeMinutes,
-				 // totalTime,
 	     } from '../../app/helpers';
 
 
@@ -113,7 +112,6 @@ export function MsgBoard() {
 	}
 
 	let mvForward = () => {
-		// kolejnosc ma znaczenie :(( 
 		dispatch( loadTruck(false) )
 		dispatch( hideMsg(true) )
 	}
@@ -143,17 +141,8 @@ export function MsgBoard() {
 		if (speed > 10 && speed <= 20) { return s.turtle } 
 		if (speed > 20 && speed <= 30) { return s.hare } 
 		if (speed > 30 && speed <= 50) { return s.gepart } 
-		// todo thunder
-		if (speed > 50 ) { return s.gepart } 
+		if (speed > 50 ) { return s.rocket } 
 	}
-
-	// let blinkBtn = () => {
-	// 	let el = document.getElementById("fwBtn")
-	// 	el.style.background = "white"
-	// 	setTimeout( () => {
-	// 		el.style.background = "green"
-	// 	}, 100)
-	// }
 
 	let showHowto = () => { 
 		dispatch( showMsg({ type:"howto", text:"pl" }) )

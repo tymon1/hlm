@@ -105,6 +105,8 @@ export function BottomBar() {
 				return s.ninja_pp
 			case 3:
 				return s.ninja_ppp
+			case 4:
+				return s.ninja_pppp
 			default:
 				return ""
 		}
@@ -230,7 +232,6 @@ export function BottomBar() {
 									 } )
 							 }
 						 }} >
-					<div className={ s.innerBonus }> 1 </div> 
 				</div>
 
 				{/* thunder - raiden action */}

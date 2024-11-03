@@ -36,7 +36,7 @@
 
 .brain, .muscle, .dump, .thunder,
 .ninja, .ninja_p, .ninja_pp, 
-.ninja_ppp, .shout, .stomp {
+.ninja_ppp, .ninja_pppp, .shout, .stomp {
 	width:76px;
 	height:76px;
 	background-color:#d2d2d2;
@@ -56,9 +56,10 @@
 .ninja_p { background-position-x: -517px; }
 .ninja_pp { background-position-x: -598px; }
 .ninja_ppp { background-position-x: -676px; }
-.shout { background-position-x: -975px; }
-.stomp { background-position-x: -890px; }
-.thunder { background-position-x: -810px; }
+.ninja_pppp { background-position-x: -752px; }
+.shout { background-position-x: -990px; }
+.stomp { background-position-x: -906px; }
+.thunder { background-position-x: -827px; }
 	
 .shake { animation: shaker 0.3s; }
 .lightning {

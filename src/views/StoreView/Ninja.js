@@ -86,6 +86,8 @@ export function Ninja({ ramp }) {
 				return s.ninjaLogo_pp
 			case 3:
 				return s.ninjaLogo_ppp
+			case 4:
+				return s.ninjaLogo_pppp
 			default:
 				return ""
 		}

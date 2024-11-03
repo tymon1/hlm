@@ -10,7 +10,7 @@
 	/* border: 3px dashed #ddd; */
 }
 
-.ninjaLogo, .ninjaLogo_p, .ninjaLogo_pp, .ninjaLogo_ppp {
+.ninjaLogo, .ninjaLogo_p, .ninjaLogo_pp, .ninjaLogo_ppp, .ninjaLogo_pppp {
 	background-color: #fff;
 	width: 42px;
 	height: 42px;
@@ -24,7 +24,8 @@
 .ninjaLogo { background-position-x: -210px; }
 .ninjaLogo_p { background-position-x: -256px; }
 .ninjaLogo_pp { background-position-x: -306px; }
-.ninjaLogo_ppp { background-position-x: -356px; }
+.ninjaLogo_ppp { background-position-x: -353px; }
+.ninjaLogo_pppp { background-position-x: -398px; }
 
 @media only screen and (min-width: 100px) and (max-width: 900px) {
 
@@ -33,7 +34,7 @@
 		width: 95px;
 	}
 
-	.ninjaLogo, .ninjaLogo_p, .ninjaLogo_pp, .ninjaLogo_ppp {
+	.ninjaLogo, .ninjaLogo_p, .ninjaLogo_pp, .ninjaLogo_ppp, .ninjaLogo_pppp {
 		right: -50px;
 		top: 6px;
 	}

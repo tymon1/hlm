@@ -357,32 +357,28 @@
 	text-align: center;
 }
 
-.slime,.turtle,.hare,.gepart {
+.slime,.turtle,.hare,.gepart, .rocket {
 	background-image: url(i/speedB.png);
 	width:120px;
 	height:80px;
 	margin-left:10px;
+	background-position-x: -1px;
 }
 
 .slime {
 	background-position-y: -17px;
-	background-position-x: -1px;
 }
 .turtle {
 	background-position-y: -103px;
-	background-position-x: -1px;
 }
 .hare {
 	background-position-y: -184px;
-	background-position-x: -1px;
 }
 .gepart {
 	background-position-y: -252px;
-	background-position-x: -1px;
 }
 .rocket {
-	background-position-y: -292px;
-	background-position-x: -1px;
+	background-position-y: -322px;
 }
 
 
