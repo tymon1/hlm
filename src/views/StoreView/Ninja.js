@@ -34,14 +34,29 @@ export function Ninja({ ramp }) {
 			// makaroni code start
 			// any pallets on ramp?
 
-			if ( ramps[ramp.no].pallets.length > 0 ) {
+			let tramp = []
+			if (ninja_level > 4) { 
+				for (let i=0; i<3; i++) {
+					if (ramps[i].pallets.length > 0) {
+						tramp = ramps[i]  
+						break;
+					}
+					else {
+						tramp = ramps[ramp.no]
+					}
+				}
+			}
+			else { tramp = ramps[ramp.no] }
 
-				let pal = ramps[ramp.no].pallets[0]
+			////
+			if ( ramps[tramp.no].pallets.length > 0 ) {
+
+				let pal = ramps[tramp.no].pallets[ ramps[tramp.no].pallets.length-1 ]
 
 				if ( pal.recovered < 100 ) {
 					dispatch( palletRecover( {
 						pallet: pal,
-						rampIndex: ramp.no,
+						rampIndex: tramp.no,
 						percent: recPc 
 					}) )
 				}
@@ -51,22 +66,25 @@ export function Ninja({ ramp }) {
 																			 "color_fields":levelColorZones})
 					if (matchIndex !== false) {
 						dispatch( addPalToZone({ "index":matchIndex, "pallet":pal }) )
-						dispatch( remPalFrRamp({ "index":ramp.no, "id":pal.id }) )
+						dispatch( remPalFrRamp({ "index":tramp.no, "id":pal.id }) )
 					}
 					else {
 						let matchField = fieldMatch({ "pallet":pal,
 																					"color_fields":levelColorZones,
-								                          "fields":zones })
+																					"fields":zones })
 						if (matchField !== false) {
 							dispatch( addPalToZone({ "index":matchField, "pallet":pal }) )
-							dispatch( remPalFrRamp({ "index":ramp.no, "id":pal.id }) )
+							dispatch( remPalFrRamp({ "index":tramp.no, "id":pal.id }) )
 						}
 					}
 				}
 			}
+
 			else {
 				dispatch( checkTrucks() ) 
 			}
+
+
 			// }
 			// makaroni code end
 		}, speed)

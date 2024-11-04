@@ -37,8 +37,8 @@ const initialState = {
 		level_upgrades: [ 0 ],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [ 2 ],
-		// initial bonuses
-		level_bonuses: [ { level: 0, count: 6 } ],
+		// initial bonuses 6
+		level_bonuses: [ { level: 0, count: 16 } ],
 		// spent bonuses
 		bonus_used: [ 0 ],
 		wave_times: [],
@@ -158,7 +158,6 @@ export const appSlice = createSlice({
 
 		bonusPay: (state, payload) => {
 			let amount = payload.payload.amount
-				console.log("amount",amount)
 			state.bonus_used.push( amount )
 		},
 
