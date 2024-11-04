@@ -16,8 +16,7 @@ import { increaseRecover,
 				 fist,
 	     } from '../../slice/AppSlice';
 
-import { dumpPalToRamp,
-	       remQueueTruck,
+import { remQueueTruck,
 	       setTruckCover,
 	       palletRecover,
 				 addPal,
@@ -116,8 +115,8 @@ export function BottomBar() {
 	let maxDump = () => {
 		let truckFill = docks.map( d => {
 			return d.truck.id > 0 
-				? { no: d.no, len: d.truck.pallets.length, type: d.truck.type } 
-			  : { no: d.no, len: 0, type: "" };
+				? { no: d.no, len: d.truck.pallets.length, type: d.truck.type, tid: d.truck.id } 
+			  : { no: d.no, len: 0, type: "", tid:0 };
 		})
 		//  dock  with  max  pallets { no, lenMax }
 		let truckMax = truckFill.reduce( (dPrev, dCurr) => { 
@@ -176,15 +175,22 @@ export function BottomBar() {
 				     style={{ "display": (bonusTotal>=3) ? "block" : "none" }}
 				     onClick={ () => { 
 							 let docksMaxDump = maxDump() 
+							 // no len type //turcktype
 							 if ( docksMaxDump.len !== 0 && 
 									  bonusTotal >= 3 &&
 									  docksMaxDump.type !== 'bonus' &&  
 										docksMaxDump.type !== 'full' ) {
 								 dispatch( reduceBonus({ payload: 3 }) )
-								 dispatch( dumpPalToRamp({ 
-									 payload: docksMaxDump.no, 
-									 pallets: docks[ docksMaxDump.no ].truck.pallets,
-								   rampPallets: ramps[ docksMaxDump.no ].pallets }) )
+
+								 docks[ docksMaxDump.no ].truck.pallets.forEach( pal => {
+									 dispatch( addPal({ index: docksMaxDump.no, pallet: pal, name: "ramp", }) ) 
+									 dispatch( remPal({ index: docksMaxDump.tid, pallet: pal, name: "truck", }) ) 
+									 }) 
+
+								 // dispatch( dumpPalToRamp({ 
+									 // payload: docksMaxDump.no, 
+									 // pallets: docks[ docksMaxDump.no ].truck.pallets,
+								   // rampPallets: ramps[ docksMaxDump.no ].pallets }) )
 							 }
 						 }}>
 					<div className={ s.innerBonus }> 3 </div> 
