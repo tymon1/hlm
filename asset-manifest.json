@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/hlm/static/css/main.04e9da4b.css",
-    "main.js": "/hlm/static/js/main.4f6a64d1.js",
-    "static/media/sprite3.png": "/hlm/static/media/sprite3.49574b841082cf6ec656.png",
-    "static/media/sprite2.png": "/hlm/static/media/sprite2.49764da636b226b4c60d.png",
-    "static/media/speedB.png": "/hlm/static/media/speedB.8d3439eb6a4b0a2d119e.png",
-    "static/media/truckArt.png": "/hlm/static/media/truckArt.6410f8562d9e02171a0f.png",
-    "static/media/trucks_sprite.png": "/hlm/static/media/trucks_sprite.5a532faeb5e4fc1bfc60.png",
-    "static/media/topb.png": "/hlm/static/media/topb.a9d67b94656cee910c54.png",
-    "static/media/hlm.png": "/hlm/static/media/hlm.4b720cf090f9c7fa1783.png",
-    "static/media/sprite2mob.png": "/hlm/static/media/sprite2mob.cb668a54d704835d6f9e.png",
-    "static/media/covers_sprite.png": "/hlm/static/media/covers_sprite.eb65116b45c5f86f50d6.png",
-    "static/media/sprite1.png": "/hlm/static/media/sprite1.e1451c7cb621b3d4aff8.png",
-    "index.html": "/hlm/index.html",
-    "main.04e9da4b.css.map": "/hlm/static/css/main.04e9da4b.css.map",
-    "main.4f6a64d1.js.map": "/hlm/static/js/main.4f6a64d1.js.map"
+    "main.css": "/static/css/main.8ef8df7f.css",
+    "main.js": "/static/js/main.5a7b78e3.js",
+    "static/media/sprite3.png": "/static/media/sprite3.49574b841082cf6ec656.png",
+    "static/media/sprite2.png": "/static/media/sprite2.49764da636b226b4c60d.png",
+    "static/media/speedB.png": "/static/media/speedB.8d3439eb6a4b0a2d119e.png",
+    "static/media/truckArt.png": "/static/media/truckArt.6410f8562d9e02171a0f.png",
+    "static/media/trucks_sprite.png": "/static/media/trucks_sprite.5a532faeb5e4fc1bfc60.png",
+    "static/media/topb.png": "/static/media/topb.a9d67b94656cee910c54.png",
+    "static/media/hlm.png": "/static/media/hlm.4b720cf090f9c7fa1783.png",
+    "static/media/sprite2mob.png": "/static/media/sprite2mob.cb668a54d704835d6f9e.png",
+    "static/media/covers_sprite.png": "/static/media/covers_sprite.eb65116b45c5f86f50d6.png",
+    "static/media/sprite1.png": "/static/media/sprite1.e1451c7cb621b3d4aff8.png",
+    "index.html": "/index.html",
+    "main.8ef8df7f.css.map": "/static/css/main.8ef8df7f.css.map",
+    "main.5a7b78e3.js.map": "/static/js/main.5a7b78e3.js.map"
   },
   "entrypoints": [
-    "static/css/main.04e9da4b.css",
-    "static/js/main.4f6a64d1.js"
+    "static/css/main.8ef8df7f.css",
+    "static/js/main.5a7b78e3.js"
   ]
 }
