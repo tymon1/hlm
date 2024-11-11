@@ -19,7 +19,7 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
      id="namedview7"
-     pagecolor="#3e3e3e"
+     pagecolor="#c6c6c6"
      bordercolor="#111111"
      borderopacity="1"
      inkscape:pageshadow="0"
@@ -34,9 +34,9 @@
      inkscape:snap-bbox="true"
      inkscape:snap-grids="true"
      inkscape:snap-smooth-nodes="false"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="2163.7468"
-     inkscape:cy="-728.31998"
+     inkscape:zoom="1.4468942"
+     inkscape:cx="210.10521"
+     inkscape:cy="1766.5425"
      inkscape:window-width="1776"
      inkscape:window-height="873"
      inkscape:window-x="465"
@@ -837,9 +837,9 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect84013);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="1083.625"
          y="735.99321"
-         id="tspan63017"><tspan
+         id="tspan65972"><tspan
            dx="0 25.429688 25.429688 14.550781 25.429688 25.429688"
-           id="tspan63015">36.873</tspan></tspan></text>
+           id="tspan65970">36.873</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text109644"
@@ -851,10 +851,10 @@
        transform="translate(888.42344,-288.10329)"><tspan
          x="687.41406"
          y="686.61096"
-         id="tspan63019">xl: 85x270 to powinien </tspan><tspan
+         id="tspan65974">xl: 85x270 to powinien </tspan><tspan
          x="687.41406"
          y="706.61096"
-         id="tspan63021">być rozmiar L</tspan></text>
+         id="tspan65976">być rozmiar L</tspan></text>
     <text
        xml:space="preserve"
        id="text9845"
@@ -1558,9 +1558,9 @@
        inkscape:export-ydpi="60"><tspan
          x="481.53906"
          y="120.65267"
-         id="tspan63025"><tspan
+         id="tspan65980"><tspan
            style="font-family:Impact;-inkscape-font-specification:Impact;fill:#d35f5f"
-           id="tspan63023">hellmutt</tspan></tspan></text>
+           id="tspan65978">hellmutt</tspan></tspan></text>
     <circle
        style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-linejoin:round;stroke-opacity:0.831216"
        id="path69967"
@@ -1998,15 +1998,6 @@
        ry="9.510994"
        transform="scale(-1,1)" />
     <rect
-       style="opacity:1;fill:#757575;fill-opacity:1;stroke:none;stroke-width:23.3794;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       id="rect10029"
-       width="100.36749"
-       height="38.120701"
-       x="117.32702"
-       y="-1824.5253"
-       ry="4.5744839"
-       transform="scale(1,-1)" />
-    <rect
        style="fill:#888888;fill-opacity:1;stroke:none;stroke-width:11.3074;stroke-linejoin:round;stroke-opacity:1"
        id="rect5030"
        width="155.22812"
@@ -2022,53 +2013,6 @@
        x="211.01869"
        y="1769.4315"
        ry="6.0248375" />
-    <g
-       id="g5234"
-       transform="matrix(1.1305351,0,0,1.1305351,-37.266863,-237.00152)">
-      <g
-         id="g5245"
-         transform="matrix(1.0059735,0,0,0.91546321,-150.74287,147.26089)"
-         style="opacity:0.47449">
-        <ellipse
-           style="opacity:1;fill:#686868;fill-opacity:1;stroke:#000000;stroke-width:4.98179;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0"
-           id="path3401"
-           cx="357.71616"
-           cy="1782.1782"
-           rx="13.203151"
-           ry="16.951813" />
-        <rect
-           style="opacity:1;fill:#3e3e3e;fill-opacity:1;stroke:#000000;stroke-width:5.88763;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0"
-           id="rect5171"
-           width="10.827383"
-           height="8.4014215"
-           x="341.91238"
-           y="1776.2688"
-           ry="4.2007108" />
-        <rect
-           style="opacity:1;fill:#3e3e3e;fill-opacity:1;stroke:#000000;stroke-width:5.88763;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0"
-           id="rect5173"
-           width="12.366377"
-           height="8.5221739"
-           x="353.94431"
-           y="1776.1479"
-           ry="4.2610869" />
-        <rect
-           style="opacity:1;fill:#3e3e3e;fill-opacity:1;stroke:#000000;stroke-width:5.36127;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0"
-           id="rect5175"
-           width="28.45928"
-           height="2.3713102"
-           x="342.35983"
-           y="1777.1163"
-           ry="1.1856551" />
-        <ellipse
-           style="opacity:1;fill:#686868;fill-opacity:1;stroke:#000000;stroke-width:6.29308;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0"
-           id="ellipse5236"
-           cx="357.71616"
-           cy="1810.5983"
-           rx="19.182535"
-           ry="18.618429" />
-      </g>
-    </g>
     <rect
        style="opacity:1;fill:#4e4e4e;fill-opacity:1;stroke:none;stroke-width:3.21123;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect5089"
@@ -4365,11 +4309,6 @@
        x="1311.4803"
        y="874.54822"
        ry="3.1027627" />
-    <path
-       style="opacity:1;fill:none;stroke:#787878;stroke-width:8.1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
-       d="m 189.31448,1791.0188 c -22.72353,-9.8466 -27.15791,5.6823 -25.04066,14.2568"
-       id="path1044"
-       sodipodi:nodetypes="cc" />
     <g
        id="g24009"
        transform="translate(0,-1.3892078)">
@@ -5129,7 +5068,7 @@
          ry="5.8020887" />
     </g>
     <rect
-       style="opacity:0.338462;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:5.13702;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       style="opacity:0.15192308;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:5.13702;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect49666"
        width="123.91927"
        height="9.7746019"
@@ -5137,7 +5076,7 @@
        y="-665.73145"
        ry="0" />
     <rect
-       style="opacity:0.338462;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:5.09343;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       style="opacity:0.15192308;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:5.09343;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect49668"
        width="121.82486"
        height="9.7746019"
@@ -5384,7 +5323,7 @@
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect6098);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="112"
          y="-135.50679"
-         id="tspan63027">60 &amp; 34 dpi</tspan></text>
+         id="tspan65982">60 &amp; 34 dpi</tspan></text>
     <g
        id="g7017"
        transform="rotate(-15,2434.4601,4473.0769)">
@@ -6408,7 +6347,7 @@
        transform="translate(-296.82779,157.46922)"><tspan
          x="1304.4902"
          y="1450.084"
-         id="tspan63029">cebulion</tspan></text>
+         id="tspan65984">cebulion</tspan></text>
     <rect
        style="fill:#6e8e7a;fill-opacity:1;stroke:#4b6e57;stroke-width:9.616;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect23103"
@@ -6533,9 +6472,9 @@
        inkscape:export-ydpi="60"><tspan
          x="481.53906"
          y="120.65267"
-         id="tspan63033"><tspan
+         id="tspan65988"><tspan
            style="font-family:Impact;-inkscape-font-specification:Impact;fill:#d35f5f"
-           id="tspan63031">hellmutt</tspan></tspan></text>
+           id="tspan65986">hellmutt</tspan></tspan></text>
     <path
        style="opacity:0.891041;fill:#2c6d9c;fill-opacity:1;stroke:none;stroke-width:8.94593;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        d="m 2939.1368,1187.9518 c -16.8435,10.6914 -16.8435,28.5087 0,39.1998"
@@ -6789,9 +6728,9 @@
        transform="translate(7.7781746,-6.363961)"><tspan
          x="425.67773"
          y="1623.1621"
-         id="tspan63037"><tspan
+         id="tspan65992"><tspan
            style="fill:#b4b4b4"
-           id="tspan63035">m : s</tspan></tspan></text>
+           id="tspan65990">m : s</tspan></tspan></text>
     <rect
        style="opacity:1;fill:#343738;fill-opacity:1;stroke:none;stroke-width:5.38212;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
        id="rect95635"
@@ -9026,11 +8965,16 @@
       <path
          id="path56335"
          style="opacity:1;fill:#595959;fill-opacity:1;stroke-width:3.41874;stroke-linejoin:bevel;stroke-miterlimit:1.9;paint-order:markers fill stroke"
-         d="m 2011.828,-1236.6116 54.6973,-18.4368 42.2546,-37.3599 -3.6726,10.6923 -37.4149,35.1696 -53.2324,18.1423 z"
+         d="m 2007.0316,-1248.7414 c 12.4173,4.5901 55.0302,-2.2086 65.9104,-8.9892 l 35.8379,-34.6777 -3.6726,10.6923 -37.4149,35.1696 c -16.1129,3.9521 -50.6075,11.2847 -57.9395,6.1485 -1.8206,-3.4472 -2.7469,-4.5008 -2.7213,-8.3435 z"
+         sodipodi:nodetypes="ccccccc" />
+      <path
+         id="path63067"
+         style="opacity:1;fill:#595959;fill-opacity:1;stroke-width:3.5176;stroke-linejoin:bevel;stroke-miterlimit:1.9;paint-order:markers fill stroke"
+         d="m 2028.2275,-1315.386 c 12.8606,4.0255 42.8053,36.4494 47.2765,48.891 l 6.9613,51.1671 3.7785,-11.1344 -7.9183,-52.5653 c -10.4535,-13.4001 -33.5423,-41.1563 -42.6624,-41.5312 -3.6313,1.6991 -5.0382,1.9857 -7.4356,5.1728 z"
          sodipodi:nodetypes="ccccccc" />
     </g>
     <rect
-       style="opacity:0.338462;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:2.93923;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       style="opacity:0.15192308;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:2.93923;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect61539"
        width="68.567177"
        height="5.7831697"
@@ -9038,7 +8982,7 @@
        y="-1002.8213"
        ry="0" />
     <rect
-       style="opacity:0.338462;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:3.01831;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       style="opacity:0.15192308;fill:#c0c0c0;fill-opacity:1;stroke:none;stroke-width:3.01831;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:1.9;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect61541"
        width="72.306725"
        height="5.7831697"
@@ -9379,9 +9323,9 @@
        inkscape:export-ydpi="96"><tspan
          x="481.53906"
          y="120.65267"
-         id="tspan63041"><tspan
+         id="tspan65996"><tspan
            style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-           id="tspan63039">hellmutt</tspan></tspan></text>
+           id="tspan65994">hellmutt</tspan></tspan></text>
     <ellipse
        style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.0444573;stroke-linejoin:round;stroke-opacity:0.831216"
        id="circle70141"
@@ -9423,9 +9367,9 @@
        inkscape:export-ydpi="96"><tspan
          x="481.53906"
          y="120.65267"
-         id="tspan63045"><tspan
+         id="tspan66000"><tspan
            style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-           id="tspan63043">hellmutt</tspan></tspan></text>
+           id="tspan65998">hellmutt</tspan></tspan></text>
     <ellipse
        style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.0504578;stroke-linejoin:round;stroke-opacity:0.831216"
        id="ellipse70149"
@@ -9474,9 +9418,9 @@
          inkscape:export-ydpi="96"><tspan
            x="481.53906"
            y="120.65267"
-           id="tspan63049"><tspan
+           id="tspan66004"><tspan
              style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-             id="tspan63047">hellmutt</tspan></tspan></text>
+             id="tspan66002">hellmutt</tspan></tspan></text>
       <ellipse
          style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.037696;stroke-linejoin:round;stroke-opacity:0.831216"
          id="ellipse70157"
@@ -9519,9 +9463,9 @@
        inkscape:export-ydpi="96"><tspan
          x="481.53906"
          y="120.65267"
-         id="tspan63053"><tspan
+         id="tspan66008"><tspan
            style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-           id="tspan63051">hellmutt</tspan></tspan></text>
+           id="tspan66006">hellmutt</tspan></tspan></text>
     <ellipse
        style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.0363882;stroke-linejoin:round;stroke-opacity:0.831216"
        id="ellipse1550"
@@ -9563,9 +9507,9 @@
        inkscape:export-ydpi="96"><tspan
          x="481.53906"
          y="120.65267"
-         id="tspan63057"><tspan
+         id="tspan66012"><tspan
            style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-           id="tspan63055">hellmutt</tspan></tspan></text>
+           id="tspan66010">hellmutt</tspan></tspan></text>
     <ellipse
        style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.0412996;stroke-linejoin:round;stroke-opacity:0.831216"
        id="ellipse1564"
@@ -9614,9 +9558,9 @@
          inkscape:export-ydpi="96"><tspan
            x="481.53906"
            y="120.65267"
-           id="tspan63061"><tspan
+           id="tspan66016"><tspan
              style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-             id="tspan63059">hellmutt</tspan></tspan></text>
+             id="tspan66014">hellmutt</tspan></tspan></text>
       <ellipse
          style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.037696;stroke-linejoin:round;stroke-opacity:0.831216"
          id="ellipse1578"
@@ -9929,9 +9873,9 @@
            inkscape:export-ydpi="96"><tspan
              x="481.53906"
              y="120.65267"
-             id="tspan63065"><tspan
+             id="tspan66020"><tspan
                style="font-family:Impact;-inkscape-font-specification:Impact;fill:#ff0000"
-               id="tspan63063">hellmutt</tspan></tspan></text>
+               id="tspan66018">hellmutt</tspan></tspan></text>
         <ellipse
            style="opacity:0.4;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.037696;stroke-linejoin:round;stroke-opacity:0.831216"
            id="ellipse11317"

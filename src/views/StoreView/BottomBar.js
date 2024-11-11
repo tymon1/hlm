@@ -171,6 +171,7 @@ export function BottomBar() {
 						 }} >
 				</div>
 
+				{/* max truck dump */}
 			  <div className={ s.dump }
 				     style={{ "display": (bonusTotal>=3) ? "block" : "none" }}
 				     onClick={ () => { 
@@ -180,17 +181,13 @@ export function BottomBar() {
 									  bonusTotal >= 3 &&
 									  docksMaxDump.type !== 'bonus' &&  
 										docksMaxDump.type !== 'full' ) {
+
 								 dispatch( reduceBonus({ payload: 3 }) )
 
 								 docks[ docksMaxDump.no ].truck.pallets.forEach( pal => {
 									 dispatch( addPal({ index: docksMaxDump.no, pallet: pal, name: "ramp", }) ) 
 									 dispatch( remPal({ index: docksMaxDump.tid, pallet: pal, name: "truck", }) ) 
-									 }) 
-
-								 // dispatch( dumpPalToRamp({ 
-									 // payload: docksMaxDump.no, 
-									 // pallets: docks[ docksMaxDump.no ].truck.pallets,
-								   // rampPallets: ramps[ docksMaxDump.no ].pallets }) )
+								 }) 
 							 }
 						 }}>
 					<div className={ s.innerBonus }> 3 </div> 

@@ -6,7 +6,8 @@ const initialState = {
 		counter: { palletId: 2, truckId: 1 }, 
 
 		// location types: truck, ramp, zone
-		bonus_target_pallette: { location: '', zone_no: 100, pid: 0 },
+		highlight: 0,
+		// bonus_target_pallette: { location: '', zone_no: 100, pid: 0 },
 
 		// trucks with load waiting in line for unload
 		queue: [],
@@ -119,64 +120,42 @@ export const storeSlice = createSlice({
 			state.counter.palletId = cId + Number( payload.payload.amount )
 		},
 
-		// very nasty coded action
-		unSelectPal: (state) => {
-			// console.log("unselect location",state.bonus_target_pallette.location)
-			let bonus = state.bonus_target_pallette
-			// hack to detect first run
-			if (bonus.zone_no !== 100 && bonus.pid !== 0) {
-				let palInx
-				switch (state.bonus_target_pallette.location) {
-					case 'zone':
-						palInx = state.zones[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
-						state.zones[bonus.zone_no].pallets[palInx].selected = false
-						break
-					case 'ramp':
-						for (let z=0; z<3; z++) {
-							if (state.docks[z].truck && state.docks[z].truck.type === "bonus") {
-								// or pallets[0]
-								state.docks[z].truck.pallets[(state.docks[z].truck.pallets.length-1)].selected = false
-							}
-						}
-						// max Ugly full truck iz docked
-						if (state.docks[1].truck && state.docks[1].truck.type === "full") {
-							// console.log("unSelected:",state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].id)
-							state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
-						}
-						// unselect pal in zone
-						else {
-							palInx = state.ramps[bonus.zone_no].pallets.findIndex( inx => inx.id === bonus.pid )
-							if (palInx !== -1) {
-								state.ramps[bonus.zone_no].pallets[palInx].selected = false
-							}
-						}
-						break
-					case 'truck':
-						// currently deselects full trucks only 
-						if (state.docks[1].truck && state.docks[1].truck.type === "full") {
-							state.docks[1].truck.pallets[(state.docks[1].truck.pallets.length-1)].selected = false
-						}
-						// not available
-						break
-					default:
-						break
-				}
-				// state.bonus_target_pallette = { zone_no: 0, pid: 0 }
+		// for idiotproof reasons you should 
+		// be iterating over all zones & ramps
+		// here below
+		//
+		clearBlink: (state, payload) => {
+			let zI = payload.payload.payload.zone_index
+			let palId = payload.payload.payload.pal_id
+			let palIdx = state.zones[ zI ].pallets.findIndex( pal => pal.id === palId )
+			state.zones[ zI ].pallets[ palIdx ].selected = false
+		},
+
+		highlightReset: (state) => {
+			state.highlight = 0
+		},
+
+		highlightInc: (state) => {
+			state.highlight++
+		},
+
+		highlightPal: (state, payload) => {
+			let tr_zInx = state.docks[1].truck.target[payload.payload.h].zone_index
+			let tr_paInx = state.docks[1].truck.target[payload.payload.h].pal_id
+
+      let pInx = state.zones[ tr_zInx ].pallets.findIndex( inx => inx.id === tr_paInx )
+			if (pInx !== -1) { state.zones[ tr_zInx ].pallets[ pInx ].selected = true }
+			else { 
+				let ri_pInx = state.ramps[ 1 ].pallets.findIndex( inx => inx.id === tr_paInx ) 
+				state.ramps[ 1 ].pallets[ ri_pInx ].selected = true
 			}
 		},
 
-
-
 		selectPallette: (state, payload) => {
-      let pInx = state.zones[payload.payload.zone_index].pallets.findIndex( inx => inx.id === payload.payload.pal_id )
+      let pInx = state.zones[payload.payload.zone_index].pallets
+				.findIndex( inx => inx.id === payload.payload.pal_id )
 			if (pInx !== -1) {
 				state.zones[payload.payload.zone_index].pallets[pInx].selected = true
-				// save target destination
-				state.bonus_target_pallette = { 
-					location: 'zone',
-					zone_no: payload.payload.zone_index, 
-					pid: payload.payload.pal_id 
-				}
 			}
 			// iteration over all pallettes standing on ramps :(
 			else {
@@ -198,11 +177,11 @@ export const storeSlice = createSlice({
 		// of selected pallette
 		//
 		addPal: (state, payload) => {
-			if (payload.payload.pallet.selected) {
-				state.bonus_target_pallette.location = payload.payload.name
-				state.bonus_target_pallette.zone_no = payload.payload.index
-				state.bonus_target_pallette.pid = payload.payload.pallet.id
-			}
+			// if (payload.payload.pallet.selected) {
+			// 	state.bonus_target_pallette.location = payload.payload.name
+			// 	state.bonus_target_pallette.zone_no = payload.payload.index
+			// 	state.bonus_target_pallette.pid = payload.payload.pallet.id
+			// }
 		},
 
 		addPalToZone: (state, payload) => {
@@ -219,7 +198,6 @@ export const storeSlice = createSlice({
 		},
 		
 		addPalToRamp: (state, payload) => {
-			// tutaj losować możliwość przewrócenia??
 			let l= payload.payload
 			state.ramps[l.index].pallets.push( l.pallet ) 
 		},
@@ -234,18 +212,21 @@ export const storeSlice = createSlice({
 		remPal: (state, payload) => {},
 
     remPalFrZone: (state, payload) => {
-			let rm = state.zones[payload.payload.index].pallets.findIndex( inx => inx.id === payload.payload.id )
+			console.log("rem fr zone payload", payload.payload)
+			let rm = state.zones[payload.payload.index].pallets.findIndex( pal => pal.id === payload.payload.pallet.id )
+			console.log("rmIndex",rm, payload.payload)
+			// state.zones[payload.payload.index].pallets.slice(rm, 1)
 			state.zones[payload.payload.index].pallets.splice(rm, 1)
 		},
 
 		remPalFrRamp: (state, payload) => {
-			let rm= state.ramps[payload.payload.index].pallets.findIndex( inx => inx.id === payload.payload.id )
+			let rm= state.ramps[payload.payload.index].pallets.findIndex( pal => pal.id === payload.payload.pallet.id )
 			state.ramps[payload.payload.index].pallets.splice(rm, 1)
 		},
 
 		remPalFrTruck: (state, payload) => {
 			let dockIndex = state.docks.findIndex( d => d.truck.id === Number(payload.payload.index) )
-			let rm= state.docks[dockIndex].truck.pallets.findIndex( inx => inx.id === payload.payload.id )
+			let rm= state.docks[dockIndex].truck.pallets.findIndex( pal => pal.id === payload.payload.pallet.id )
 			state.docks[dockIndex].truck.pallets.splice(rm, 1)
 		},
 		
@@ -298,7 +279,12 @@ export const { addQueueTruck, remQueueTruck,
 							 resetZones,
 							 dumpPalToRamp,
 							 selectPallette,
-							 unSelectPal,
+
+							 clearBlink,
+							 highlightPal,
+							 highlightInc,
+							 highlightReset,
+
 							 storeReset,
 							 addNinja,
 							 rmNinja,

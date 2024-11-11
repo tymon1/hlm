@@ -12,16 +12,22 @@ export function Ramp({ ramp }) {
 
 	const dragging = useSelector(state => state.app.drag )
 	const sourceName = useSelector(state => state.app.source.name )
+	const sourcePal = useSelector(state => state.app.source.pallet )
 	const loadTruck = useSelector(state => state.app.level.loadTruck )
 	const elementId = "ramp-" + ramp.no 
+
+
 
 	return (
 		<div id = { elementId } className={ s.ramp }>
 		                                
-			{ 
-				dragging && (sourceName !== "queueTruck") 
-				         && (sourceName !== "ninja")
-				         && (loadTruck && sourceName === 'truck' ? false : true) ? 
+			{    
+				dragging && (sourceName !== "queueTruck")               
+				         && (sourceName !== "ninja") 
+				         && ((loadTruck === true && sourceName === 'zone' && ramp.no === 1) 
+								   || (loadTruck === false && sourceName === 'truck') 
+									 || (loadTruck === false && sourceName=== 'zone' && sourcePal.selected === true ) ) ?
+
 				<DropContainer elementId = { elementId } /> : '' 
 			}
 

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
-
 const initialState = {
 
 		msg: { text:"Rozpocznij grę", type:"start", visible:true },
@@ -32,13 +31,13 @@ const initialState = {
 		//
 		level_times: [ ],
 		// initial cebulions :35
-		level_points: [ 935 ],
+		level_points: [ 35 ],
 		// cebulions spent..
 		level_upgrades: [ 0 ],
 		// initial value is 2: store.counter.palletId
 		level_start_pal_count: [ 2 ],
 		// initial bonuses 6
-		level_bonuses: [ { level: 0, count: 16 } ],
+		level_bonuses: [ { level: 0, count: 6 } ],
 		// spent bonuses
 		bonus_used: [ 0 ],
 		wave_times: [],

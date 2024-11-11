@@ -32,14 +32,13 @@ export function DropContainer({ elementId }) {
 
 		dispatch( remPal({ name: app.source.name, 
 											 index: app.source.index, 
-											 id: app.picked.id }) )
+											 pallet: app.picked }) )
 
 		dispatch( addPal({ name: toName,
 											 index: toIndex,
 											 pallet: app.picked }) )
 
 		dispatch( drag( false ) )
-		// dispatch( checkTrucks() )
 	}
 
 	return (

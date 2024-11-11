@@ -8,7 +8,10 @@ import { addPalToZone, addPalToRamp, addPalToTruck,
 				 setSorting, 
 				 setTruckCounter, setPalletsCounter,
 				 selectPallette,
-				 unSelectPal,
+				 highlightPal,
+				 highlightInc,
+				 highlightReset,
+	 
 				 checkTrucks,
 				 resetNinjas,
 				 truckOnDockReady, } from '../slice/StoreSlice';
@@ -34,6 +37,7 @@ import { genTruck,
 				 drawUnloadedArray, 
 				 // makeMinutes, 
 				 isFlipping, 
+				 deSelected, 
 				 drawZones, 
 				 colorStoreMess, 
 				 storeMess } from '../app/helpers.js';
@@ -53,6 +57,8 @@ export const storeWare = (state) => (next) => (action) => {
 	let timer = state.getState().app.timer
 	let flipRisk = state.getState().app.flip_risk
 
+	let highlight = state.getState().store.highlight
+
 	let palCnt = state.getState().store.counter.palletId
 	let palStartCnt = state.getState().app.level_start_pal_count
 	let levelTimes = state.getState().app.level_times
@@ -63,6 +69,7 @@ export const storeWare = (state) => (next) => (action) => {
 		// addPal helper
 		//
 		case 'store/addPal':
+			// console.log("addink pal",action.payload)
 
 			if (action.payload.name === "zone") { 
 				state.dispatch( addPalToZone(action.payload) ) 
@@ -72,11 +79,12 @@ export const storeWare = (state) => (next) => (action) => {
 				state.dispatch( addPalToRamp( isFlipping({p:action.payload, fr:flipRisk})) ) 
 			}
 			if (action.payload.name === "truck") { 
-				state.dispatch( addPalToTruck(action.payload) ) 
-				// count bonus truck pallettes:
 				if (action.payload.pallet.selected) {
 					state.dispatch( setBonusCounter( { level: level.current } ) ) 
-					state.dispatch( unSelectPal() )
+					state.dispatch( addPalToTruck( deSelected({ p:action.payload }) ) ) 
+				}
+				else {
+					state.dispatch( addPalToTruck(action.payload) ) 
 				}
 			}
 			break
@@ -119,25 +127,22 @@ export const storeWare = (state) => (next) => (action) => {
 
 				// if full truck loaded ..
 				if ( docks[i].truck.id && 
-						 docks[i].truck.type === 'full'
-						 && docks[i].truck.pallets.length > 0
-						 && docks[i].truck.pallets[docks[i].truck.pallets.length -1].id === 
+						 docks[i].truck.type === 'full' && 
+					   docks[i].truck.pallets.length > 0 && 
+					   docks[i].truck.pallets[docks[i].truck.pallets.length -1].id === 
 						 docks[i].truck.target[docks[i].truck.pallets.length -1].pal_id
 					 ) {
+
 					// is it the last target?
 					if (docks[i].truck.pallets.length === docks[i].truck.target.length) {
 						state.dispatch( truckOnDockReady({index: i, type: docks[i].truck.type}) )
 					}
 					// mark next target pallette
-					else {
-						let nextTarget = {
-							zone_index: docks[i].truck.target[docks[i].truck.pallets.length].zone_index,
-							pal_id: docks[i].truck.target[docks[i].truck.pallets.length].pal_id,
-						}
-						if (nextTarget.pal_id === state.getState().store.bonus_target_pallette.pid) { }
-						else {
-							state.dispatch( selectPallette(nextTarget) )
-						}
+					else if (highlight === docks[i].truck.pallets.length-1) {
+						console.log("hajlajtink only once next pallet",highlight, docks[i].truck.pallets.length)
+						state.dispatch( highlightInc() )
+						state.dispatch( highlightPal({ h: ++highlight }) )
+
 					}
 				}
 
@@ -228,12 +233,13 @@ export const storeWare = (state) => (next) => (action) => {
 					 state.getState().app.level.loadTruck ) {
 
 				// dont prepare level, cause truckLd incoming!!
+				state.dispatch( highlightReset() )
 				state.dispatch( resetTimeResults() )
 				let target = drawUnloadedArray( state.getState().store.zones )
-				// for full select 1st pallette
-				state.dispatch( selectPallette(target[0]) )
 				let fullTruck = genTruck( state.getState().store.counter.truckId, 1, target )
 				state.dispatch( parkTruck({ index: 1, truck: fullTruck }) )
+				// for full select 1st pallette
+				state.dispatch( highlightPal({ h: 0 }) )
 			}
 
 			// przygotowanie zwykłego levelu
@@ -347,9 +353,6 @@ export const storeWare = (state) => (next) => (action) => {
 			}
 			break
 
-		// case 'store/remPalFrRamp':
-			// state.dispatch( checkTrucks() ) 
-			// break
 
 		// start timer when you drop first truck on the free dock
 		case 'store/parkTruck':
@@ -381,14 +384,13 @@ export const storeWare = (state) => (next) => (action) => {
 	}
 
 	// 4 hard debug purpose:
-	// if (action.type === 'app/setTimer' ||
-			// action.type === 'store/remPal' ||
-			// action.type === 'store/addPal' ||
-			// action.type === 'app/source' 
-			// action.type === 'app/drag' ||
-			// action.type === 'app/pick' ||
-			// )  {}
-	// else { console.log(action) }
-
+	if (action.type === 'app/setTimer' ||
+			action.type === 'store/setTruckCover' ||
+			action.type === 'store/checkTrucks' ||
+			action.type === 'app/drag' ||
+			action.type === 'app/pick' 
+			)  {}
+	else { console.log(action) }
+	// console.log(action) 
 	next(action)
 }

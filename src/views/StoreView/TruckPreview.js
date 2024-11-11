@@ -2,7 +2,7 @@ import s from './css/TruckPreview.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import { drag, pick, source } from '../../slice/AppSlice';
-import { unSelectPal, checkTrucks } from '../../slice/StoreSlice';
+import { checkTrucks, clearBlink } from '../../slice/StoreSlice';
 
 
 
@@ -48,7 +48,7 @@ export function TruckPreview( props ) {
 	let clearFn = () => {
 		dispatch( drag( false ) )
 		clearInterval(countInt.current)
-		dispatch( unSelectPal() )
+		dispatch( clearBlink({ payload: truck.target }) ) 
 		setTimeout( () => { 
 			dispatch( checkTrucks() ) 
 		}, 2000 )

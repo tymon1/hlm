@@ -165,6 +165,24 @@ export const isFlipping = (pl) => {
 }
 
 
+// deSelects pallet ...
+//
+export const deSelected = (pl) => {
+	let actionCopy = {
+		index: pl.p.index,
+		name: pl.p.name,
+		pallet: {
+			id: pl.p.pallet.id,
+			c: pl.p.pallet.c,
+			selected: false,
+			recovered: pl.p.pallet.recovered,
+		}
+
+	}
+	return actionCopy
+}
+
+
 
 //////////////////////////////
 //

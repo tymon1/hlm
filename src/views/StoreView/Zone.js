@@ -12,6 +12,7 @@ export function Zone({ zone }) {
 	const curr = useSelector(state => state.app.level.current )
 	const colorized = useSelector(state => state.app.levels[ curr ].color_zones.colorize )
 	const color_zone_arr = useSelector(state => state.app.level.color_zone )
+	const loading = useSelector(state => state.app.level.loadTruck )
 	const elementId = "zone-" + zone.no
 
 
@@ -37,6 +38,7 @@ export function Zone({ zone }) {
 			{ 
 				dragging && (src !== "queueTruck") 
 					       && (src !== "truck") 
+					       && (!loading) 
 								 && (src !== "ninja") ? 
 					<DropContainer elementId = { elementId } /> : '' 
 			}

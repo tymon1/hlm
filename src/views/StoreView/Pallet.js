@@ -11,8 +11,12 @@ export function Pallet({ pallet }) {
 	const dispatch = useDispatch()
 	const oneRef = useRef();
 	const recPc = useSelector(state => state.app.recover_step)
+	const loading = useSelector(state => state.app.level.loadTruck)
+	// const ramps = useSelector(state => state.store.ramps)
+	const sourceName = useSelector(state => state.app.source.name)
 
 	useEffect( () => { 
+
 		const intId = setInterval( () => { 
 			if (pallet.selected) {
 				setTimeout( () => { 
@@ -29,9 +33,12 @@ export function Pallet({ pallet }) {
 	})
 
 
-		
+	// && not loading  && ninja not present
+		// (loading === true && !(ramps.filter( r => r.ninja === true).length > 0) ) &&
 	return (
-		<div draggable={ pallet.recovered >= 100 ? true : false } className={ s.pallet }
+		<div draggable={ !(loading === true && sourceName === 'truck') &&
+		                 pallet.recovered >= 100 ? true : false } 
+		     className={ s.pallet }
 				 id = { pallet.id } style={{ background: pallet.c }}
 				 ref={ oneRef }
 
@@ -58,7 +65,8 @@ export function Pallet({ pallet }) {
 					 dispatch( pick( pallet ) )
 					 dispatch( source( {
 						 name: palElem.parentElement.id.split("-")[0],
-						 index: palElem.parentElement.id.split("-")[1]
+						 index: palElem.parentElement.id.split("-")[1],
+						 pallet: pallet
 					 } ) )
 				 }}
 
